@@ -387,8 +387,13 @@ def render(p):
 <script>
 (function(){{window.dataLayer=window.dataLayer||[];
 var f=document.getElementById('cbForm');
-if(f)f.addEventListener('submit',function(){{var r=document.getElementById('r');
-window.dataLayer.push({{event:'callback_submit',form_name:'callback_request',reason:r?r.value:'',page_path:location.pathname}});}});
+if(f)f.addEventListener('submit',function(e){{var r=document.getElementById('r');
+window.dataLayer.push({{event:'callback_submit',form_name:'callback_request',reason:r?r.value:'',page_path:location.pathname}});
+// 收件端點還沒設定時，不要真的送出（會變成 404），改成提示
+if((f.getAttribute('action')||'').indexOf('REPLACE_WITH_ENDPOINT')>-1){{
+  e.preventDefault();
+  alert('這是預覽版，表單還沒接上收件信箱，所以不會真的送出。\\n\\n正式上線後，送出的內容會寄到診所的信箱。\\n現在要預約請直接致電 510-465-7982。');
+}}}});
 document.querySelectorAll('a[href^="tel:"]').forEach(function(a){{a.addEventListener('click',function(){{
 window.dataLayer.push({{event:'phone_click',phone_number:a.getAttribute('href').replace('tel:',''),page_path:location.pathname}});}});}});
 }})();
