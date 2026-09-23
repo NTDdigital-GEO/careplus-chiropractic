@@ -1,0 +1,15 @@
+# 產出的檔案：由 GitHub Actions 自動建置，不需要放進版本控制
+dist/
+dist-portable/
+build-artifacts/
+
+# Python 暫存
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# 編輯器
+.vscode/
+.idea/

@@ -1,0 +1,79 @@
+# ═══════════════════════════════════════════════════════════════
+#  自動建置並發布網站到 GitHub Pages
+#
+#  什麼時候會跑
+#    · 有人 push 到 main 分支（包含直接在 GitHub 網頁上改檔案並 Commit）
+#    · 或在 Actions 頁面手動按 Run workflow
+#
+#  它會做什麼
+#    1. 取得程式碼
+#    2. 用 Python 產出 35 頁網站
+#    3. 跑兩個自動檢查
+#         validate.py  失效連結、重複標題、H1 數量、schema 錯誤
+#         check_cjk.py 混入的韓日文字、不能用的字眼（治癒／唯一／保證…）
+#       ⚠️ 檢查沒過就會中止，壞掉的網站不會上線
+#    4. 發布到 GitHub Pages
+#
+#  ─────────────────────────────────────────────────────────────
+#  正式上線時要改的唯一一行：把下面的 NOINDEX=1 改成 NOINDEX=0
+#  （1 = 擋住 Google，適合預覽階段；0 = 開放收錄）
+#  ─────────────────────────────────────────────────────────────
+# ═══════════════════════════════════════════════════════════════
+name: 建置並發布網站
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 取得程式碼
+        uses: actions/checkout@v4
+
+      - name: 安裝 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 設定 Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: 準備建置參數
+        run: |
+          echo "BASE_PATH=${{ steps.pages.outputs.base_path }}" >> "$GITHUB_ENV"
+          echo "SITE_URL=${{ steps.pages.outputs.base_url }}"   >> "$GITHUB_ENV"
+          echo "NOINDEX=1"                                      >> "$GITHUB_ENV"
+
+      - name: 產出網站
+        run: python3 build.py
+
+      - name: 檢查網站有沒有問題
+        run: |
+          python3 validate.py
+          python3 check_cjk.py
+
+      - name: 上傳產出
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: 發布到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
