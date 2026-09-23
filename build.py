@@ -86,6 +86,17 @@ NAV_FOOT = [
 
 def e(s): return html.escape(str(s), quote=True)
 
+def css_version():
+    """用 CSS 內容算出短指紋。內容一改，網址就變，瀏覽器不會拿到舊快取。"""
+    import hashlib
+    try:
+        with open(os.path.join("assets", "site.css"), "rb") as fh:
+            return hashlib.sha1(fh.read()).hexdigest()[:8]
+    except OSError:
+        return "0"
+
+CSSV = css_version()
+
 def src_line(keys, label="參考來源："):
     if not keys: return ""
     out = []
@@ -361,7 +372,7 @@ def render(p):
 <meta property="og:description" content="{e(p["desc"])}">
 <meta property="og:url" content="{e(url)}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v={CSSV}">
 </head>
 <body>
 <a href="#main" class="skip">跳到主要內容</a>
@@ -469,7 +480,7 @@ def main():
 <html lang="zh-Hant"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>{title}</title><link rel="stylesheet" href="/assets/site.css"></head>
+<title>{title}</title><link rel="stylesheet" href="/assets/site.css?v={CSSV}"></head>
 <body><header class="top"><div class="wrap topbar">
 <a href="/" class="brand"><span class="mark" aria-hidden="true">莊</span>
 <span><span class="bname">{BIZ['zh']}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ['founded']}</span></span></a>
@@ -524,7 +535,7 @@ def main():
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>全站目錄（審稿用）— {BIZ['zh']}</title>
-<link rel="stylesheet" href="/assets/site.css"></head>
+<link rel="stylesheet" href="/assets/site.css?v={CSSV}"></head>
 <body><header class="top"><div class="wrap topbar">
 <a href="/" class="brand"><span class="mark" aria-hidden="true">莊</span>
 <span><span class="bname">全站目錄</span><br><span class="bsub">內部審稿用 · 不會被搜尋引擎收錄</span></span></a>
