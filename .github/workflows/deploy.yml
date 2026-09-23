@@ -54,6 +54,10 @@ jobs:
       - name: 設定 Pages
         id: pages
         uses: actions/configure-pages@v5
+        with:
+          # 如果 repo 還沒開啟 Pages，這一行會自動幫你開，
+          # 不用先到 Settings → Pages 手動設定
+          enablement: true
 
       - name: 準備建置參數
         run: |
