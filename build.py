@@ -62,6 +62,16 @@ SRC = {
  "actransit":  ("ext","https://www.actransit.org/","AC Transit 公車路線"),
 }
 
+# 頂部主導覽（每頁都會出現）
+NAV_MAIN = [
+    ("/services/",      "治療項目"),
+    ("/dot-physical/",  "DOT 體檢"),
+    ("/insurance/",     "費用與保險"),
+    ("/about/",         "關於我們"),
+    ("/faq/",           "常見問題"),
+    ("/contact/",       "交通與預約"),
+]
+
 NAV_FOOT = [
  ("治療項目", [("/services/auto-injury/","車禍受傷復健"),("/services/lower-back-pain/","腰背疼痛"),
    ("/services/neck-shoulder-pain/","頸肩疼痛"),("/services/sciatica/","坐骨神經痛"),
@@ -320,6 +330,15 @@ def render(p):
       <div class="napitem"><div class="k">電話</div><div class="v"><a href="tel:{BIZ["tel_href"]}">{BIZ["tel_display"]}</a><br><span style="color:var(--ink-3);font-size:13.5px">週日休診</span></div></div>
     </div>'''
 
+    cur = "/" + (slug + "/" if slug else "")
+    def nav_active(href):
+        if href == "/": return cur == "/"
+        return cur.startswith(href)
+    CUR_ATTR = ' aria-current="page"'
+    nav_html = "".join(
+        '<a href="%s"%s>%s</a>' % (e(u), CUR_ATTR if nav_active(u) else "", e(n))
+        for u, n in NAV_MAIN)
+
     foot_cols = "".join(
         f'<div><h4>{e(t)}</h4><ul>' + "".join(f'<li><a href="{e(u)}">{e(n)}</a></li>' for u,n in ls) + "</ul></div>"
         for t,ls in NAV_FOOT)
@@ -350,7 +369,9 @@ def render(p):
   <a href="/" class="brand"><span class="mark" aria-hidden="true">莊</span>
   <span><span class="bname">{BIZ["zh"]}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ["founded"]}</span></span></a>
   <a href="tel:{BIZ["tel_href"]}" class="callbtn">致電 {BIZ["tel_display"]}</a>
-</div></header>
+</div>
+<nav class="mainnav" aria-label="主選單"><div class="wrap">{nav_html}</div></nav>
+</header>
 <nav class="crumb" aria-label="麵包屑"><div class="wrap">{crumb_html}</div></nav>
 <main id="main">
 <div class="phead"><div class="wrap">
