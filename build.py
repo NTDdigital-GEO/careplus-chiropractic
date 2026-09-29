@@ -19,6 +19,28 @@ OUT = "dist"
 SITE = os.environ.get("SITE_URL", "https://stewartchenchiro.com").rstrip("/")
 BASE = "/" + os.environ.get("BASE_PATH", "").strip("/") if os.environ.get("BASE_PATH", "").strip("/") else ""
 NOINDEX = os.environ.get("NOINDEX", "") == "1"   # 預覽站設 1，避免被搜尋引擎收錄
+
+# Google Tag Manager 容器。GA4（G-G92YRT6DVC）設定在 GTM 容器「裡面」，
+# 所以這裡只裝 GTM，不要再直接裝一次 GA4，否則流量會被重複計算。
+# 本機測試若不想送資料，執行前加 GTM_ID="" 即可。
+GTM_ID = os.environ.get("GTM_ID", "GTM-PFJXXHJN")
+
+def gtm_head():
+    if not GTM_ID: return ""
+    return ("""<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','""" + GTM_ID + """');</script>
+<!-- End Google Tag Manager -->""")
+
+def gtm_body():
+    if not GTM_ID: return ""
+    return ('<!-- Google Tag Manager (noscript) -->\n'
+            '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=' + GTM_ID + '"\n'
+            'height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>\n'
+            '<!-- End Google Tag Manager (noscript) -->')
 EN_SITE = "https://www.carepluschiropractic.org"
 TODAY = "2026-09-21"
 
@@ -360,6 +382,7 @@ def render(p):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(p["title"])}</title>
+{gtm_head()}
 <meta name="description" content="{e(p["desc"])}">
 <link rel="canonical" href="{e(url)}">
 <link rel="alternate" hreflang="zh-Hant" href="{e(url)}">
@@ -375,6 +398,7 @@ def render(p):
 <link rel="stylesheet" href="/assets/site.css?v={CSSV}">
 </head>
 <body>
+{gtm_body()}
 <a href="#main" class="skip">跳到主要內容</a>
 <header class="top"><div class="wrap topbar">
   <a href="/" class="brand"><span class="mark" aria-hidden="true">莊</span>
@@ -480,8 +504,12 @@ def main():
 <html lang="zh-Hant"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>{title}</title><link rel="stylesheet" href="/assets/site.css?v={CSSV}"></head>
-<body><header class="top"><div class="wrap topbar">
+<title>{title}</title>
+{gtm_head()}
+<link rel="stylesheet" href="/assets/site.css?v={CSSV}"></head>
+<body>
+{gtm_body()}
+<header class="top"><div class="wrap topbar">
 <a href="/" class="brand"><span class="mark" aria-hidden="true">莊</span>
 <span><span class="bname">{BIZ['zh']}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ['founded']}</span></span></a>
 <a href="tel:{BIZ['tel_href']}" class="callbtn">致電 {BIZ['tel_display']}</a></div></header>
