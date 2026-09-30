@@ -112,5 +112,26 @@ if ext: fails.append("有外部阻塞資源")
 noext=[u for u,s in pages.items() if 'class="ext"' not in s]
 print(f"✓ 外部引用：{len(pages)-len(noext)}/{len(pages)} 頁有 frontlink" + (f"；缺：{noext}" if noext else ""))
 
+# 9) 上線前把關：未查證的資格宣稱不得公開
+#    平常（NOINDEX=1）只提醒；一旦準備上線（NOINDEX 非 1）就直接擋下。
+UNVERIFIED = [
+    ("QME", "加州 DWC QME 名冊查無此人（2026-09-30 查證）。"
+            "客戶確認資格有效並提供文件後，再移除本檢查。"),
+]
+live = os.environ.get("NOINDEX","") != "1"
+for kw, why in UNVERIFIED:
+    hit = sorted(u for u,s_ in pages.items() if kw in s_)
+    if not hit:
+        print(f"✓ 未查證宣稱「{kw}」：已從站上移除")
+        continue
+    head = "✗" if live else "!"
+    print(f"{head} 未查證宣稱「{kw}」仍出現在 {len(hit)} 頁 — {why}")
+    if live:
+        for u in hit[:5]: print(f"    {u}")
+        if len(hit)>5: print(f"    …另外 {len(hit)-5} 頁")
+        fails.append(f"未查證的資格宣稱「{kw}」不得於正式站公開")
+    else:
+        warns.append(f"「{kw}」待客戶確認（目前 NOINDEX=1，未公開）")
+
 print("\n"+("✗ 有 %d 類問題"%len(fails) if fails else "✓ 全部驗證通過")+(f"（{len(warns)} 項提醒）" if warns else ""))
 sys.exit(1 if fails else 0)

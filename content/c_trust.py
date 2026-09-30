@@ -153,7 +153,7 @@ FAQ = {
 }
 
 NEWPT = {
- "slug":"new-patient","crumbs":[],"crumb_self":"初診須知","cta_bg":"alt",
+ "slug":"new-patient", "hero":('waiting-room', '診所候診室，可見證書牆與座位區'),"crumbs":[],"crumb_self":"初診須知","cta_bg":"alt",
  "title":"初診須知｜第一次來要帶什麼・流程多久｜奧克蘭脊椎治療",
  "desc":"第一次到莊錦鎮脊椎治療中心看診的完整說明：要帶的文件、初診流程與時間、會做哪些檢查，以及車禍、工傷、Medicare 各自需要額外準備的資料。奧克蘭中國城。",
  "h1":"第一次來，先看這一頁",

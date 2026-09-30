@@ -3,7 +3,7 @@
 from ._svc import svc
 
 HUB = {
- "slug":"services","crumbs":[],"crumb_self":"治療項目","cta_bg":"alt",
+ "slug":"services", "hero":('adjusting-table', '診間內的脊椎矯正床'),"crumbs":[],"crumb_self":"治療項目","cta_bg":"alt",
  "title":"治療項目｜脊椎矯正・針灸・推拿・車禍與工傷復健｜奧克蘭",
  "desc":"莊錦鎮脊椎治療中心提供脊椎與背部問題、關節肌肉疼痛、神經相關症狀、車禍與工傷後遺症的評估與治療，並有兒童脊椎檢查與孕期腰背照護。奧克蘭中國城，粵語國語台語看診。",
  "h1":"我們處理哪些狀況",
@@ -71,7 +71,9 @@ AUTO = svc("auto-injury",
   ("/services/neck-shoulder-pain/","頸肩疼痛","揮鞭式損傷後的頸部處理"),
   ("/services/lower-back-pain/","腰背疼痛","撞擊後的下背問題"),
   ("/services/headache-dizziness/","頭痛與暈眩","車禍後常見的延遲症狀")],
- procedure="Physical therapy")
+ procedure="Physical therapy",
+ photos=[('xray-machine', '診所內的數位 X 光機', '院內可直接拍攝，車禍後的結構評估不用另跑影像中心'), ('dr-chen-adjusting', '莊錦鎮醫師為病人進行頸椎矯正', None)],
+ hero=('xray-machine', '診所內的數位 X 光機'))
 
 LBP = svc("lower-back-pain",
  "腰背疼痛評估與治療｜奧克蘭",
@@ -96,7 +98,8 @@ LBP = svc("lower-back-pain",
   ("/services/herniated-disc/","椎間盤突出","神經受壓迫的情形"),
   ("/services/rehab-exercise/","復健運動","核心穩定與姿勢訓練"),
   ("/insurance/self-pay/","自費價目","初診檢查含 X 光的費用")],
- procedure="Chiropractic adjustment")
+ procedure="Chiropractic adjustment",
+ photos=[('adjusting-table', '診間內的脊椎矯正床', None), ('traction-room', '配有牽引床的治療室', None)])
 
 NECK = svc("neck-shoulder-pain",
  "頸肩疼痛評估與治療｜奧克蘭",
@@ -120,7 +123,8 @@ NECK = svc("neck-shoulder-pain",
   ("/services/lower-back-pain/","腰背疼痛","久坐造成的下背問題"),
   ("/services/massage-therapy/","經絡推拿","肩頸軟組織放鬆"),
   ("/services/rehab-exercise/","復健運動","姿勢矯正與居家訓練")],
- procedure="Chiropractic adjustment")
+ procedure="Chiropractic adjustment",
+ photos=[('adjusting-table', '診間內的脊椎矯正床', None), ('patient-in-treatment', '病人接受治療中的診間實景', None)])
 
 SCIATICA = svc("sciatica",
  "坐骨神經痛治療｜奧克蘭中國城",
@@ -145,7 +149,8 @@ SCIATICA = svc("sciatica",
   ("/services/lower-back-pain/","腰背疼痛","痛源仍在腰部時"),
   ("/services/rehab-exercise/","復健運動","神經滑動與核心訓練"),
   ("/services/acupuncture/","針灸","可搭配使用的輔助方式")],
- procedure="Physical therapy")
+ procedure="Physical therapy",
+ photos=[('traction-in-use', '牽引設備操作中', None), ('adjusting-table', '診間內的脊椎矯正床', None)])
 
 DISC = svc("herniated-disc",
  "椎間盤突出評估與治療｜奧克蘭",
@@ -170,7 +175,8 @@ DISC = svc("herniated-disc",
   ("/services/neck-shoulder-pain/","頸肩疼痛","頸椎突出造成的手麻"),
   ("/services/rehab-exercise/","復健運動","核心穩定與動作再教育"),
   ("/insurance/ppo/","私人保險","PPO 給付與自付額")],
- procedure="Physical therapy")
+ procedure="Physical therapy",
+ photos=[('xray-machine', '診所內的數位 X 光機', None), ('traction-room', '配有牽引床的治療室', None)])
 
 WORK = svc("work-injury",
  "工傷評估與治療｜加州 QME 醫療評估",

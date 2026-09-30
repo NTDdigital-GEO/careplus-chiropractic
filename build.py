@@ -61,7 +61,9 @@ SRC = {
  "fmcsa_reg2": ("ext","https://www.fmcsa.dot.gov/regulations/title49/section/391.41","FMCSA 49 CFR 391.41 體檢標準"),
  "fmcsa_reg3": ("ext","https://www.fmcsa.dot.gov/registration/commercial-drivers-license","FMCSA 商業駕照規定"),
  "fmcsa_nr":   ("ext","https://nationalregistry.fmcsa.dot.gov/","FMCSA 國家體檢醫師名冊"),
- "chiro_ca":   ("ext","https://www.chiro.ca.gov/consumers/verify_lic.shtml","加州脊骨神經醫學委員會・執照查詢"),
+ "fmcsa_srch": ("ext","https://nationalregistry.fmcsa.dot.gov/search-medical-examiners","FMCSA 名冊・醫師查詢"),
+ "chiro_ca":   ("ext","https://www.chiro.ca.gov/consumers/lic_lookup.shtml","加州脊骨神經醫學委員會・執照查詢"),
+ "dca_search": ("ext","https://search.dca.ca.gov/","加州消費者事務部・執照查詢系統"),
  "dwc_qme":    ("ext","https://www.dir.ca.gov/dwc/MedicalUnit/imchp.html","加州 DWC・QME 制度說明"),
  "dwc_main":   ("ext","https://www.dir.ca.gov/dwc/","加州勞工賠償局（DWC）"),
  "dwc_injured":("ext","https://www.dir.ca.gov/InjuredWorkerGuidebook/InjuredWorkerGuidebook.html","加州受傷勞工指南"),
@@ -132,6 +134,34 @@ def src_line(keys, label="參考來源："):
         out.append(f'<a class="{cls}" href="{e(url)}"{rel}>{e(txt)}</a>')
     return f'<div class="sources"><b>{e(label)}</b>{"".join(out)}</div>'
 
+# ─────────────────── 圖片 ───────────────────
+def _load_img_meta():
+    fp = os.path.join("assets", "img", "_meta.json")
+    if not os.path.exists(fp): return {}
+    with open(fp, encoding="utf-8") as fh:
+        return json.load(fh)
+IMG = _load_img_meta()
+
+def img_tag(slug, alt, sizes="(max-width:720px) 100vw, 640px", eager=False, cls="ph"):
+    """輸出帶 srcset / 尺寸 / 延遲載入的 <img>。找不到圖就回空字串，不讓建置中斷。"""
+    m = IMG.get(slug)
+    if not m:
+        return ""
+    if not alt:
+        raise ValueError("圖片 %s 缺少 alt 文字" % slug)
+    srcset = ", ".join("%s/assets/img/%s-%d.jpg %dw" % (BASE, slug, w, w) for w in m["sizes"])
+    src = "%s/assets/img/%s-%d.jpg" % (BASE, slug, m["sizes"][-1])
+    load = 'loading="eager" fetchpriority="high"' if eager else 'loading="lazy"'
+    return ('<img class="%s" src="%s" srcset="%s" sizes="%s" width="%d" height="%d" '
+            'alt="%s" %s decoding="async">'
+            % (cls, e(src), e(srcset), e(sizes), m["w"], m["h"], e(alt), load))
+
+def figure_tag(slug, alt, caption=None, **kw):
+    t = img_tag(slug, alt, **kw)
+    if not t: return ""
+    cap = '<figcaption>%s</figcaption>' % caption if caption else ""
+    return '<figure class="ph-f">%s%s</figure>' % (t, cap)
+
 # ─────────────────── 區塊渲染 ───────────────────
 def blk(b):
     t = b["t"]
@@ -194,6 +224,19 @@ def blk(b):
     elif t == "related":
         c = "".join(f'<a class="rel" href="{e(x[0])}">{e(x[1])}<span>{e(x[2])}</span></a>' for x in b["items"])
         body = f'<div class="related">{c}</div>'
+    elif t == "photos":
+        cols = b.get("cols", 0)
+        doc  = " doc" if b.get("doc") else ""
+        cls  = "phgrid" + (" cols-%d" % cols if cols else "") + doc
+        n    = max(1, len(b["items"]))
+        sizes = b.get("sizes") or ("(max-width:720px) 100vw, %dpx" % (1040 // min(n, 3)))
+        cards = "".join(figure_tag(x[0], x[1], x[2] if len(x) > 2 else None, sizes=sizes)
+                        for x in b["items"])
+        body = '<div class="%s">%s</div>' % (cls, cards)
+    elif t == "byline":
+        t_ = img_tag("dr-chen", b.get("alt", "莊錦鎮醫師"), sizes="60px", cls="")
+        body = ('<div class="byline">%s<div class="bt"><b>%s</b><span>%s</span></div></div>'
+                % (t_, e(b.get("name", "莊錦鎮醫師 Dr. Stewart Chen, D.C.")), b.get("note", "")))
     elif t == "form":
         body = FORM_HTML
     elif t == "raw":
@@ -262,10 +305,16 @@ def physician_node():
         {"@type":"EducationalOccupationalCredential","credentialCategory":"Doctor of Chiropractic",
          "educationalLevel":"Doctorate","dateCreated":"1987",
          "recognizedBy":{"@type":"CollegeOrUniversity","name":"Palmer College of Chiropractic"}},
+        {"@type":"EducationalOccupationalCredential","credentialCategory":"license",
+         "name":"California Chiropractic License","identifier":"18759","validThrough":"2027-03-31",
+         "recognizedBy":{"@type":"GovernmentOrganization",
+           "name":"California Board of Chiropractic Examiners","url":"https://www.chiro.ca.gov/"}},
         {"@type":"EducationalOccupationalCredential","credentialCategory":"Qualified Medical Evaluator (QME)",
          "recognizedBy":{"@type":"GovernmentOrganization",
            "name":"State of California, Division of Workers' Compensation","url":"https://www.dir.ca.gov/dwc/"}},
         {"@type":"EducationalOccupationalCredential","credentialCategory":"Certified Medical Examiner",
+         "name":"FMCSA National Registry of Certified Medical Examiners",
+         "identifier":"5497424313","dateCreated":"2019-07-22","validThrough":"2029-07-22",
          "recognizedBy":{"@type":"GovernmentOrganization",
            "name":"U.S. Department of Transportation, FMCSA National Registry",
            "url":"https://nationalregistry.fmcsa.dot.gov/"}}],
@@ -310,12 +359,22 @@ def build_schema(p):
     for n,u in crumbs:
         if u in seen: continue
         seen.add(u); cl.append((n,u))
-    g.append({"@type":"WebPage","@id":url+"#webpage","url":url,"name":p["title"],
-              "description":p["desc"],"inLanguage":"zh-Hant",
-              "isPartOf":{"@id":f"{SITE}/#website"},"about":{"@id":f"{SITE}/#clinic"},
-              "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
-                {"@type":"ListItem","position":i+1,"name":n,"item":SITE+u}
-                for i,(n,u) in enumerate(cl)]}})
+    hero = p.get("hero")
+    if hero and hero[0] in IMG:
+        m = IMG[hero[0]]
+        g.append({"@type":"ImageObject","@id":url+"#primaryimage",
+                  "url":f"{SITE}/assets/img/{hero[0]}-{m['sizes'][-1]}.jpg",
+                  "contentUrl":f"{SITE}/assets/img/{hero[0]}-{m['sizes'][-1]}.jpg",
+                  "width":m["w"],"height":m["h"],"caption":hero[1]})
+    _wp = {"@type":"WebPage","@id":url+"#webpage","url":url,"name":p["title"],
+           "description":p["desc"],"inLanguage":"zh-Hant",
+           "isPartOf":{"@id":f"{SITE}/#website"},"about":{"@id":f"{SITE}/#clinic"},
+           "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
+             {"@type":"ListItem","position":i+1,"name":n,"item":SITE+u}
+             for i,(n,u) in enumerate(cl)]}}
+    if hero and hero[0] in IMG:
+        _wp["primaryImageOfPage"] = {"@id": url + "#primaryimage"}
+    g.append(_wp)
     return json.dumps({"@context":"https://schema.org","@graph":g}, ensure_ascii=False, indent=1)
 
 # ─────────────────── 頁面組裝 ───────────────────
@@ -326,6 +385,12 @@ def render(p):
     crumb_items = [("首頁","/")] + list(p.get("crumbs",[]))
     crumb_html = "".join(f'<a href="{e(u)}">{e(n)}</a><span>›</span>' for n,u in crumb_items)
     crumb_html += f'<strong style="color:var(--ink-2);font-weight:600">{e(p.get("crumb_self") or p["h1"])}</strong>'
+
+    hero = p.get("hero")
+    hero_html = ""
+    if hero:
+        hero_html = '<div class="hero-img">%s</div>' % img_tag(
+            hero[0], hero[1], sizes="(max-width:1080px) 100vw, 1040px", eager=True)
 
     faq_html = ""
     if p.get("faqs"):
@@ -417,6 +482,7 @@ def render(p):
     <a href="tel:{BIZ["tel_href"]}" class="btn btn-p">致電預約 {BIZ["tel_display"]}</a>
     <a href="#callback" class="btn btn-s">請診所回電</a>
   </div>
+  {hero_html}
   {nap}
 </div></div>
 {blocks_html}

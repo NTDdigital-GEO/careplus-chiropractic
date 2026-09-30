@@ -25,7 +25,7 @@ STEPS_DEFAULT = [
 
 def svc(slug, h1, title, desc, answer, sname, sdesc, what_h2, what_html, what_src,
         methods, faqs, related, procedure=None, steps=None, why=None,
-        extra_blocks=None, crumb_self=None):
+        extra_blocks=None, crumb_self=None, hero=None, photos=None):
     blocks = [
       {"t":"prose","eyebrow":"先了解狀況","h2":what_h2,"html":what_html,"sources":what_src},
       {"t":"steps","bg":"alt","eyebrow":"第一次來會發生什麼","h2":"我們怎麼處理",
@@ -39,7 +39,15 @@ def svc(slug, h1, title, desc, answer, sname, sdesc, what_h2, what_html, what_sr
        "lede":"費用來源會影響你需要準備的文件。選擇最接近你的情況：",
        "items":PAY_ROUTES},
       {"t":"facts","eyebrow":"為什麼選這裡","h2":"幾項客觀條件","items":why or WHY_DEFAULT},
+      {"t":"byline","bg":"alt",
+       "alt":"莊錦鎮醫師 Dr. Stewart Chen, D.C.",
+       "name":"看診醫師：莊錦鎮 Dr. Stewart Chen, D.C.",
+       "note":'加州脊椎神經醫師執照 18759 · FMCSA 認證 DOT 體檢醫師 · 1988 年於奧克蘭中國城執業至今　'
+              '<a class="int" href="/about/dr-stewart-chen/">完整資歷與查證連結 →</a>'},
     ]
+    if photos:
+        blocks.insert(2, {"t":"photos","eyebrow":"診所實景","h2":"治療環境與設備",
+                          "items":photos})
     if extra_blocks:
         blocks = blocks[:1] + extra_blocks + blocks[1:]
     p = {
@@ -51,5 +59,6 @@ def svc(slug, h1, title, desc, answer, sname, sdesc, what_h2, what_html, what_sr
       "blocks":blocks, "faqs":faqs, "related":related,
       "faq_bg":"alt" if not extra_blocks else "",
     }
+    if hero: p["hero"] = hero
     if procedure: p["service"]["procedureType"] = procedure
     return p

@@ -2,11 +2,11 @@
 """DOT／CDL 獨立筒倉（3 頁）— 政策風險最低、商業意圖最強"""
 
 DOT = {
- "slug":"dot-physical","crumbs":[],"crumb_self":"DOT／CDL 體檢","nap":True,"cta_bg":"alt",
+ "slug":"dot-physical", "hero":('exam-room', '進行 DOT 體檢的診間，配有檢查器材與 X 光看片燈'),"crumbs":[],"crumb_self":"DOT／CDL 體檢","nap":True,"cta_bg":"alt",
  "title":"DOT／CDL 商業司機體檢 $95｜奧克蘭・當天取報告",
  "desc":"奧克蘭 DOT／CDL 商業司機體檢，費用 $95，由美國交通部認證體檢醫師執行，當天取得體檢報告，可協助送件至 DMV。貨車、大巴、UPS、計程車與 Uber／Lyft 司機適用。週六上午亦可預約。510-465-7982。",
  "h1":"DOT／CDL 商業司機體檢 $95",
- "answer":"莊錦鎮脊椎治療中心提供 DOT／CDL 商業司機體檢，費用 $95，當天取得體檢報告，可協助送件至 DMV。莊錦鎮醫師為美國交通部認證體檢醫師，登記於 FMCSA 國家體檢醫師名冊。地址 212 9th Street Suite 103, Oakland。電話 510-465-7982。",
+ "answer":"莊錦鎮脊椎治療中心提供 DOT／CDL 商業司機體檢，費用 $95，當天取得體檢報告，可協助送件至 DMV。莊錦鎮醫師為美國交通部認證體檢醫師，FMCSA 國家名冊編號 5497424313，效期至 2029 年。地址 212 9th Street Suite 103, Oakland。電話 510-465-7982。",
  "service":{"type":"Service","name":"DOT／CDL 商業司機體檢",
    "desc":"由美國交通部認證體檢醫師執行的商業司機體檢，費用 $95，當天取得體檢報告，可協助送件至 DMV。",
    "offers":{"@type":"Offer","price":"95","priceCurrency":"USD",
@@ -48,6 +48,12 @@ DOT = {
    "sources":["fmcsa_reg","fmcsa_reg2"]},
   {"t":"note","kind":"warn","h":"關於藥物濫用檢測（Drug Test）",
    "html":"<p>DOT 體檢與藥物濫用檢測是<strong>兩個不同的項目</strong>。體檢中的尿液檢驗是檢查蛋白質、糖分等健康指標，不是藥檢。如果您的雇主同時要求藥檢，請在預約時說明，我們會告知如何安排。</p>"},
+  {"t":"photos","eyebrow":"體檢環境","h2":"在哪裡做、用什麼設備","cols":2,
+   "items":[("exam-room","進行體檢的診間，牆上為檢查器材與 X 光看片燈",None),
+            ("xray-in-use","診所人員操作院內的數位 X 光機",None)]},
+  {"t":"photos","bg":"alt","eyebrow":"認證文件","h2":"聯邦認證登錄證","doc":True,"cols":1,
+   "lede":"商業駕駛的體檢必須由登記在 FMCSA 國家名冊上的醫師執行才具效力。",
+   "items":[("license-fmcsa","FMCSA 國家認證醫學檢查員登錄證，編號 5497424313","效期至 2029 年 7 月 22 日，可在 FMCSA 名冊網站以編號查詢核對")]},
  ],
  "faq_h2":"DOT 體檢常見問題",
  "faqs":[

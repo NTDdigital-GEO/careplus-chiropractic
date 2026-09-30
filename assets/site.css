@@ -200,3 +200,34 @@ footer li{margin-bottom:9px}
 footer a{color:var(--ink-2);text-decoration:none}
 footer a:hover{color:var(--brand)}
 .fbot{border-top:1px solid var(--line);padding-top:22px;font-size:13.5px;color:var(--ink-3);line-height:1.75}
+
+/* ── 圖片 ───────────────────────────────── */
+.ph{display:block;width:100%;height:auto;border-radius:var(--r);background:var(--bg-3)}
+figure.ph-f{margin:0;display:flex;flex-direction:column;gap:9px}
+figure.ph-f figcaption{font-size:14.5px;line-height:1.65;color:var(--ink-3)}
+.phgrid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.phgrid.cols-1{grid-template-columns:1fr}
+.phgrid.cols-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.phgrid .ph{aspect-ratio:3/2;object-fit:cover}
+.phgrid.doc .ph{aspect-ratio:auto;object-fit:contain;background:var(--bg-2);
+  border:1px solid var(--line);padding:10px}
+
+/* 首圖 */
+.hero-img{margin:0 0 6px}
+.hero-img .ph{aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg)}
+@media (max-width:640px){.hero-img .ph{aspect-ratio:4/3}}
+
+/* 醫師小頭像（文章審閱標記） */
+.byline{display:flex;gap:14px;align-items:center;padding:15px 18px;margin:0;
+  background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r)}
+.byline img{width:60px;height:60px;border-radius:50%;object-fit:cover;object-position:50% 22%;
+  flex:none;background:var(--bg-3)}
+.byline .bt{font-size:15px;line-height:1.6}
+.byline .bt b{display:block;font-size:16px}
+.byline .bt span{color:var(--ink-3);font-size:14px}
+
+/* 人物卡加照片 */
+.person.with-img{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start}
+.person.with-img img{width:96px;height:120px;border-radius:var(--r);object-fit:cover;
+  object-position:50% 18%;background:var(--bg-3)}
+@media (prefers-reduced-motion:no-preference){.ph{transition:none}}

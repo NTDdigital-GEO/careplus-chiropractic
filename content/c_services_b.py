@@ -22,7 +22,8 @@ HEAD = svc("headache-dizziness",
  [("/services/neck-shoulder-pain/","頸肩疼痛","頸源性頭痛的來源"),
   ("/services/auto-injury/","車禍受傷","撞擊後的延遲性頭痛"),
   ("/services/massage-therapy/","經絡推拿","枕下肌群放鬆"),
-  ("/services/rehab-exercise/","復健運動","姿勢矯正訓練")])
+  ("/services/rehab-exercise/","復健運動","姿勢矯正訓練")],
+ photos=[('dr-chen-adjusting', '莊錦鎮醫師為病人進行頸椎矯正', None), ('exam-room', '診間內的檢查器材', None)])
 
 SCOLI = svc("scoliosis",
  "脊椎側彎評估｜兒童與成人",
@@ -44,7 +45,8 @@ SCOLI = svc("scoliosis",
  [("/services/pediatric-spine/","兒童脊椎發育檢查","發育期的姿勢與排列"),
   ("/services/lower-back-pain/","腰背疼痛","側彎伴隨的下背不適"),
   ("/services/rehab-exercise/","復健運動","伸展與肌力訓練"),
-  ("/insurance/self-pay/","自費價目","檢查與 X 光費用")])
+  ("/insurance/self-pay/","自費價目","檢查與 X 光費用")],
+ photos=[('xray-in-use', '診所人員操作數位 X 光機', '脊椎側彎需要影像評估角度變化'), ('exam-room', '診間內的檢查器材與 X 光看片燈', None)])
 
 SPORT = svc("sports-injury",
  "運動傷害評估與復健｜奧克蘭",
@@ -66,7 +68,8 @@ SPORT = svc("sports-injury",
  [("/services/rehab-exercise/","復健運動","漸進式訓練與居家運動"),
   ("/services/massage-therapy/","經絡推拿","軟組織放鬆"),
   ("/services/work-injury/","重複性動作傷害","工作造成的過度使用"),
-  ("/insurance/ppo/","私人保險","PPO 給付說明")])
+  ("/insurance/ppo/","私人保險","PPO 給付說明")],
+ photos=[('patient-in-treatment', '病人接受治療中的診間實景', None), ('therapy-device', '診所內的物理治療儀器', None)])
 
 NRC = svc("nrc-technique",
  "NRC 神經復位技術",
@@ -87,7 +90,9 @@ NRC = svc("nrc-technique",
  [("/services/neck-shoulder-pain/","頸肩疼痛","上頸椎相關的不適"),
   ("/services/headache-dizziness/","頭痛與暈眩","頸源性症狀"),
   ("/about/dr-stewart-chen/","莊錦鎮醫師","受訓背景與資格"),
-  ("/services/","全部治療項目","其他處理方式")])
+  ("/services/","全部治療項目","其他處理方式")],
+ photos=[('therapy-device', '診所內的物理治療儀器', None), ('exam-room', '診間內的檢查器材與 X 光看片燈', None)],
+ hero=('therapy-device', '診所內的物理治療儀器'))
 
 ACU = svc("acupuncture",
  "針灸｜奧克蘭中國城",
@@ -109,7 +114,8 @@ ACU = svc("acupuncture",
  [("/services/massage-therapy/","經絡推拿","另一種軟組織處理方式"),
   ("/services/lower-back-pain/","腰背疼痛","常搭配針灸處理的狀況"),
   ("/insurance/ppo/","私人保險","針灸的給付確認"),
-  ("/pricing/","價目與費用","自費項目說明")])
+  ("/pricing/","價目與費用","自費項目說明")],
+ photos=[('therapy-device', '診所內的物理治療儀器', None)])
 
 MASSAGE = svc("massage-therapy",
  "中醫經絡推拿｜奧克蘭",
@@ -130,7 +136,8 @@ MASSAGE = svc("massage-therapy",
  [("/services/acupuncture/","針灸","另一種輔助療法"),
   ("/services/neck-shoulder-pain/","頸肩疼痛","常需要推拿處理的部位"),
   ("/services/sports-injury/","運動傷害","軟組織的恢復處理"),
-  ("/pricing/","價目與費用","自費項目說明")])
+  ("/pricing/","價目與費用","自費項目說明")],
+ photos=[('massage-chair', '治療室內的按摩椅與矯正床', None)])
 
 REHAB = svc("rehab-exercise",
  "復健運動與物理治療",
@@ -152,7 +159,9 @@ REHAB = svc("rehab-exercise",
  [("/services/lower-back-pain/","腰背疼痛","最常搭配復健的狀況"),
   ("/services/sports-injury/","運動傷害","回到運動的階段規劃"),
   ("/services/herniated-disc/","椎間盤突出","牽引的主要適應情形"),
-  ("/pricing/","價目與費用","物理治療項目計價")])
+  ("/pricing/","價目與費用","物理治療項目計價")],
+ photos=[('traction-in-use', '牽引設備操作中', None), ('patient-in-treatment', '病人接受復健治療中', None)],
+ hero=('traction-in-use', '牽引設備操作中'))
 
 PED = svc("pediatric-spine",
  "兒童脊椎發育檢查",
@@ -176,7 +185,8 @@ PED = svc("pediatric-spine",
  [("/services/scoliosis/","脊椎側彎","側彎的追蹤與評估"),
   ("/services/rehab-exercise/","復健運動","姿勢訓練"),
   ("/new-patient/","初診須知","帶孩子來要準備什麼"),
-  ("/insurance/self-pay/","自費價目","檢查費用說明")])
+  ("/insurance/self-pay/","自費價目","檢查費用說明")],
+ photos=[('exam-room', '診間內的檢查器材', None)])
 
 PRE = svc("prenatal-care",
  "孕期腰背照護",
@@ -198,6 +208,7 @@ PRE = svc("prenatal-care",
  [("/services/lower-back-pain/","腰背疼痛","非孕期的下背處理"),
   ("/services/sciatica/","坐骨神經痛","孕期常見的延伸症狀"),
   ("/services/rehab-exercise/","復健運動","產後核心恢復"),
-  ("/contact/","交通與停車","門診時間與預約")])
+  ("/contact/","交通與停車","門診時間與預約")],
+ photos=[('adjusting-table', '可調整角度的脊椎矯正床', None)])
 
 PAGES = [HEAD, SCOLI, SPORT, NRC, ACU, MASSAGE, REHAB, PED, PRE]

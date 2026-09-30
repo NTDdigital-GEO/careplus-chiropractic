@@ -2,7 +2,7 @@
 """首頁 + 品牌層（about / dr-stewart-chen / team / contact）"""
 
 HOME = {
- "slug":"", "nap":True, "cta_bg":"alt", "faq_bg":"",
+ "slug":"",  "hero":('storefront', 'Care Plus Chiropractic 診所門面，位於奧克蘭中國城 212 9th Street'),"nap":True, "cta_bg":"alt", "faq_bg":"",
  "title":"奧克蘭中國城華人脊椎醫生｜莊錦鎮脊椎治療中心 CarePlus",
  "desc":"奧克蘭中國城的華人脊骨神經科診所，1988 年開業至今。脊椎矯正、針灸、推拿、車禍與工傷復健、DOT／CDL 商業司機體檢。莊錦鎮醫師為加州 QME 與美國交通部認證體檢醫師，粵語、國語、台語看診。Lake Merritt BART 步行 5 分鐘。510-465-7982。",
  "h1":"奧克蘭中國城的華人脊椎醫生",
@@ -21,7 +21,7 @@ HOME = {
    "sources":["fmcsa_nr","chiro_ca","dwc_qme",("int","/about/dr-stewart-chen/","完整學經歷 →")],
    "items":[
     ("加州政府核發","QME 工傷醫療評估師","Qualified Medical Evaluator, State of California。可在加州勞工賠償局（DWC）體系下，為工傷案件出具具法律效力的醫療評估。",True),
-    ("美國交通部核發","DOT 認證體檢醫師","Certified Medical Examiner, U.S. Department of Transportation。登記於聯邦汽車運輸安全管理局（FMCSA）國家體檢醫師名冊。",True),
+    ("美國交通部核發","DOT 認證體檢醫師","Certified Medical Examiner, U.S. Department of Transportation。登記於聯邦汽車運輸安全管理局（FMCSA）國家體檢醫師名冊，編號 5497424313，效期至 2029 年。",True),
     ("學歷與教職","Palmer College of Chiropractic","1987 年取得脊骨神經醫學博士（D.C.）。現為 Palmer College 兼任臨床教職，並完成德州脊骨神經學院的麻醉下手法（MUA）訓練。",False),
     ("公共服務","阿拉米達市議員・醫療照護區董事","2012 年當選阿拉米達市議員；2020 年起任阿拉米達醫療照護區董事；現任奧克蘭華埠改進會（OCIC）會長。",False)]},
   {"t":"price","bg":"","eyebrow":"DOT／CDL 商業司機體檢","h2":"$95，當天取得體檢報告",
@@ -47,6 +47,14 @@ HOME = {
    "items":[("流程快速，醫生跟工作人員都很親切，很推薦。","Google 評論"),
             ("做 DOT 體檢整個過程大約 35 分鐘就完成了，很快也很方便。","Google 評論 · DOT 體檢"),
             ("幾年前車禍的頸部傷是莊醫師幫我處理的，後來才知道他也做聯邦 DOT 體檢。","Google 評論")]},
+  {"t":"photos","bg":"alt","eyebrow":"診所實景","h2":"這是一家什麼樣的診所",
+   "lede":"1988 年在奧克蘭中國城開業至今，同一個地址、同一位醫師。以下是實際拍攝的照片。",
+   "items":[("storefront-sign","診所門口的中英文招牌",None),
+            ("waiting-room","候診室與證書牆",None),
+            ("exam-room","診間的檢查器材與 X 光看片燈",None),
+            ("xray-machine","院內的數位 X 光機","不需另跑影像中心"),
+            ("team","醫療團隊合照",None),
+            ("patient-files","累積至今的病歷檔案",None)]},
  ],
  "faq_h2":"來之前你可能想知道的事",
  "faqs":[
@@ -64,7 +72,7 @@ HOME = {
 }
 
 ABOUT = {
- "slug":"about","crumbs":[],"crumb_self":"中心介紹","cta_bg":"alt",
+ "slug":"about", "hero":('team', '莊錦鎮脊椎治療中心的醫療團隊合照'),"crumbs":[],"crumb_self":"中心介紹","cta_bg":"alt",
  "title":"中心介紹｜莊錦鎮脊椎治療中心・奧克蘭中國城 1988 年至今",
  "desc":"莊錦鎮脊椎治療中心（CarePlus Chiropractic Health Center）1988 年在奧克蘭中國城開業，提供脊椎矯正、針灸、經絡推拿、復健運動與工傷評估。三間獨立診間、數位 X 光。粵語、國語、台語看診。",
  "h1":"在奧克蘭中國城，我們已經看診 38 年",
@@ -80,6 +88,14 @@ ABOUT = {
     ("看診語言","粵語・國語・台語・閩南話・English","莊醫師本人通曉以上語言；診所同仁另涵蓋菲律賓語與越南語，不需要自己帶翻譯。",False),
     ("診間與設備","三間獨立診間・數位 X 光","另有脊椎牽引設備、超音波、電療、微電流、冷熱敷、拔罐、G5 震動按摩與石蠟浴。",False),
     ("特殊資格","加州 QME・DOT 認證體檢醫師","可處理工傷醫療評估與商業司機體檢，這兩項在華人診所中並不常見。",True)]},
+  {"t":"photos","eyebrow":"診所實景","h2":"診所裡面長什麼樣",
+   "lede":"以下都是診所實際拍攝的照片，不是示意圖。",
+   "items":[("waiting-room","診所候診室，可見證書牆、座位區與植栽",None),
+            ("reception","櫃台區，牆上為 CAREPLUS CHIROPRACTIC 立體字",None),
+            ("hallway","通往各診間的走廊",None),
+            ("exam-room","診間內的檢查器材與 X 光看片燈",None),
+            ("traction-room","配有牽引床的治療室",None),
+            ("patient-files","診所的病歷檔案櫃","1988 年執業至今累積的紙本病歷")]},
   {"t":"equip","eyebrow":"設備","h2":"診間內可使用的檢查與治療設備",
    "items":["數位 X 光","脊椎牽引設備","超音波治療","電療儀","微電流","冷熱敷與冷療",
             "拔罐","G5 震動按摩","石蠟浴","噴霧伸展","復健運動指導","三間獨立診間"]},
@@ -101,16 +117,23 @@ DRCHEN = {
  "title":"莊錦鎮醫師 Dr. Stewart Chen, D.C.｜加州 QME・DOT 認證體檢醫師",
  "desc":"莊錦鎮醫師 1987 年取得 Palmer College of Chiropractic 脊骨神經醫學博士，為加州 QME 工傷醫療評估師與美國交通部認證體檢醫師，並任 Palmer College 兼任臨床教職。曾任阿拉米達市議員，現任阿拉米達醫療照護區董事。",
  "h1":"莊錦鎮醫師 Dr. Stewart Chen, D.C.",
- "answer":"莊錦鎮醫師於 1987 年取得 Palmer College of Chiropractic 脊骨神經醫學博士學位，1988 年在奧克蘭中國城開業至今。他是加州 QME 工傷醫療評估師，也是美國交通部認證體檢醫師，並擔任 Palmer College 兼任臨床教職。通曉粵語、國語、台語、閩南話與英語。",
+ "answer":"莊錦鎮醫師（Stewart Chen, D.C.）於 1987 年取得 Palmer College of Chiropractic 脊骨神經醫學博士學位，1988 年在奧克蘭中國城開業至今。持加州脊骨神經醫師執照 18759，狀態有效，效期至 2027 年 3 月 31 日。同時為加州 QME 工傷醫療評估師與 FMCSA 認證 DOT 體檢醫師。通曉粵語、國語、台語與英語。",
  "blocks":[
   {"t":"facts","eyebrow":"可查證的資格","h2":"這四項都能在公開紀錄中核對",
-   "lede":"我們把查詢連結附在下方，歡迎自行驗證。",
-   "sources":["chiro_ca","fmcsa_nr","dwc_qme","palmer"],
+   "lede":"以下資格都在政府公開名冊上，查詢連結附在下方，歡迎自行核對。",
+   "sources":["dca_search","fmcsa_srch","dwc_qme","palmer"],
    "items":[
     ("加州政府核發","QME 工傷醫療評估師","Qualified Medical Evaluator, State of California。可在加州勞工賠償局（DWC）體系下為工傷案件出具具法律效力的醫療評估。會講粵語、國語、台語的 QME，在東灣並不多。",True),
-    ("美國交通部核發","DOT 認證體檢醫師","Certified Medical Examiner, U.S. Department of Transportation。登記於 FMCSA 國家體檢醫師名冊，可執行商業司機體檢並核發體檢證明。",True),
-    ("加州執照","脊骨神經科醫師 D.C.","加州脊骨神經醫學委員會（Board of Chiropractic Examiners）核發。執照狀態可在委員會官網查詢。",True),
+    ("美國交通部核發","DOT 認證體檢醫師　名冊編號 5497424313","Certified Medical Examiner, U.S. Department of Transportation。2019 年 7 月 22 日核發，效期至 2029 年 7 月 22 日，以 Stewart Chen, D.C. 登記於本診所地址。商業駕駛的體檢必須由 FMCSA 名冊上的醫師執行才具效力——可在名冊網站輸入編號 5497424313 核對。",True),
+    ("加州執照","脊骨神經科醫師 D.C.　執照號碼 18759","加州脊骨神經醫學委員會（Board of Chiropractic Examiners）核發，登記姓名 CHEN, STEWART GO。2026 年 9 月查詢狀態為 <strong>VALID（有效）</strong>，效期至 2027 年 3 月 31 日，無懲戒或限制紀錄。可在加州消費者事務部查詢系統輸入執照號碼 18759 核對。",True),
     ("專業認證","工業傷病評估・麻醉下手法","Industrial Medical Evaluation（CCA）；Manipulation Under Anesthesia，德州脊骨神經學院。",False)]},
+  {"t":"photos","eyebrow":"聯邦認證","h2":"FMCSA 認證登錄證","doc":True,"cols":1,
+   "lede":"加州執照（號碼 18759，效期至 2027 年 3 月 31 日）的現況請直接使用上方的官方查詢連結核對，該系統顯示的狀態最即時。",
+   "items":[("license-fmcsa","美國交通部 FMCSA 國家認證醫學檢查員登錄證，編號 5497424313","2019 年 7 月 22 日核發，效期至 2029 年 7 月 22 日")]},
+  {"t":"photos","bg":"alt","eyebrow":"看診實況","h2":"莊醫師在診間",
+   "items":[("dr-chen-adjusting","莊錦鎮醫師為病人進行頸椎矯正",None),
+            ("dr-chen-treating","莊錦鎮醫師於矯正床旁為病人治療",None),
+            ("certificates","診所牆上的證書與獎牌",None)]},
   {"t":"table","bg":"alt","eyebrow":"學歷與訓練","h2":"教育背景",
    "head":["年份","項目","機構"],
    "rows":[["1987","脊骨神經醫學博士（D.C.）","Palmer College of Chiropractic"],
@@ -144,7 +167,7 @@ DRCHEN = {
 }
 
 TEAM = {
- "slug":"about/team","crumbs":[("中心介紹","/about/")],"crumb_self":"醫療團隊","cta_bg":"alt",
+ "slug":"about/team", "hero":('team', '莊錦鎮脊椎治療中心的醫療團隊合照'),"crumbs":[("中心介紹","/about/")],"crumb_self":"醫療團隊","cta_bg":"alt",
  "title":"醫療團隊｜莊錦鎮脊椎治療中心・粵語國語台語越南語菲律賓語",
  "desc":"莊錦鎮脊椎治療中心的團隊：中心經理、公關、理賠專員與脊椎治療助理，涵蓋粵語、國語、菲律賓語、越南語與英語。多位同仁在診所服務超過 7 年，中心經理已任職 25 年。",
  "h1":"你在診所會遇到的人",
@@ -172,7 +195,7 @@ TEAM = {
 }
 
 CONTACT = {
- "slug":"contact","crumbs":[],"crumb_self":"交通與停車","nap":True,"cta_bg":"",
+ "slug":"contact", "hero":('storefront', '診所門面，212 9th Street Suite 103，奧克蘭中國城'),"crumbs":[],"crumb_self":"交通與停車","nap":True,"cta_bg":"",
  "title":"交通與停車｜212 9th St Oakland・Lake Merritt BART 步行 5 分鐘",
  "desc":"莊錦鎮脊椎治療中心位於奧克蘭 212 9th Street Suite 103，Madison 專業大樓內，介於 Jackson St 與 Alice St 之間。Lake Merritt BART 步行約 5 至 7 分鐘，大樓與路邊皆有停車位。電話 510-465-7982。",
  "h1":"怎麼到診所：地址、BART 與停車",
@@ -182,6 +205,11 @@ CONTACT = {
     ("BART","Lake Merritt 站，步行 5–7 分鐘","出站後往 9th Street 方向走，經過 Alice St 即可看到 Madison 專業大樓。這是從舊金山、柏克萊、Fremont 方向過來最方便的方式。",False),
     ("開車與停車","大樓停車場與路邊停車位","尖峰時段（上午 10 點至下午 2 點）建議提早 15 分鐘抵達找車位。路邊停車需注意時限標示。",False),
     ("公車","中國城多線公車可達","9th Street 與 Broadway 一帶有多條 AC Transit 路線經過。",False)]},
+  {"t":"photos","eyebrow":"找路參考","h2":"門口長這樣",
+   "lede":"診所在 Madison 專業大樓一樓，門口有中英文招牌。認這個門就對了。",
+   "items":[("storefront-sign","診所門口的中英文招牌：CHIROPRACTOR DR. STEWART CHEN 莊錦鎮",None),
+            ("storefront-hours","玻璃門上的門診時間標示",None),
+            ("reception","進門後的櫃台區",None)]},
   {"t":"table","eyebrow":"門診時間","h2":"看診時段",
    "head":["星期","時間"],
    "rows":[["週一","9:00 – 18:00"],["週二","9:00 – 18:00"],["週三","9:00 – 18:00"],
