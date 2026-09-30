@@ -4,7 +4,7 @@
 
 PAY_ROUTES = [
  ("/insurance/auto-accident/","車禍理賠","對方責任險、自身 MedPay，或律師代理下以 lien 處理。","需要準備什麼 →"),
- ("/insurance/workers-comp/","工傷理賠","加州勞工賠償體系，含 QME 醫療評估。","流程說明 →"),
+ ("/insurance/workers-comp/","工傷理賠","加州勞工賠償體系，經核准的治療費用由雇主保險負擔。","流程說明 →"),
  ("/insurance/ppo/","私人保險","PPO 方案的給付與自付額說明。","如何確認 →"),
  ("/insurance/self-pay/","自費","初診檢查含數位 X 光的自費價目。","查看價目 →"),
 ]

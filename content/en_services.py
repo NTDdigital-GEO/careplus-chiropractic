@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """英文站服務頁。骨架與中文站相同：直答 → 這是什麼狀況 → 我們怎麼處理 →
 費用來源 → 客觀條件 → 醫師資訊卡 → FAQ → 相關。
-工傷頁刻意不提 QME，該資格尚未能在加州 DWC 名冊查得。"""
+工傷頁不含 QME：2026-09-30 客戶確認該證書已失效、評估服務已停止；
+工傷「治療」仍是本院主力項目，頁面保留並以此為主軸。"""
 
 PAY_ROUTES_EN = [
  ("/insurance/auto-accident/","Auto accident","The at-fault driver's liability cover, MedPay on your own policy, or on a lien where you are represented.","What you need →"),

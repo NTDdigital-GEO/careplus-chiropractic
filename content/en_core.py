@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """英文站核心頁：首頁、中心介紹、醫師、團隊、交通、初診。
 事實來源：官方名冊查證（執照 18759、FMCSA 5497424313）、客戶英文站盤點、GBP。
-刻意不提 QME —— 加州 DWC 名冊查無此人，客戶確認前不寫進新內容。"""
+不含 QME —— 2026-09-30 客戶確認該證書已失效、服務亦已停止。"""
 
 WHY_EN = [
  ("In practice since","1988 — 38 years","Same practitioner, same Oakland Chinatown block since 1988. Long enough to have seen most presentations more than once.",False),

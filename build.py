@@ -64,7 +64,6 @@ SRC = {
  "fmcsa_srch": ("ext","https://nationalregistry.fmcsa.dot.gov/search-medical-examiners","FMCSA 名冊・醫師查詢"),
  "chiro_ca":   ("ext","https://www.chiro.ca.gov/consumers/lic_lookup.shtml","加州脊骨神經醫學委員會・執照查詢"),
  "dca_search": ("ext","https://search.dca.ca.gov/","加州消費者事務部・執照查詢系統"),
- "dwc_qme":    ("ext","https://www.dir.ca.gov/dwc/MedicalUnit/imchp.html","加州 DWC・QME 制度說明"),
  "dwc_main":   ("ext","https://www.dir.ca.gov/dwc/","加州勞工賠償局（DWC）"),
  "medicare_ch":("ext","https://www.medicare.gov/coverage/chiropractic-services","Medicare.gov · Chiropractic coverage"),
  "cdi_auto":   ("ext","https://www.insurance.ca.gov/01-consumers/105-type/95-guides/01-auto/","California Dept. of Insurance · Auto insurance guide"),
@@ -338,7 +337,7 @@ FORM_ZH = f'''<form class="formwrap" id="cbForm" method="POST" action="REPLACE_W
 <input id="t" name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="510-000-0000">
 <label for="r">想處理的問題</label>
 <select id="r" name="reason"><option value="">請選擇（可略過）</option>
-<option>車禍受傷</option><option>工傷／需要 QME 評估</option><option>腰背・頸肩疼痛</option>
+<option>車禍受傷</option><option>工傷</option><option>腰背・頸肩疼痛</option>
 <option>坐骨神經痛・手腳麻木</option><option>DOT／CDL 商業司機體檢</option><option>針灸或推拿</option>
 <option>其他／不確定</option></select>
 <label for="w">方便接電話的時段</label>
@@ -401,12 +400,7 @@ def clinic_node():
     }
 
 def physician_node(lg="zh"):
-    # QME 目前無法在加州 DWC 名冊查得。英文站的內文沒有這項宣稱，
-    # 結構化資料必須與頁面可見內容一致，所以英文頁不輸出這一筆。
-    qme = [] if lg == "en" else [
-        {"@type":"EducationalOccupationalCredential","credentialCategory":"Qualified Medical Evaluator (QME)",
-         "recognizedBy":{"@type":"GovernmentOrganization",
-           "name":"State of California, Division of Workers' Compensation","url":"https://www.dir.ca.gov/dwc/"}}]
+    # QME：2026-09-30 客戶確認證書已失效、服務已停止，全站不再輸出這項資格。
     return {
       "@type":"Physician","@id":f"{SITE}/#drchen","name":"Dr. Stewart Chen, D.C.",
       "alternateName":"莊錦鎮","medicalSpecialty":"Chiropractic",
@@ -421,7 +415,7 @@ def physician_node(lg="zh"):
          "name":"California Chiropractic License","identifier":"18759","validThrough":"2027-03-31",
          "recognizedBy":{"@type":"GovernmentOrganization",
            "name":"California Board of Chiropractic Examiners","url":"https://www.chiro.ca.gov/"}},
-        ] + qme + [
+        ] + [
         {"@type":"EducationalOccupationalCredential","credentialCategory":"Certified Medical Examiner",
          "name":"FMCSA National Registry of Certified Medical Examiners",
          "identifier":"5497424313","dateCreated":"2019-07-22","validThrough":"2029-07-22",
