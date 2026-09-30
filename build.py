@@ -25,6 +25,11 @@ NOINDEX = os.environ.get("NOINDEX", "") == "1"   # 預覽站設 1，避免被搜
 # 本機測試若不想送資料，執行前加 GTM_ID="" 即可。
 GTM_ID = os.environ.get("GTM_ID", "GTM-PFJXXHJN")
 
+# 回電表單的收件服務（Web3Forms）。金鑰放環境變數，不進版本庫。
+# 沒設定時表單會顯示提示且不送出，不會變成壞掉的 404。
+FORM_KEY = os.environ.get("FORM_ACCESS_KEY", "").strip()
+FORM_ENDPOINT = "https://api.web3forms.com/submit"
+
 def gtm_head():
     if not GTM_ID: return ""
     return ("""<!-- Google Tag Manager -->
@@ -118,6 +123,11 @@ T = {
    ty_t="已收到您的回電需求", ty_h="已收到，我們會主動致電",
    ty_p="感謝您的來信。我們會在門診時間內依您選擇的時段主動致電。若急需就診，也歡迎直接來電。",
    preview_alert="這是預覽版，表單還沒接上收件信箱，所以不會真的送出。\\n\\n正式上線後，送出的內容會寄到診所的信箱。\\n現在要預約請直接致電 510-465-7982。",
+   f_sending="送出中…", f_btn="送出，請診所回電",
+   f_ok="已收到，我們會在門診時間內主動致電。急需就診請直接撥 510-465-7982。",
+   f_err="送出失敗，可能是網路問題。麻煩直接致電 510-465-7982，或稍後再試一次。",
+   f_subject="網站回電需求（中文站）",
+   preview_alert_inline="這是預覽版，表單還沒接上收件信箱，所以不會真的送出。要預約請直接致電 510-465-7982。",
  ),
  "en": dict(
    htmllang="en", oglocale="en_US", name=BIZ["en"], brandname="CarePlus Chiropractic", other="中文", otherlang="zh-Hant",
@@ -140,6 +150,11 @@ T = {
    ty_t="We've received your request", ty_h="Got it — we'll call you",
    ty_p="Thank you. We'll call you during clinic hours in the time slot you chose. If you need to be seen urgently, please call us directly.",
    preview_alert="This is a preview. The form is not connected to an inbox yet, so nothing is sent.\\n\\nOnce live, submissions will go to the clinic's email.\\nTo book now, please call 510-465-7982.",
+   f_sending="Sending…", f_btn="Send — please call me back",
+   f_ok="Received. We'll call you during clinic hours. If you need to be seen urgently, please call 510-465-7982.",
+   f_err="Could not send — possibly a network problem. Please call 510-465-7982, or try again shortly.",
+   f_subject="Website call-back request (English site)",
+   preview_alert_inline="This is a preview — the form is not connected to an inbox yet, so nothing is sent. To book, please call 510-465-7982.",
  ),
 }
 def t(k): return T[CURLANG[0]][k]
@@ -329,8 +344,11 @@ def blk(b):
         body += src_line(b["sources"])
     return f'<section class="{b.get("bg","")}"><div class="wrap">{head}{body}</div></section>'
 
-FORM_ZH = f'''<form class="formwrap" id="cbForm" method="POST" action="REPLACE_WITH_ENDPOINT" novalidate>
-<div style="position:absolute;left:-9999px" aria-hidden="true"><label>請勿填寫<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+FORM_ZH = f'''<form class="formwrap" id="cbForm" method="POST" action="{FORM_ENDPOINT}" novalidate>
+<div style="position:absolute;left:-9999px" aria-hidden="true"><label>請勿填寫<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
+<input type="hidden" name="access_key" value="{FORM_KEY}">
+<input type="hidden" name="subject" value="{T['zh']['f_subject']}">
+<input type="hidden" name="from_name" value="{BIZ["en"]}">
 <label for="n">稱呼 <span style="color:var(--accent)">*</span></label>
 <input id="n" name="name" type="text" required autocomplete="name" placeholder="例：陳先生">
 <label for="t">回電號碼 <span style="color:var(--accent)">*</span></label>
@@ -346,11 +364,15 @@ FORM_ZH = f'''<form class="formwrap" id="cbForm" method="POST" action="REPLACE_W
 <label for="l">希望用哪種語言溝通</label>
 <select id="l" name="language"><option>粵語</option><option>國語／普通話</option><option>台語／閩南話</option><option>English</option></select>
 <button type="submit">送出，請診所回電</button>
+<p class="formstatus" id="cbStatus" role="status" aria-live="polite" hidden></p>
 <p class="formnote">我們只會用這個號碼與您聯繫預約事宜。<br>急需就診請直接致電 <a href="tel:{BIZ["tel_href"]}">{BIZ["tel_display"]}</a>。</p>
 </form>'''
 
-FORM_EN = f'''<form class="formwrap" id="cbForm" method="POST" action="REPLACE_WITH_ENDPOINT" novalidate>
-<div style="position:absolute;left:-9999px" aria-hidden="true"><label>Leave blank<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+FORM_EN = f'''<form class="formwrap" id="cbForm" method="POST" action="{FORM_ENDPOINT}" novalidate>
+<div style="position:absolute;left:-9999px" aria-hidden="true"><label>Leave blank<input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
+<input type="hidden" name="access_key" value="{FORM_KEY}">
+<input type="hidden" name="subject" value="{T['en']['f_subject']}">
+<input type="hidden" name="from_name" value="{BIZ["en"]}">
 <label for="n">Your name <span style="color:var(--accent)">*</span></label>
 <input id="n" name="name" type="text" required autocomplete="name" placeholder="e.g. Mr. Chen">
 <label for="t">Phone to call back <span style="color:var(--accent)">*</span></label>
@@ -366,6 +388,7 @@ FORM_EN = f'''<form class="formwrap" id="cbForm" method="POST" action="REPLACE_W
 <label for="l">Preferred language</label>
 <select id="l" name="language"><option>English</option><option>Cantonese</option><option>Mandarin</option><option>Taiwanese</option></select>
 <button type="submit">Send — please call me back</button>
+<p class="formstatus" id="cbStatus" role="status" aria-live="polite" hidden></p>
 <p class="formnote">We'll only use this number to arrange your appointment.<br>If you need to be seen urgently, please call <a href="tel:{BIZ["tel_href"]}">{BIZ["tel_display"]}</a>.</p>
 </form>'''
 
@@ -632,13 +655,34 @@ def render(p):
 <script>
 (function(){{window.dataLayer=window.dataLayer||[];
 var f=document.getElementById('cbForm');
-if(f)f.addEventListener('submit',function(e){{var r=document.getElementById('r');
-window.dataLayer.push({{event:'callback_submit',form_name:'callback_request',reason:r?r.value:'',page_path:location.pathname}});
-// 收件端點還沒設定時，不要真的送出（會變成 404），改成提示
-if((f.getAttribute('action')||'').indexOf('REPLACE_WITH_ENDPOINT')>-1){{
-  e.preventDefault();
-  alert('{t("preview_alert")}');
-}}}});
+if(f){{
+  var st=document.getElementById('cbStatus'), btn=f.querySelector('button[type=submit]');
+  var HAS_KEY={"true" if FORM_KEY else "false"};
+  function say(msg,kind){{ if(!st)return; st.hidden=false; st.textContent=msg;
+    st.className='formstatus'+(kind?' '+kind:''); }}
+  f.addEventListener('submit',function(e){{
+    e.preventDefault();
+    if(!f.reportValidity||!f.reportValidity()) return;
+    var r=document.getElementById('r');
+    if(!HAS_KEY){{ say('{t("preview_alert_inline")}','warn'); return; }}
+    btn.disabled=true; var orig=btn.textContent; btn.textContent='{t("f_sending")}';
+    say('','');  st.hidden=true;
+    var data=Object.fromEntries(new FormData(f).entries());
+    fetch(f.action,{{method:'POST',
+      headers:{{'Content-Type':'application/json','Accept':'application/json'}},
+      body:JSON.stringify(data)}})
+    .then(function(res){{ return res.json().catch(function(){{return{{success:res.ok}};}}); }})
+    .then(function(j){{
+      if(j && j.success){{
+        f.reset(); say('{t("f_ok")}','ok');
+        window.dataLayer.push({{event:'callback_submit',form_name:'callback_request',
+          reason:r?r.value:'',page_path:location.pathname}});
+      }} else {{ say('{t("f_err")}','err'); }}
+    }})
+    .catch(function(){{ say('{t("f_err")}','err'); }})
+    .finally(function(){{ btn.disabled=false; btn.textContent=orig; }});
+  }});
+}}
 document.querySelectorAll('a[href^="tel:"]').forEach(function(a){{a.addEventListener('click',function(){{
 window.dataLayer.push({{event:'phone_click',phone_number:a.getAttribute('href').replace('tel:',''),page_path:location.pathname}});}});}});
 }})();

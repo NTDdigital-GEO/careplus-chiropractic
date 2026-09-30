@@ -66,6 +66,11 @@ jobs:
           echo "NOINDEX=1"                                      >> "$GITHUB_ENV"
 
       - name: 產出網站
+        env:
+          # 回電表單的收件金鑰。到 repo 的 Settings → Secrets and variables
+          # → Actions 新增 FORM_ACCESS_KEY 即可生效；沒設定時表單會顯示
+          # 「尚未接上信箱」並且不會送出，不會壞掉。
+          FORM_ACCESS_KEY: ${{ secrets.FORM_ACCESS_KEY }}
         run: python3 build.py
 
       - name: 檢查網站有沒有問題
