@@ -112,6 +112,30 @@ if ext: fails.append("有外部阻塞資源")
 noext=[u for u,s in pages.items() if 'class="ext"' not in s]
 print(f"✓ 外部引用：{len(pages)-len(noext)}/{len(pages)} 頁有 frontlink" + (f"；缺：{noext}" if noext else ""))
 
+# 8b) 圖片：檔案存在、路徑不重複 BASE
+BASE_V = os.environ.get("BASE_PATH","").strip("/")
+imgrefs=set()
+for u,s_ in pages.items():
+    for m in re.finditer(r'src="([^"]*/assets/img/[^"]+)"', s_): imgrefs.add(m.group(1))
+    for m in re.finditer(r'srcset="([^"]+)"', s_):
+        for cand in m.group(1).split(","):
+            c=cand.strip().split(" ")[0]
+            if "/assets/img/" in c: imgrefs.add(c)
+dupe=[u for u in imgrefs if BASE_V and u.count("/"+BASE_V+"/")>1]
+missing=[]
+for u in imgrefs:
+    rel=u
+    if BASE_V and rel.startswith("/"+BASE_V+"/"): rel=rel[len(BASE_V)+1:]
+    if not os.path.exists(os.path.join(OUT, rel.lstrip("/"))): missing.append(u)
+if dupe:
+    print(f"✗ 圖片路徑重複了 BASE：{len(dupe)} 個"); [print("    "+u) for u in sorted(dupe)[:5]]
+    fails.append("圖片路徑重複 BASE")
+if missing:
+    print(f"✗ 圖片檔不存在：{len(missing)} 個"); [print("    "+u) for u in sorted(missing)[:5]]
+    fails.append("圖片檔不存在")
+if imgrefs and not dupe and not missing:
+    print(f"✓ 圖片：{len(imgrefs)} 個路徑全部存在且未重複 BASE")
+
 # 9) 上線前把關：未查證的資格宣稱不得公開
 #    平常（NOINDEX=1）只提醒；一旦準備上線（NOINDEX 非 1）就直接擋下。
 UNVERIFIED = [

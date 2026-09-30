@@ -149,8 +149,10 @@ def img_tag(slug, alt, sizes="(max-width:720px) 100vw, 640px", eager=False, cls=
         return ""
     if not alt:
         raise ValueError("圖片 %s 缺少 alt 文字" % slug)
-    srcset = ", ".join("%s/assets/img/%s-%d.jpg %dw" % (BASE, slug, w, w) for w in m["sizes"])
-    src = "%s/assets/img/%s-%d.jpg" % (BASE, slug, m["sizes"][-1])
+    # 不要在這裡加 BASE：apply_base() 會統一把 src="/… 改寫成子路徑，
+    # 兩邊都加會變成 /repo/repo/assets/…
+    srcset = ", ".join("/assets/img/%s-%d.jpg %dw" % (slug, w, w) for w in m["sizes"])
+    src = "/assets/img/%s-%d.jpg" % (slug, m["sizes"][-1])
     load = 'loading="eager" fetchpriority="high"' if eager else 'loading="lazy"'
     return ('<img class="%s" src="%s" srcset="%s" sizes="%s" width="%d" height="%d" '
             'alt="%s" %s decoding="async">'
@@ -527,6 +529,16 @@ def apply_base(html_text):
     只動 href="/ 與 src="/ ，不碰 http(s):// 與 //。"""
     if BASE:
         html_text = re.sub(r'(href|src)="/(?!/)', r'\1="' + BASE + "/", html_text)
+        # srcset 是逗號分隔的「網址 寬度」清單，上面的規則涵蓋不到，要另外處理
+        def _ss(m):
+            parts = []
+            for cand in m.group(1).split(","):
+                cand = cand.strip()
+                if cand.startswith("/") and not cand.startswith("//"):
+                    cand = BASE + cand
+                parts.append(cand)
+            return 'srcset="' + ", ".join(parts) + '"'
+        html_text = re.sub(r'srcset="([^"]+)"', _ss, html_text)
     if NOINDEX and "<head>" in html_text:
         html_text = html_text.replace(
             "<head>", '<head>\n<meta name="robots" content="noindex,nofollow">', 1)
