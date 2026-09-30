@@ -66,6 +66,9 @@ SRC = {
  "dca_search": ("ext","https://search.dca.ca.gov/","加州消費者事務部・執照查詢系統"),
  "dwc_qme":    ("ext","https://www.dir.ca.gov/dwc/MedicalUnit/imchp.html","加州 DWC・QME 制度說明"),
  "dwc_main":   ("ext","https://www.dir.ca.gov/dwc/","加州勞工賠償局（DWC）"),
+ "medicare_ch":("ext","https://www.medicare.gov/coverage/chiropractic-services","Medicare.gov · Chiropractic coverage"),
+ "cdi_auto":   ("ext","https://www.insurance.ca.gov/01-consumers/105-type/95-guides/01-auto/","California Dept. of Insurance · Auto insurance guide"),
+ "nccih_chiro":("ext","https://www.nccih.nih.gov/health/chiropractic-in-depth","NIH NCCIH · Chiropractic in depth"),
  "dwc_injured":("ext","https://www.dir.ca.gov/InjuredWorkerGuidebook/InjuredWorkerGuidebook.html","加州受傷勞工指南"),
  "aca":        ("ext","https://www.acatoday.org/","ACA 美國脊骨神經醫學會"),
  "nccih_back": ("ext","https://www.nccih.nih.gov/health/spinal-manipulation-what-you-need-to-know","NIH NCCIH・脊椎手法治療"),
@@ -87,7 +90,63 @@ SRC = {
 }
 
 # 頂部主導覽（每頁都會出現）
-NAV_MAIN = [
+# ─────────────────── 雙語 ───────────────────
+# 根目錄＝英文，/zh/＝中文。CURLANG 由 render() 設定，讓 blk()/src_line() 不必層層傳參數。
+CURLANG = ["zh"]
+# 哪些 slug 有哪個語言的版本，供 hreflang 與語言切換鈕配對；main() 建立。
+HAVE = {"zh": set(), "en": set()}
+LANGMARK = "%%LANGHREF%%"   # 語言切換鈕的網址不套用 /zh 前綴，用哨符避開
+
+T = {
+ "zh": dict(
+   htmllang="zh-Hant", oglocale="zh_TW", name=BIZ["zh"], brandname=BIZ["zh"], other="English", otherlang="en",
+   skip="跳到主要內容", nav="主選單", crumb="麵包屑", home="首頁",
+   call="致電", callcta="致電預約", callback="請診所回電",
+   hours=BIZ["hours_zh"], closed="週日休診",
+   faq_eyebrow="常見問題", faq_h2="常見問題",
+   rel_eyebrow="相關頁面", rel_h2="你可能也需要看這些",
+   cta_eyebrow="回電預約", cta_h2="不方便現在打電話？留下時段，我們回電給您",
+   cta_p="本中心採電話預約。若您現在不方便通話，填寫下方表單，我們會在門診時間內主動致電。",
+   src_label="參考來源：",
+   nap=("地址","交通","看診語言","電話"),
+   nap_bart="Lake Merritt BART<br>步行約 5 分鐘",
+   nap_langs="粵語・國語・台語<br>閩南話・English",
+   disclaimer="本網站內容僅供一般健康資訊參考，不能取代專業醫療診斷或治療建議。個別狀況請親自到診評估。",
+   footline="奧克蘭中國城執業 %s 年" % BIZ["years"],
+   hoursline="營業時間：",
+   nf_h="找不到這個頁面", nf_t="找不到頁面",
+   nf_p="您要找的頁面可能已移除或網址有誤。需要預約或有任何問題，歡迎直接來電。",
+   ty_t="已收到您的回電需求", ty_h="已收到，我們會主動致電",
+   ty_p="感謝您的來信。我們會在門診時間內依您選擇的時段主動致電。若急需就診，也歡迎直接來電。",
+   preview_alert="這是預覽版，表單還沒接上收件信箱，所以不會真的送出。\\n\\n正式上線後，送出的內容會寄到診所的信箱。\\n現在要預約請直接致電 510-465-7982。",
+ ),
+ "en": dict(
+   htmllang="en", oglocale="en_US", name=BIZ["en"], brandname="CarePlus Chiropractic", other="中文", otherlang="zh-Hant",
+   skip="Skip to main content", nav="Main menu", crumb="Breadcrumb", home="Home",
+   call="Call", callcta="Call to book", callback="Request a call back",
+   hours="Mon–Fri 9:00–18:00 · Sat 9:00–12:00", closed="Closed Sunday",
+   faq_eyebrow="FAQ", faq_h2="Frequently asked questions",
+   rel_eyebrow="Related", rel_h2="You may also need these",
+   cta_eyebrow="Request a call", cta_h2="Can't call right now? Leave a time and we'll call you",
+   cta_p="We book by phone. If now isn't a good time, fill in the form below and we'll call you during clinic hours.",
+   src_label="Sources: ",
+   nap=("Address","Transit","Languages","Phone"),
+   nap_bart="Lake Merritt BART<br>5-minute walk",
+   nap_langs="Cantonese · Mandarin<br>Taiwanese · English",
+   disclaimer="This site provides general health information only. It is not a substitute for professional diagnosis or treatment. Please come in for an assessment of your individual situation.",
+   footline="%s years in Oakland Chinatown" % BIZ["years"],
+   hoursline="Hours: ",
+   nf_h="We can't find that page", nf_t="Page not found",
+   nf_p="The page may have been moved or the address may be wrong. To book an appointment or ask a question, please call us.",
+   ty_t="We've received your request", ty_h="Got it — we'll call you",
+   ty_p="Thank you. We'll call you during clinic hours in the time slot you chose. If you need to be seen urgently, please call us directly.",
+   preview_alert="This is a preview. The form is not connected to an inbox yet, so nothing is sent.\\n\\nOnce live, submissions will go to the clinic's email.\\nTo book now, please call 510-465-7982.",
+ ),
+}
+def t(k): return T[CURLANG[0]][k]
+def pfx(lg=None): return "/zh" if (lg or CURLANG[0]) == "zh" else ""
+
+NAV_MAIN_ZH = [
     ("/services/",      "治療項目"),
     ("/dot-physical/",  "DOT 體檢"),
     ("/insurance/",     "費用與保險"),
@@ -95,8 +154,17 @@ NAV_MAIN = [
     ("/faq/",           "常見問題"),
     ("/contact/",       "交通與預約"),
 ]
+NAV_MAIN_EN = [
+    ("/services/",      "Services"),
+    ("/dot-physical/",  "DOT Physical"),
+    ("/insurance/",     "Fees & Insurance"),
+    ("/about/",         "About"),
+    ("/faq/",           "FAQ"),
+    ("/contact/",       "Visit Us"),
+]
+NAV_MAIN = {"zh": NAV_MAIN_ZH, "en": NAV_MAIN_EN}
 
-NAV_FOOT = [
+NAV_FOOT_ZH = [
  ("治療項目", [("/services/auto-injury/","車禍受傷復健"),("/services/lower-back-pain/","腰背疼痛"),
    ("/services/neck-shoulder-pain/","頸肩疼痛"),("/services/sciatica/","坐骨神經痛"),
    ("/services/work-injury/","工傷評估與治療"),("/services/","全部服務項目")]),
@@ -107,6 +175,19 @@ NAV_FOOT = [
    ("/about/","中心介紹"),("/reviews/","病人評價"),("/media/","媒體報導"),
    ("/faq/","常見問題"),("/new-patient/","初診須知"),("/contact/","交通與停車")]),
 ]
+
+NAV_FOOT_EN = [
+ ("Services", [("/services/auto-injury/","Auto accident injury"),("/services/lower-back-pain/","Low back pain"),
+   ("/services/neck-shoulder-pain/","Neck & shoulder pain"),("/services/sciatica/","Sciatica"),
+   ("/services/work-injury/","Work injury"),("/services/","All services")]),
+ ("Fees & Insurance", [("/insurance/auto-accident/","Auto accident claims"),("/insurance/workers-comp/","Workers' compensation"),
+   ("/insurance/medicare/","Medicare"),("/insurance/self-pay/","Self-pay rates"),
+   ("/pricing/","Full price list"),("/dot-physical/","DOT physical $95")]),
+ ("About", [("/","Home"),("/about/dr-stewart-chen/","Dr. Stewart Chen"),("/about/team/","Our team"),
+   ("/about/","About the clinic"),("/reviews/","Patient reviews"),("/media/","In the media"),
+   ("/faq/","FAQ"),("/new-patient/","New patients"),("/contact/","Visit us")]),
+]
+NAV_FOOT = {"zh": NAV_FOOT_ZH, "en": NAV_FOOT_EN}
 
 def e(s): return html.escape(str(s), quote=True)
 
@@ -121,7 +202,8 @@ def css_version():
 
 CSSV = css_version()
 
-def src_line(keys, label="參考來源："):
+def src_line(keys, label=None):
+    label = label or T[CURLANG[0]]["src_label"]
     if not keys: return ""
     out = []
     for k in keys:
@@ -240,7 +322,7 @@ def blk(b):
         body = ('<div class="byline">%s<div class="bt"><b>%s</b><span>%s</span></div></div>'
                 % (t_, e(b.get("name", "莊錦鎮醫師 Dr. Stewart Chen, D.C.")), b.get("note", "")))
     elif t == "form":
-        body = FORM_HTML
+        body = FORM[CURLANG[0]]
     elif t == "raw":
         body = b["html"]
 
@@ -248,7 +330,7 @@ def blk(b):
         body += src_line(b["sources"])
     return f'<section class="{b.get("bg","")}"><div class="wrap">{head}{body}</div></section>'
 
-FORM_HTML = f'''<form class="formwrap" id="cbForm" method="POST" action="REPLACE_WITH_ENDPOINT" novalidate>
+FORM_ZH = f'''<form class="formwrap" id="cbForm" method="POST" action="REPLACE_WITH_ENDPOINT" novalidate>
 <div style="position:absolute;left:-9999px" aria-hidden="true"><label>請勿填寫<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
 <label for="n">稱呼 <span style="color:var(--accent)">*</span></label>
 <input id="n" name="name" type="text" required autocomplete="name" placeholder="例：陳先生">
@@ -267,6 +349,28 @@ FORM_HTML = f'''<form class="formwrap" id="cbForm" method="POST" action="REPLACE
 <button type="submit">送出，請診所回電</button>
 <p class="formnote">我們只會用這個號碼與您聯繫預約事宜。<br>急需就診請直接致電 <a href="tel:{BIZ["tel_href"]}">{BIZ["tel_display"]}</a>。</p>
 </form>'''
+
+FORM_EN = f'''<form class="formwrap" id="cbForm" method="POST" action="REPLACE_WITH_ENDPOINT" novalidate>
+<div style="position:absolute;left:-9999px" aria-hidden="true"><label>Leave blank<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+<label for="n">Your name <span style="color:var(--accent)">*</span></label>
+<input id="n" name="name" type="text" required autocomplete="name" placeholder="e.g. Mr. Chen">
+<label for="t">Phone to call back <span style="color:var(--accent)">*</span></label>
+<input id="t" name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="510-000-0000">
+<label for="r">What would you like help with?</label>
+<select id="r" name="reason"><option value="">Select (optional)</option>
+<option>Auto accident injury</option><option>Work injury</option><option>Back, neck or shoulder pain</option>
+<option>Sciatica / numbness or tingling</option><option>DOT / CDL driver physical</option><option>Acupuncture or massage therapy</option>
+<option>Something else / not sure</option></select>
+<label for="w">Best time to reach you</label>
+<select id="w" name="best_time"><option>Morning 9:00–12:00</option><option>Early afternoon 12:00–15:00</option>
+<option>Late afternoon 15:00–18:00</option><option>Any time</option></select>
+<label for="l">Preferred language</label>
+<select id="l" name="language"><option>English</option><option>Cantonese</option><option>Mandarin</option><option>Taiwanese</option></select>
+<button type="submit">Send — please call me back</button>
+<p class="formnote">We'll only use this number to arrange your appointment.<br>If you need to be seen urgently, please call <a href="tel:{BIZ["tel_href"]}">{BIZ["tel_display"]}</a>.</p>
+</form>'''
+
+FORM = {"zh": FORM_ZH, "en": FORM_EN}
 
 # ─────────────────── Schema ───────────────────
 def clinic_node():
@@ -296,7 +400,13 @@ def clinic_node():
       "employee":{"@id":f"{SITE}/#drchen"},
     }
 
-def physician_node():
+def physician_node(lg="zh"):
+    # QME 目前無法在加州 DWC 名冊查得。英文站的內文沒有這項宣稱，
+    # 結構化資料必須與頁面可見內容一致，所以英文頁不輸出這一筆。
+    qme = [] if lg == "en" else [
+        {"@type":"EducationalOccupationalCredential","credentialCategory":"Qualified Medical Evaluator (QME)",
+         "recognizedBy":{"@type":"GovernmentOrganization",
+           "name":"State of California, Division of Workers' Compensation","url":"https://www.dir.ca.gov/dwc/"}}]
     return {
       "@type":"Physician","@id":f"{SITE}/#drchen","name":"Dr. Stewart Chen, D.C.",
       "alternateName":"莊錦鎮","medicalSpecialty":"Chiropractic",
@@ -311,9 +421,7 @@ def physician_node():
          "name":"California Chiropractic License","identifier":"18759","validThrough":"2027-03-31",
          "recognizedBy":{"@type":"GovernmentOrganization",
            "name":"California Board of Chiropractic Examiners","url":"https://www.chiro.ca.gov/"}},
-        {"@type":"EducationalOccupationalCredential","credentialCategory":"Qualified Medical Evaluator (QME)",
-         "recognizedBy":{"@type":"GovernmentOrganization",
-           "name":"State of California, Division of Workers' Compensation","url":"https://www.dir.ca.gov/dwc/"}},
+        ] + qme + [
         {"@type":"EducationalOccupationalCredential","credentialCategory":"Certified Medical Examiner",
          "name":"FMCSA National Registry of Certified Medical Examiners",
          "identifier":"5497424313","dateCreated":"2019-07-22","validThrough":"2029-07-22",
@@ -327,7 +435,7 @@ def build_schema(p):
     url = url.replace("//", "/").replace("https:/", "https://")
     g = []
     if p["slug"] == "":
-        g.append(clinic_node()); g.append(physician_node())
+        g.append(clinic_node()); g.append(physician_node(p.get("lang","zh")))
     else:
         g.append({"@type":["MedicalBusiness","Chiropractic"],"@id":f"{SITE}/#clinic",
                   "name":BIZ["en"],"alternateName":[BIZ["zh"]],"url":SITE+"/",
@@ -346,7 +454,7 @@ def build_schema(p):
         if p["service"].get("offers"): s["offers"] = p["service"]["offers"]
         if p["service"].get("procedureType"): s["procedureType"] = p["service"]["procedureType"]
         g.append(s)
-    if p.get("person_schema"): g.append(physician_node())
+    if p.get("person_schema"): g.append(physician_node(p.get("lang","zh")))
     if p.get("faqs"):
         g.append({"@type":"FAQPage","@id":url+"#faq","mainEntity":[
             {"@type":"Question","name":q,
@@ -381,10 +489,13 @@ def build_schema(p):
 
 # ─────────────────── 頁面組裝 ───────────────────
 def render(p):
+    lg = p.get("lang", "zh")
+    CURLANG[0] = lg
+    P = pfx(lg)                      # 中文頁在 /zh 底下，英文頁在根目錄
     slug = p["slug"]
-    url = SITE + "/" + (slug + "/" if slug else "")
+    url = SITE + P + "/" + (slug + "/" if slug else "")
     depth_prefix = "/"
-    crumb_items = [("首頁","/")] + list(p.get("crumbs",[]))
+    crumb_items = [(t("home"), "/")] + list(p.get("crumbs", []))
     crumb_html = "".join(f'<a href="{e(u)}">{e(n)}</a><span>›</span>' for n,u in crumb_items)
     crumb_html += f'<strong style="color:var(--ink-2);font-weight:600">{e(p.get("crumb_self") or p["h1"])}</strong>'
 
@@ -402,32 +513,32 @@ def render(p):
             items += (f'<details{op}><summary>{e(q)}</summary><div class="fa">{a}'
                       f'{src_line(s) if s else ""}</div></details>')
         faq_html = (f'<section class="{p.get("faq_bg","")}"><div class="wrap">'
-                    f'<div class="sechead"><p class="eyebrow">常見問題</p>'
-                    f'<h2>{e(p.get("faq_h2","常見問題"))}</h2></div>'
+                    f'<div class="sechead"><p class="eyebrow">{e(t("faq_eyebrow"))}</p>'
+                    f'<h2>{e(p.get("faq_h2") or t("faq_h2"))}</h2></div>'
                     f'<div class="faq">{items}</div></div></section>')
 
     blocks_html = "".join(blk(b) for b in p.get("blocks", []))
 
     rel_html = ""
     if p.get("related"):
-        rel_html = blk({"t":"related","bg":"alt","eyebrow":"相關頁面",
-                        "h2":p.get("related_h2","你可能也需要看這些"),"items":p["related"]})
+        rel_html = blk({"t":"related","bg":"alt","eyebrow":t("rel_eyebrow"),
+                        "h2":p.get("related_h2") or t("rel_h2"),"items":p["related"]})
 
     cta_html = ""
     if p.get("cta", True):
         cta_html = (f'<section class="{p.get("cta_bg","")}" id="callback"><div class="wrap">'
-                    f'<div class="sechead"><p class="eyebrow">回電預約</p>'
-                    f'<h2>不方便現在打電話？留下時段，我們回電給您</h2>'
-                    f'<p>本中心採電話預約。若您現在不方便通話，填寫下方表單，我們會在門診時間內主動致電。</p>'
-                    f'</div>{FORM_HTML}</div></section>')
+                    f'<div class="sechead"><p class="eyebrow">{e(t("cta_eyebrow"))}</p>'
+                    f'<h2>{e(t("cta_h2"))}</h2>'
+                    f'<p>{e(t("cta_p"))}</p>'
+                    f'</div>{FORM[lg]}</div></section>')
 
     nap = ""
     if p.get("nap"):
         nap = f'''<div class="napbar">
-      <div class="napitem"><div class="k">地址</div><div class="v">{BIZ["street"]}<br>{BIZ["city"]}, {BIZ["region"]} {BIZ["zip"]}</div></div>
-      <div class="napitem"><div class="k">交通</div><div class="v">Lake Merritt BART<br>步行約 5 分鐘</div></div>
-      <div class="napitem"><div class="k">看診語言</div><div class="v">粵語・國語・台語<br>閩南話・English</div></div>
-      <div class="napitem"><div class="k">電話</div><div class="v"><a href="tel:{BIZ["tel_href"]}">{BIZ["tel_display"]}</a><br><span style="color:var(--ink-3);font-size:13.5px">週日休診</span></div></div>
+      <div class="napitem"><div class="k">{t("nap")[0]}</div><div class="v">{BIZ["street"]}<br>{BIZ["city"]}, {BIZ["region"]} {BIZ["zip"]}</div></div>
+      <div class="napitem"><div class="k">{t("nap")[1]}</div><div class="v">{t("nap_bart")}</div></div>
+      <div class="napitem"><div class="k">{t("nap")[2]}</div><div class="v">{t("nap_langs")}</div></div>
+      <div class="napitem"><div class="k">{t("nap")[3]}</div><div class="v"><a href="tel:{BIZ["tel_href"]}">{BIZ["tel_display"]}</a><br><span style="color:var(--ink-3);font-size:13.5px">{t("closed")}</span></div></div>
     </div>'''
 
     cur = "/" + (slug + "/" if slug else "")
@@ -437,27 +548,43 @@ def render(p):
     CUR_ATTR = ' aria-current="page"'
     nav_html = "".join(
         '<a href="%s"%s>%s</a>' % (e(u), CUR_ATTR if nav_active(u) else "", e(n))
-        for u, n in NAV_MAIN)
+        for u, n in NAV_MAIN[lg])
 
     foot_cols = "".join(
-        f'<div><h4>{e(t)}</h4><ul>' + "".join(f'<li><a href="{e(u)}">{e(n)}</a></li>' for u,n in ls) + "</ul></div>"
-        for t,ls in NAV_FOOT)
+        f'<div><h4>{e(_t)}</h4><ul>' + "".join(f'<li><a href="{e(u)}">{e(n)}</a></li>' for u,n in ls) + "</ul></div>"
+        for _t, ls in NAV_FOOT[lg])
+
+    # 語言切換：同一個 slug 若另一語言也有，就指過去；沒有就指對方首頁
+    other = "en" if lg == "zh" else "zh"
+    other_slug = slug if slug in HAVE[other] else ""
+    other_path = pfx(other) + "/" + (other_slug + "/" if other_slug else "")
+    lang_btn = ('<a class="langsw" href="%s%s" hreflang="%s" lang="%s">%s</a>'
+                % (LANGMARK, other_path, T[other]["htmllang"], T[other]["htmllang"], e(t("other"))))
+    foot_lang = ('<a href="%s%s" hreflang="%s">%s</a>'
+                 % (LANGMARK, other_path, T[other]["htmllang"], e(t("other"))))
+
+    # hreflang：只在兩邊都有這一頁時才互指，避免指到不存在的網址
+    al = ['<link rel="canonical" href="%s">' % e(url)]
+    if slug in HAVE[other]:
+        me, them = (SITE + P + "/" + (slug + "/" if slug else "")), (SITE + other_path)
+        pair = {lg: me, other: them}
+        al.append('<link rel="alternate" hreflang="zh-Hant" href="%s">' % e(pair["zh"]))
+        al.append('<link rel="alternate" hreflang="en" href="%s">' % e(pair["en"]))
+        al.append('<link rel="alternate" hreflang="x-default" href="%s">' % e(pair["en"]))
+    alt_links = "\n".join(al)
 
     return f'''<!doctype html>
-<html lang="zh-Hant">
+<html lang="{t("htmllang")}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(p["title"])}</title>
 {gtm_head()}
 <meta name="description" content="{e(p["desc"])}">
-<link rel="canonical" href="{e(url)}">
-<link rel="alternate" hreflang="zh-Hant" href="{e(url)}">
-<link rel="alternate" hreflang="en" href="{EN_SITE}/">
-<link rel="alternate" hreflang="x-default" href="{EN_SITE}/">
+{alt_links}
 <meta property="og:type" content="website">
-<meta property="og:locale" content="zh_TW">
-<meta property="og:site_name" content="{BIZ["zh"]} {BIZ["en"]}">
+<meta property="og:locale" content="{t("oglocale")}">
+<meta property="og:site_name" content="{e(t("name"))}">
 <meta property="og:title" content="{e(p["title"])}">
 <meta property="og:description" content="{e(p["desc"])}">
 <meta property="og:url" content="{e(url)}">
@@ -466,23 +593,23 @@ def render(p):
 </head>
 <body>
 {gtm_body()}
-<a href="#main" class="skip">跳到主要內容</a>
+<a href="#main" class="skip">{e(t("skip"))}</a>
 <header class="top"><div class="wrap topbar">
   <a href="/" class="brand"><span class="mark" aria-hidden="true">莊</span>
-  <span><span class="bname">{BIZ["zh"]}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ["founded"]}</span></span></a>
-  <a href="tel:{BIZ["tel_href"]}" class="callbtn">致電 {BIZ["tel_display"]}</a>
+  <span><span class="bname">{e(t("brandname"))}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ["founded"]}</span></span></a>
+  <span class="topright">{lang_btn}<a href="tel:{BIZ["tel_href"]}" class="callbtn">{e(t("call"))} {BIZ["tel_display"]}</a></span>
 </div>
-<nav class="mainnav" aria-label="主選單"><div class="wrap">{nav_html}</div></nav>
+<nav class="mainnav" aria-label="{e(t("nav"))}"><div class="wrap">{nav_html}</div></nav>
 </header>
-<nav class="crumb" aria-label="麵包屑"><div class="wrap">{crumb_html}</div></nav>
+<nav class="crumb" aria-label="{e(t("crumb"))}"><div class="wrap">{crumb_html}</div></nav>
 <main id="main">
 <div class="phead"><div class="wrap">
-  <span class="openpill"><span class="dot" aria-hidden="true"></span>{BIZ["hours_zh"]}</span>
+  <span class="openpill"><span class="dot" aria-hidden="true"></span>{e(t("hours"))}</span>
   <h1>{e(p["h1"])}</h1>
   <p class="answer">{p["answer"]}</p>
   <div class="cta-row">
-    <a href="tel:{BIZ["tel_href"]}" class="btn btn-p">致電預約 {BIZ["tel_display"]}</a>
-    <a href="#callback" class="btn btn-s">請診所回電</a>
+    <a href="tel:{BIZ["tel_href"]}" class="btn btn-p">{e(t("callcta"))} {BIZ["tel_display"]}</a>
+    <a href="#callback" class="btn btn-s">{e(t("callback"))}</a>
   </div>
   {hero_html}
   {nap}
@@ -494,15 +621,15 @@ def render(p):
 </main>
 <footer><div class="wrap">
   <div class="fgrid">
-    <div><h4>{BIZ["zh"]}</h4><p style="color:var(--ink-2);margin:0;line-height:1.75;font-size:14.8px">
+    <div><h4>{e(t("name"))}</h4><p style="color:var(--ink-2);margin:0;line-height:1.75;font-size:14.8px">
       {BIZ["en"]}<br>{BIZ["street"]}<br>{BIZ["city"]}, {BIZ["region"]} {BIZ["zip"]}<br>
       <a href="tel:{BIZ["tel_href"]}" style="font-weight:650">{BIZ["tel_display"]}</a></p></div>
     {foot_cols}
   </div>
   <div class="fbot">
-    營業時間：{BIZ["hours_zh"]} · 週日休診<br>
-    本網站內容僅供一般健康資訊參考，不能取代專業醫療診斷或治療建議。個別狀況請親自到診評估。<br>
-    © 2026 {BIZ["en"]} · 奧克蘭中國城執業 {BIZ["years"]} 年 · <a href="{EN_SITE}/" hreflang="en">English Site</a>
+    {e(t("hoursline"))}{e(t("hours"))} · {e(t("closed"))}<br>
+    {e(t("disclaimer"))}<br>
+    © 2026 {BIZ["en"]} · {e(t("footline"))} · {foot_lang}
   </div>
 </div></footer>
 <script type="application/ld+json">
@@ -516,13 +643,28 @@ window.dataLayer.push({{event:'callback_submit',form_name:'callback_request',rea
 // 收件端點還沒設定時，不要真的送出（會變成 404），改成提示
 if((f.getAttribute('action')||'').indexOf('REPLACE_WITH_ENDPOINT')>-1){{
   e.preventDefault();
-  alert('這是預覽版，表單還沒接上收件信箱，所以不會真的送出。\\n\\n正式上線後，送出的內容會寄到診所的信箱。\\n現在要預約請直接致電 510-465-7982。');
+  alert('{t("preview_alert")}');
 }}}});
 document.querySelectorAll('a[href^="tel:"]').forEach(function(a){{a.addEventListener('click',function(){{
 window.dataLayer.push({{event:'phone_click',phone_number:a.getAttribute('href').replace('tel:',''),page_path:location.pathname}});}});}});
 }})();
 </script>
 </body></html>'''
+
+def apply_lang(html_text, lg):
+    """中文頁掛在 /zh 底下，內容裡寫的都是 /services/ 這種根相對路徑，
+    在這裡統一補上前綴。/assets/ 是共用資源不動；帶 LANGMARK 的是語言切換鈕，
+    要指向另一個語言，所以也不能補。"""
+    if lg != "zh":
+        return html_text.replace(LANGMARK, "")
+    def rep(m):
+        attr, path = m.group(1), m.group(2)
+        if path.startswith("/assets/"):
+            return m.group(0)
+        return '%s="/zh%s' % (attr, path)
+    html_text = re.sub(r'(href|src)="(/(?!/)[^"]*)', rep, html_text)
+    # srcset 只會指向 /assets/，不需處理
+    return html_text.replace(LANGMARK, "")
 
 def apply_base(html_text):
     """把站內絕對路徑 /xxx 加上子路徑前綴，並視需要插入 noindex。
@@ -544,15 +686,24 @@ def apply_base(html_text):
             "<head>", '<head>\n<meta name="robots" content="noindex,nofollow">', 1)
     return html_text
 
+def out_dir(p):
+    parts = [OUT]
+    if p.get("lang", "zh") == "zh": parts.append("zh")
+    if p["slug"]: parts.append(p["slug"])
+    return os.path.join(*parts)
+
 def write(p):
-    d = os.path.join(OUT, p["slug"]) if p["slug"] else OUT
+    lg = p.get("lang", "zh")
+    d = out_dir(p)
     os.makedirs(d, exist_ok=True)
     with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
-        f.write(apply_base(render(p)))
+        f.write(apply_base(apply_lang(render(p), lg)))
     return os.path.join(d, "index.html")
 
 def main():
     from content import PAGES
+    for _p in PAGES:
+        HAVE[_p.get("lang", "zh")].add(_p["slug"])
     if os.path.isdir(OUT): shutil.rmtree(OUT)
     os.makedirs(OUT)
     shutil.copytree("assets", os.path.join(OUT, "assets"))
@@ -570,7 +721,7 @@ def main():
     # sitemap
     prio = {"":"1.0","dot-physical":"0.9","services":"0.9","insurance":"0.9","pricing":"0.8","contact":"0.8"}
     urls = "".join(
-        f'  <url><loc>{SITE}/{p["slug"]+"/" if p["slug"] else ""}</loc>'
+        f'  <url><loc>{SITE}{pfx(p.get("lang","zh"))}/{p["slug"]+"/" if p["slug"] else ""}</loc>'
         f'<lastmod>{TODAY}</lastmod>'
         f'<priority>{prio.get(p["slug"], "0.9" if p["slug"].count("/")==1 else "0.6")}</priority></url>\n'
         for p in PAGES)
@@ -578,8 +729,11 @@ def main():
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n")
     # 404 與感謝頁（不進 sitemap、加 noindex）
-    shell = lambda title, h, body: f"""<!doctype html>
-<html lang="zh-Hant"><head><meta charset="utf-8">
+    # 404 與感謝頁：GitHub Pages 全站只會用根目錄這一個 404，所以做成雙語一頁。
+    def shell(lg, title, h, body):
+        tt = T[lg]
+        return f"""<!doctype html>
+<html lang="{tt['htmllang']}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <title>{title}</title>
@@ -588,32 +742,58 @@ def main():
 <body>
 {gtm_body()}
 <header class="top"><div class="wrap topbar">
-<a href="/" class="brand"><span class="mark" aria-hidden="true">莊</span>
-<span><span class="bname">{BIZ['zh']}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ['founded']}</span></span></a>
-<a href="tel:{BIZ['tel_href']}" class="callbtn">致電 {BIZ['tel_display']}</a></div></header>
-<main><section style="padding:90px 0;text-align:center"><div class="wrap narrow">
+<a href="{pfx(lg)}/" class="brand"><span class="mark" aria-hidden="true">莊</span>
+<span><span class="bname">{tt['brandname']}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ['founded']}</span></span></a>
+<a href="tel:{BIZ['tel_href']}" class="callbtn">{tt['call']} {BIZ['tel_display']}</a></div></header>
+<main><section style="padding:70px 0 30px;text-align:center"><div class="wrap narrow">
 <h1 style="max-width:none;margin-inline:auto">{h}</h1>{body}</div></section></main>
-<footer><div class="wrap"><div class="fbot">營業時間：{BIZ['hours_zh']} · 週日休診<br>
+<footer><div class="wrap"><div class="fbot">{tt['hoursline']}{tt['hours']} · {tt['closed']}<br>
 © 2026 {BIZ['en']} · {BIZ['street']}, {BIZ['city']}, {BIZ['region']} {BIZ['zip']}</div></div></footer>
 </body></html>"""
-    with open(os.path.join(OUT,"404.html"),"w",encoding="utf-8") as f:
-        f.write(apply_base(shell("找不到頁面 — "+BIZ["zh"], "找不到這個頁面",
-          f'''<p class="answer" style="margin-inline:auto">您要找的頁面可能已移除或網址有誤。需要預約或有任何問題，歡迎直接來電。</p>
+
+    def bilingual(en_body, zh_body):
+        """英文在上、中文在下，中間一條分隔線。"""
+        return (en_body
+                + '<hr style="margin:56px auto 46px;max-width:120px;border:0;border-top:2px solid var(--line)">'
+                + '<div lang="zh-Hant">' + zh_body + '</div>')
+
+    nf_en = f'''<p class="answer" style="margin-inline:auto">{T["en"]["nf_p"]}</p>
+<div class="cta-row" style="justify-content:center">
+<a href="tel:{BIZ["tel_href"]}" class="btn btn-p">{T["en"]["callcta"]} {BIZ["tel_display"]}</a>
+<a href="/" class="btn btn-s">Back to home</a></div>
+<div class="related" style="margin-top:34px;text-align:left">
+<a class="rel" href="/services/">Services<span>Conditions and treatments</span></a>
+<a class="rel" href="/dot-physical/">DOT physical $95<span>Commercial driver examination</span></a>
+<a class="rel" href="/insurance/">Fees and insurance<span>Four ways treatment is paid for</span></a>
+<a class="rel" href="/contact/">Visit us<span>Directions and hours</span></a></div>'''
+
+    nf_zh = f'''<h2 style="text-align:center;margin-bottom:14px">找不到這個頁面</h2>
+<p class="answer" style="margin-inline:auto">您要找的頁面可能已移除或網址有誤。需要預約或有任何問題，歡迎直接來電。</p>
 <div class="cta-row" style="justify-content:center">
 <a href="tel:{BIZ["tel_href"]}" class="btn btn-p">致電預約 {BIZ["tel_display"]}</a>
-<a href="/" class="btn btn-s">回到首頁</a></div>
-<div class="related" style="margin-top:40px;text-align:left">
-<a class="rel" href="/services/">治療項目<span>16 個症狀與療法頁面</span></a>
-<a class="rel" href="/dot-physical/">DOT 體檢 $95<span>商業司機體檢</span></a>
-<a class="rel" href="/insurance/">費用與保險<span>五種付費方式</span></a>
-<a class="rel" href="/contact/">交通與停車<span>地址與門診時間</span></a></div>''')))
-    with open(os.path.join(OUT,"thanks.html"),"w",encoding="utf-8") as f:
-        f.write(apply_base(shell("已收到您的回電申請 — "+BIZ["zh"], "已收到，我們會盡快回電",
-          f'''<p class="answer" style="margin-inline:auto">感謝您的來信。我們會在門診時間內（{BIZ["hours_zh"]}）依您選擇的時段主動致電。若急需就診，也歡迎直接來電。</p>
+<a href="/zh/" class="btn btn-s">回到中文首頁</a></div>
+<div class="related" style="margin-top:34px;text-align:left">
+<a class="rel" href="/zh/services/">治療項目<span>16 個症狀與療法頁面</span></a>
+<a class="rel" href="/zh/dot-physical/">DOT 體檢 $95<span>商業司機體檢</span></a>
+<a class="rel" href="/zh/insurance/">費用與保險<span>五種付費方式</span></a>
+<a class="rel" href="/zh/contact/">交通與停車<span>地址與門診時間</span></a></div>'''
+
+    with open(os.path.join(OUT,"404.html"),"w",encoding="utf-8") as f:
+        f.write(apply_base(shell("en", T["en"]["nf_t"]+" — "+BIZ["en"], T["en"]["nf_h"],
+                                 bilingual(nf_en, nf_zh))))
+
+    ty_en = f'''<p class="answer" style="margin-inline:auto">{T["en"]["ty_p"]}</p>
+<div class="cta-row" style="justify-content:center">
+<a href="tel:{BIZ["tel_href"]}" class="btn btn-p">{T["en"]["call"]} {BIZ["tel_display"]}</a>
+<a href="/" class="btn btn-s">Back to home</a></div>'''
+    ty_zh = f'''<h2 style="text-align:center;margin-bottom:14px">已收到，我們會主動致電</h2>
+<p class="answer" style="margin-inline:auto">感謝您的來信。我們會在門診時間內（{BIZ["hours_zh"]}）依您選擇的時段主動致電。若急需就診，也歡迎直接來電。</p>
 <div class="cta-row" style="justify-content:center">
 <a href="tel:{BIZ["tel_href"]}" class="btn btn-p">直接致電 {BIZ["tel_display"]}</a>
-<a href="/" class="btn btn-s">回到首頁</a></div>
-<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({{event:"callback_thankyou"}});</script>''')))
+<a href="/zh/" class="btn btn-s">回到中文首頁</a></div>'''
+    with open(os.path.join(OUT,"thanks.html"),"w",encoding="utf-8") as f:
+        f.write(apply_base(shell("en", T["en"]["ty_t"]+" — "+BIZ["en"], T["en"]["ty_h"],
+                                 bilingual(ty_en, ty_zh))))
     # 審稿用的全站目錄（noindex，不進 sitemap）
     groups = [("品牌層",""),("服務層","services/"),("DOT 筒倉","dot-physical"),
               ("付費層","insurance/"),("信任層",None)]

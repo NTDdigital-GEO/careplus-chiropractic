@@ -80,23 +80,26 @@ for u,s in pages.items():
 if schema_bad:
     fails.append("schema 問題")
     for u,r in schema_bad[:10]: print(f"  ✗ {u}: {r}")
-else: print(f"✓ Schema：35 頁全部可解析，含 WebPage/BreadcrumbList/MedicalBusiness；FAQ 共 {faq_total} 題")
+else: print(f"✓ Schema：{len(pages)} 頁全部可解析，含 WebPage/BreadcrumbList/MedicalBusiness；FAQ 共 {faq_total} 題")
 
 # 5) title / description 唯一
 for field,pat in [("title",r'<title>(.*?)</title>'),("description",r'<meta name="description" content="([^"]*)"')]:
     vals=[re.search(pat,s,re.S).group(1) for s in pages.values()]
     dup=[v for v,c in Counter(vals).items() if c>1]
     if dup: fails.append(f"{field} 重複"); print(f"  ✗ {field} 重複：{dup[:3]}")
-    else: print(f"✓ {field}：35 頁全部唯一")
+    else: print(f"✓ {field}：{len(pages)} 頁全部唯一")
 
 # 6) 直答段落長度（中文字元）
 short=[]
 for u,s in pages.items():
     m=re.search(r'<p class="answer">(.*?)</p>',s,re.S)
     t=re.sub(r'<[^>]+>','',m.group(1)).strip() if m else ""
-    n=len(re.findall(r'[一-鿿]',t))
-    if n<40 or n>160: short.append((u,n))
-if short: warns.append("直答段落長度需留意"); [print(f"  ! {u} 中文字數 {n}") for u,n in short[:6]]
+    if u.startswith("/zh/") or u == "/zh/":
+        n = len(re.findall(r'[一-鿿]', t)); lo, hi, unit = 40, 160, "中文字"
+    else:
+        n = len(t.split()); lo, hi, unit = 25, 95, "英文字"
+    if n < lo or n > hi: short.append((u, f"{n} {unit}"))
+if short: warns.append("直答段落長度需留意"); [print(f"  ! {u} 直答 {n}") for u,n in short[:8]]
 else: print("✓ 直答段落：長度皆在合理範圍")
 
 # 7) 外部資源（速度）
