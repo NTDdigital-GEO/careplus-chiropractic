@@ -1,15 +1,22 @@
 # -*- coding: utf-8 -*-
 """付費層（6 頁）— 對標參考站的 health fund 頁，本案最大機會"""
 
-def ins(slug, h1, title, desc, answer, sname, sdesc, blocks, faqs, related, crumb_self=None):
-    return {"slug":"insurance/"+slug,"crumbs":[("付費方式","/insurance/")],
-            "crumb_self":crumb_self or h1.split("｜")[0],"cta_bg":"alt",
-            "title":title,"desc":desc,"h1":h1,"answer":answer,
-            "service":{"type":"Service","name":sname,"desc":sdesc},
-            "blocks":blocks,"faqs":faqs,"related":related}
+def ins(slug, h1, title, desc, answer, sname, sdesc, blocks, faqs, related,
+        crumb_self=None, hero=None, photos=None, photos_h2=None):
+    if photos:
+        blocks = list(blocks) + [{"t":"photos","eyebrow":"診所實景",
+                                  "h2":photos_h2 or "診所環境","items":photos}]
+    p = {"slug":"insurance/"+slug,"crumbs":[("付費方式","/insurance/")],
+         "crumb_self":crumb_self or h1.split("｜")[0],"cta_bg":"alt",
+         "title":title,"desc":desc,"h1":h1,"answer":answer,
+         "service":{"type":"Service","name":sname,"desc":sdesc},
+         "blocks":blocks,"faqs":faqs,"related":related}
+    if hero: p["hero"] = hero
+    return p
 
 HUB = {
  "slug":"insurance","crumbs":[],"crumb_self":"付費方式","cta_bg":"alt",
+ "hero":("reception","診所櫃台，費用與保險相關事項在這裡處理"),
  "title":"費用與保險｜車禍・工傷・Medicare・私人保險・自費",
  "desc":"在美國，脊椎治療的費用來源決定你需要準備什麼文件。本頁說明車禍理賠、工傷理賠、Medicare、私人保險與自費五種情況的處理方式。莊錦鎮脊椎治療中心，奧克蘭中國城。",
  "h1":"費用怎麼算：先確認誰付錢",
@@ -85,7 +92,10 @@ AUTO = ins("auto-accident",
  [("/services/auto-injury/","車禍受傷復健","治療流程與處理方式"),
   ("/services/neck-shoulder-pain/","頸肩疼痛","揮鞭式損傷的處理"),
   ("/new-patient/","初診須知","第一次來的完整準備"),
-  ("/insurance/","付費方式總覽","其他四種情況")])
+  ("/insurance/","付費方式總覽","其他四種情況")],
+ photos=[("xray-machine","診所內的數位 X 光機","車禍後的結構評估在院內完成，影像也成為理賠紀錄的一部分"),
+         ("exam-room","診間內的檢查器材與 X 光看片燈",None)],
+ photos_h2="評估與紀錄在哪裡做")
 
 WC = ins("workers-comp",
 "工傷理賠流程｜加州勞工賠償・奧克蘭",
@@ -126,7 +136,10 @@ WC = ins("workers-comp",
  [("/services/work-injury/","工傷評估與治療","治療流程與處理方式"),
   ("/about/dr-stewart-chen/","莊錦鎮醫師","執照與認證資格"),
   ("/services/lower-back-pain/","腰背疼痛","最常見的工傷部位"),
-  ("/insurance/","付費方式總覽","其他四種情況")])
+  ("/insurance/","付費方式總覽","其他四種情況")],
+ photos=[("patient-files","診所的病歷檔案櫃","工傷案件是靠紀錄在走的，每一次就診都會進入檔案"),
+         ("exam-room","診間內的檢查器材與 X 光看片燈",None)],
+ photos_h2="紀錄從這裡開始")
 
 MEDICARE = ins("medicare",
  "Medicare 給付範圍",
@@ -163,7 +176,9 @@ MEDICARE = ins("medicare",
  [("/insurance/self-pay/","自費價目","不給付項目的費用"),
   ("/pricing/","價目總表","各項服務的價格"),
   ("/services/lower-back-pain/","腰背疼痛","長者常見的求診原因"),
-  ("/insurance/","付費方式總覽","其他四種情況")])
+  ("/insurance/","付費方式總覽","其他四種情況")],
+ photos=[("adjusting-table","診間內的脊椎矯正床","Medicare Part B 給付的正是脊椎徒手矯正這一項")],
+ photos_h2="Medicare 給付的項目")
 
 PPO = ins("ppo",
  "私人保險 PPO",
@@ -197,7 +212,9 @@ PPO = ins("ppo",
  [("/insurance/self-pay/","自費價目","保險不給付時的費用"),
   ("/pricing/","價目總表","各項服務的價格"),
   ("/services/acupuncture/","針灸","給付常需另外確認"),
-  ("/insurance/","付費方式總覽","其他四種情況")])
+  ("/insurance/","付費方式總覽","其他四種情況")],
+ photos=[("waiting-room","診所候診室",None)],
+ photos_h2="診所環境")
 
 SELF = ins("self-pay",
  "自費價目",
@@ -230,6 +247,8 @@ SELF = ins("self-pay",
  [("/dot-physical/","DOT 體檢 $95","固定價，當天取報告"),
   ("/pricing/","價目總表","所有項目的整理"),
   ("/new-patient/","初診須知","第一次來要準備什麼"),
-  ("/insurance/","付費方式總覽","其他四種情況")])
+  ("/insurance/","付費方式總覽","其他四種情況")],
+ photos=[("exam-room","診間內的檢查器材與 X 光看片燈","初診費用包含必要時的院內數位 X 光")],
+ photos_h2="初診在哪裡進行")
 
 PAGES = [HUB, AUTO, WC, MEDICARE, PPO, SELF]

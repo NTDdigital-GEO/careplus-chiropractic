@@ -271,6 +271,9 @@ PAGES = [
     ("Clothing","Comfortable, loose clothing","You may be asked to move through a range of positions during the examination.",False),
     ("Language","Tell us when you book","Cantonese, Mandarin, Taiwanese, Tagalog, Vietnamese and English are all available.",False),
     ("Payment","Depends on the route","Auto accident, workers' compensation, private insurance and self-pay each work differently.",False)]},
+  {"t":"photos","bg":"alt","eyebrow":"Day to day","h2":"There's no need to be nervous",
+   "lede":"People often arrive more anxious than they expected. This is not that kind of place.",
+   "items":[("clinic-dog","The clinic's Shih Tzu","Usually somewhere near the waiting area")]},
  ],
  "faqs":[
   ("Will I be treated on the first visit?","<p>Sometimes, but not always. The assessment comes first. If treatment is appropriate on the day and you want to go ahead, it can start then. If more information is needed first, we will say so.</p>",None),

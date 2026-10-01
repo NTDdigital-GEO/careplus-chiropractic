@@ -137,7 +137,8 @@ MASSAGE = svc("massage-therapy",
   ("/services/neck-shoulder-pain/","頸肩疼痛","常需要推拿處理的部位"),
   ("/services/sports-injury/","運動傷害","軟組織的恢復處理"),
   ("/pricing/","價目與費用","自費項目說明")],
- photos=[('massage-chair', '治療室內的按摩椅與矯正床', None)])
+ photos=[("cupping","莊錦鎮醫師進行拔罐治療",None),
+         ('massage-chair', '治療室內的按摩椅與矯正床', None)])
 
 REHAB = svc("rehab-exercise",
  "復健運動與物理治療",

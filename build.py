@@ -595,6 +595,23 @@ def render(p):
         al.append('<link rel="alternate" hreflang="x-default" href="%s">' % e(pair["en"]))
     alt_links = "\n".join(al)
 
+    # 分享預覽圖（LINE／WhatsApp／微信／Facebook 轉傳時顯示）。
+    # 有首圖就用首圖，沒有就退回店面照，不要讓任何一頁沒有預覽圖。
+    og_slug = hero[0] if (hero and hero[0] in IMG) else ("storefront" if "storefront" in IMG else None)
+    og_alt  = hero[1] if (hero and hero[0] in IMG) else BIZ["en"]
+    og_tags = ""
+    if og_slug:
+        _m = IMG[og_slug]
+        _w = max([x for x in _m["sizes"] if x <= 1280] or _m["sizes"][:1])
+        _url = f"{SITE}/assets/img/{og_slug}-{_w}.jpg"
+        _h = round(_m["h"] * _w / _m["w"])
+        og_tags = ('<meta property="og:image" content="%s">\n'
+                   '<meta property="og:image:width" content="%d">\n'
+                   '<meta property="og:image:height" content="%d">\n'
+                   '<meta property="og:image:alt" content="%s">\n'
+                   '<meta name="twitter:image" content="%s">'
+                   % (e(_url), _w, _h, e(og_alt), e(_url)))
+
     return f'''<!doctype html>
 <html lang="{t("htmllang")}">
 <head>
@@ -611,6 +628,7 @@ def render(p):
 <meta property="og:description" content="{e(p["desc"])}">
 <meta property="og:url" content="{e(url)}">
 <meta name="twitter:card" content="summary_large_image">
+{og_tags}
 <link rel="stylesheet" href="/assets/site.css?v={CSSV}">
 </head>
 <body>

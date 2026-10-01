@@ -2,7 +2,7 @@
 """信任層（5 頁）：pricing / reviews / media / faq / new-patient"""
 
 PRICING = {
- "slug":"pricing","crumbs":[],"crumb_self":"價目總表","cta_bg":"alt",
+ "slug":"pricing", "hero":('reception', '診所櫃台，費用與保險相關事項在這裡處理'),"crumbs":[],"crumb_self":"價目總表","cta_bg":"alt",
  "title":"價目與費用｜DOT 體檢 $95・初診檢查・保險給付說明",
  "desc":"莊錦鎮脊椎治療中心的費用說明：DOT／CDL 商業司機體檢固定價 $95，初診檢查、數位 X 光與後續治療的計價方式，以及車禍、工傷、Medicare、私人保險的給付差異。奧克蘭中國城。",
  "h1":"價目與計價方式",
@@ -46,7 +46,7 @@ PRICING = {
 }
 
 REVIEWS = {
- "slug":"reviews","crumbs":[],"crumb_self":"病人評價","cta_bg":"alt",
+ "slug":"reviews", "hero":('team', '莊錦鎮脊椎治療中心的醫療團隊'),"crumbs":[],"crumb_self":"病人評價","cta_bg":"alt",
  "title":"病人評價｜Google 5.0 星・39 則評論｜奧克蘭脊椎治療",
  "desc":"莊錦鎮脊椎治療中心在 Google 商家檔案上的評分為 5.0 星、39 則評論。病人最常提到的是流程快速、氣氛親切與 DOT 體檢。評分與則數以 Google 上的即時資料為準。",
  "h1":"病人怎麼說",
@@ -105,6 +105,11 @@ MEDIA = {
            ["小孩子發育成長期，脊椎檢查的必要性","說明發育期（約 12 至 14 歲）進行脊椎檢查的理由。"]],
    "sources":[("ext","https://www.youtube.com/@Dr.StewartChen","YouTube 頻道 @Dr.StewartChen"),
               ("int","/services/pediatric-spine/","兒童脊椎檢查 →")]},
+  {"t":"photos","eyebrow":"診間實況","h2":"影片之外的現場",
+   "lede":"衛教影片談的是觀念，這些是診所實際的樣子。",
+   "items":[("dr-chen-treating","莊錦鎮醫師於矯正床旁為病人治療",None),
+            ("dr-chen-adjusting","莊錦鎮醫師為病人進行頸椎矯正",None),
+            ("certificates","診所牆上的證書與獎牌",None)]},
  ],
  "faqs":[
   ("影片裡提到的方法我可以自己做嗎？","<p>影片中的姿勢與伸展建議屬於一般性的衛教資訊，適合多數人作為日常保養。但如果您已經有明確的疼痛或神經症狀，建議先做評估再決定要做什麼運動——有些動作在特定狀況下反而不適合。</p>",None),
@@ -118,7 +123,7 @@ MEDIA = {
 }
 
 FAQ = {
- "slug":"faq","crumbs":[],"crumb_self":"常見問題","cta_bg":"alt",
+ "slug":"faq", "hero":('waiting-room', '診所候診室，可見證書牆與座位區'),"crumbs":[],"crumb_self":"常見問題","cta_bg":"alt",
  "title":"常見問題總表｜初診・費用・保險・DOT 體檢｜奧克蘭",
  "desc":"莊錦鎮脊椎治療中心的常見問題整理：初診流程、看診語言、費用與保險、DOT 體檢、脊椎矯正的安全性、交通與停車。奧克蘭中國城，粵語國語台語看診。",
  "h1":"常見問題",
@@ -181,6 +186,10 @@ NEWPT = {
     ("如果當次適合，可以開始第一次治療","不是每個人初診當天都會做治療。若急性期不適合，我們會先安排其他處理。")]},
   {"t":"note","kind":"ok","h":"我們不會做的事","sources":["chiro_ca","aca"],
    "html":"<p><strong>不會要求您當場簽下長期療程合約。</strong>每次治療依實際進行的項目計費，您隨時可以決定是否繼續。<br><strong>不會在事後才講費用。</strong>任何項目在進行之前都會先說明金額。<br><strong>不會承諾治療結果。</strong>我們會說明合理的預期範圍，但每個人的狀況與反應不同，結果不會完全一樣。</p>"},
+  {"t":"photos","bg":"alt","eyebrow":"診所的日常","h2":"不用緊張",
+   "lede":"第一次來看脊椎的人常常比想像中緊張。這裡不是那種讓人不安的地方。",
+   "items":[("waiting-room","診所候診室",None),
+            ("clinic-dog","診所的西施犬","牠通常在候診區附近")]},
  ],
  "faqs":[
   ("初診當天就會做治療嗎？","<p>不一定。如果評估後認為當天適合，可以做第一次處理；但若是急性期或需要先釐清的狀況，我們會先安排其他方式或建議進一步檢查。</p>",None),

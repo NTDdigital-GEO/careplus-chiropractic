@@ -72,7 +72,7 @@ DOT = {
 }
 
 CHECKLIST = {
- "slug":"dot-physical/checklist","crumbs":[("DOT／CDL 體檢","/dot-physical/")],
+ "slug":"dot-physical/checklist", "hero":('exam-room', '進行 DOT 體檢的診間'),"crumbs":[("DOT／CDL 體檢","/dot-physical/")],
  "crumb_self":"體檢前準備清單","cta_bg":"alt",
  "title":"DOT 體檢前準備清單｜要帶什麼・注意什麼｜奧克蘭",
  "desc":"DOT／CDL 體檢前的完整準備清單：必帶文件、藥物清單、慢性病需要補充的資料，以及體檢前 24 小時的注意事項。準備齊全可以一次完成，不用跑第二趟。",
@@ -116,7 +116,7 @@ CHECKLIST = {
 }
 
 DOTFAQ = {
- "slug":"dot-physical/faq","crumbs":[("DOT／CDL 體檢","/dot-physical/")],
+ "slug":"dot-physical/faq", "hero":('xray-in-use', '診所人員操作院內的數位 X 光機'),"crumbs":[("DOT／CDL 體檢","/dot-physical/")],
  "crumb_self":"DOT 完整問答","cta_bg":"alt",
  "title":"DOT 體檢完整問答｜效期・沒過怎麼辦・費用｜奧克蘭",
  "desc":"DOT／CDL 體檢的完整問答：證明效期怎麼決定、沒通過怎麼處理、血壓與糖尿病的標準、藥物濫用檢測的差別、外州駕照可否在加州體檢等。奧克蘭中國城，$95，粵語國語台語溝通。",

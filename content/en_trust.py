@@ -25,7 +25,7 @@ PAGES = [
 
 # ── 病人評價 ─────────────────────────────────────
 {
- "slug":"reviews","crumbs":[],"crumb_self":"Patient reviews","cta_bg":"alt",
+ "slug":"reviews", "hero":('team', 'The CarePlus Chiropractic team'),"crumbs":[],"crumb_self":"Patient reviews","cta_bg":"alt",
  "title":"Patient Reviews｜CarePlus Chiropractic Oakland · Google 5.0 · 39 Reviews",
  "desc":"Patient reviews for CarePlus Chiropractic in Oakland Chinatown. Google Business Profile rating 5.0 across 39 reviews, with written testimonials from auto accident and long-term patients.",
  "h1":"What patients say",
@@ -61,7 +61,7 @@ PAGES += [
 
 # ── 費用總表 ─────────────────────────────────────
 {
- "slug":"pricing","crumbs":[],"crumb_self":"Fees","cta_bg":"alt",
+ "slug":"pricing", "hero":('reception', 'Reception, where fees and insurance are handled'),"crumbs":[],"crumb_self":"Fees","cta_bg":"alt",
  "title":"Fees｜DOT Physical $95 · Initial Examination · Insurance · CarePlus Oakland",
  "desc":"Fees at CarePlus Chiropractic in Oakland: DOT/CDL driver physical $95, initial examination with digital X-ray from $150 self-pay. Auto accident, workers' compensation and PPO billing explained.",
  "h1":"What things cost",
@@ -97,7 +97,7 @@ PAGES += [
 
 # ── 費用與保險總覽 ───────────────────────────────
 {
- "slug":"insurance","crumbs":[],"crumb_self":"Fees & insurance","cta_bg":"alt",
+ "slug":"insurance", "hero":('reception', 'Reception, where billing and insurance questions are handled'),"crumbs":[],"crumb_self":"Fees & insurance","cta_bg":"alt",
  "title":"Fees and Insurance｜Auto Accident, Workers' Comp, PPO and Self-Pay · Oakland",
  "desc":"How treatment at CarePlus Chiropractic in Oakland is paid for: auto accident claims, California workers' compensation, PPO insurance and self-pay. What documents to bring for each route.",
  "h1":"How treatment gets paid for",
@@ -150,6 +150,9 @@ PAGES += [
             "<strong>If none of this has come through yet, come anyway</strong> — being examined early matters more, and the paperwork can follow"]},
   {"t":"note","kind":"warn","h":"Timing affects the claim, not just the recovery",
    "html":"<p>The longer the gap between the collision and your first examination, the easier it is for an insurer to argue that the symptoms are unrelated. Being seen within a week keeps the record clean. This is a documentation point, not a reason to panic.</p>"},
+  {"t":"photos","eyebrow":"At the clinic","h2":"Where assessment and documentation happen",
+   "items":[("xray-machine","The clinic's digital X-ray unit","Imaging is taken on site, and becomes part of the claim record"),
+            ("exam-room","Examination room with diagnostic equipment and an X-ray viewer",None)]},
  ],
  "faqs":[
   ("Do I need an attorney?","<p>Not necessarily. Many patients are treated without one, particularly where fault is clear and injuries are straightforward. Whether to instruct an attorney is your decision — we treat either way and handle the paperwork the route requires.</p>",None),
@@ -188,6 +191,9 @@ PAGES += [
     ("Repetitive strain counts","There does not have to be one incident","Injuries that build up over months are still work injuries. They turn on documentation: when symptoms began, which tasks are involved, and how function changed.",False),
     ("Reporting late is the main risk","Time limits apply","The most common reason a genuine claim runs into trouble is a delay between injury and report.",False),
     ("You generally pay nothing","Approved treatment is the insurer's cost","For an accepted claim, approved treatment is paid by the employer's insurer, not by you.",False)]},
+  {"t":"photos","eyebrow":"At the clinic","h2":"Where the record starts",
+   "items":[("patient-files","The clinic's patient record files","Work injury claims run on documentation — every visit enters the file"),
+            ("exam-room","Examination room with diagnostic equipment",None)]},
  ],
  "faqs":[
   ("Can I choose my own chiropractor?","<p>It depends. If you predesignated a personal physician in writing before the injury, you can generally go to them. Otherwise treatment is usually through the insurer's medical provider network. Bring whatever paperwork you have and we will work out where you stand.</p>",["dwc_injured"]),
@@ -219,6 +225,8 @@ PAGES += [
     ("Visit limits","Often 12 to 30 per year","Many plans cap the number of chiropractic visits in a plan year, separately from other benefits.",False),
     ("Deductible","Applies before the benefit does","If the deductible has not been met, you may be responsible for the full negotiated rate until it is.",False),
     ("Medical necessity","Documentation matters","Plans generally require treatment to be documented as medically necessary, which is another reason the examination and notes matter.",False)]},
+  {"t":"photos","eyebrow":"At the clinic","h2":"The clinic",
+   "items":[("waiting-room","The clinic waiting room",None)]},
  ],
  "faqs":[
   ("What if my plan is not accepted?","<p>Then self-pay rates apply, and those are published. We tell you before treatment begins, not afterwards.</p>",[("int","/insurance/self-pay/","Self-pay rates →")]),
@@ -246,6 +254,8 @@ PAGES += [
    "html":"<p>If your situation needs testing or treatment beyond what was discussed, we tell you the cost <strong>before</strong> carrying it out.</p>"},
   {"t":"prose","eyebrow":"If cost is a concern","h2":"Say so at the start",
    "html":"<p>If you are paying yourself, tell us. We can be explicit about what is essential versus optional and give a realistic view of how many visits a course would involve. That conversation is much more useful at the beginning than three visits in.</p>"},
+  {"t":"photos","eyebrow":"At the clinic","h2":"Where a first visit happens",
+   "items":[("exam-room","Examination room with diagnostic equipment and an X-ray viewer","The initial examination fee includes digital X-ray where it is indicated")]},
  ],
  "faqs":[
   ("Why is the initial examination more than a follow-up?","<p>Because it is longer and includes more: history, physical examination, neurological testing, digital X-ray where indicated, and the explanation of findings and plan. Follow-up visits are shorter and more focused.</p>",None),
@@ -273,6 +283,8 @@ PAGES += [
    "sources":["medicare_ch"]},
   {"t":"note","bg":"alt","kind":"warn","h":"This catches people out",
    "html":"<p>Medicare's chiropractic benefit is narrower than most people expect — it covers the adjustment itself and very little else. We go through what that means for your specific visit before treatment, so the bill is not a surprise.</p>"},
+  {"t":"photos","eyebrow":"At the clinic","h2":"What Medicare covers",
+   "items":[("adjusting-table","An adjusting table in one of the treatment rooms","Manual manipulation of the spine is the part Medicare Part B covers")]},
  ],
  "faqs":[
   ("Does a Medicare Advantage plan work differently?","<p>It can. Advantage plans must cover at least what original Medicare covers, but many add benefits and have their own network and authorisation rules. Bring your plan card and we will check.</p>",None),
@@ -284,7 +296,7 @@ PAGES += [
 },
 
 {
- "slug":"faq","crumbs":[],"crumb_self":"FAQ","cta_bg":"alt",
+ "slug":"faq", "hero":('waiting-room', 'The clinic waiting room'),"crumbs":[],"crumb_self":"FAQ","cta_bg":"alt",
  "title":"Frequently Asked Questions｜CarePlus Chiropractic · Oakland Chinatown",
  "desc":"Common questions about CarePlus Chiropractic in Oakland: first visits, fees, insurance, DOT physicals, languages spoken, parking and appointments.",
  "h1":"Frequently asked questions",
@@ -334,6 +346,11 @@ PAGES += [
     ("Desk work","Posture for people who sit all day","Sustained forward head posture and what it does to the neck over years of screen work.",False),
     ("Younger patients","Spinal problems appearing earlier","Why changes that used to appear in middle age are now seen in teenagers and twenty-somethings.",False),
     ("Children","Spinal checks during growth","Posture, backpack load and what is worth noticing during growth years.",False)]},
+  {"t":"photos","eyebrow":"In the treatment room","h2":"Beyond the videos",
+   "lede":"The videos cover general principles. This is what the clinic actually looks like.",
+   "items":[("dr-chen-treating","Dr. Chen treating a patient at the adjusting table",None),
+            ("dr-chen-adjusting","Dr. Chen performing a cervical adjustment",None),
+            ("certificates","Certificates and awards on the clinic wall",None)]},
  ],
  "faqs":[
   ("Are the videos in English?","<p>The current series is in Chinese. English-language material is being added.</p>",None),
