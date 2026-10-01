@@ -139,5 +139,30 @@ if missing:
 if imgrefs and not dupe and not missing:
     print(f"✓ 圖片：{len(imgrefs)} 個路徑全部存在且未重複 BASE")
 
+# 9) 上線前把關：表單收件信箱必須已經換成客戶的
+#    開發期間常先用內部信箱測試，這道檢查避免帶著暫用信箱上線。
+#    確認換成客戶信箱後，在 workflow 加上 FORM_RECIPIENT_CONFIRMED=1 即可通過。
+live = os.environ.get("NOINDEX", "") != "1"
+has_key = bool(os.environ.get("FORM_ACCESS_KEY", "").strip())
+confirmed = os.environ.get("FORM_RECIPIENT_CONFIRMED", "") == "1"
+if live:
+    if not has_key:
+        print("✗ 正式站的表單沒有收件金鑰，送出會沒有人收到")
+        fails.append("表單未設定 FORM_ACCESS_KEY")
+    elif not confirmed:
+        print("✗ 表單收件信箱尚未確認是客戶的")
+        print("    開發期間可能先用了內部信箱。確認已換成診所的信箱後，")
+        print("    在 deploy.yml 的建置步驟加上 FORM_RECIPIENT_CONFIRMED=1。")
+        fails.append("表單收件信箱未確認")
+    else:
+        print("✓ 表單：已設定金鑰，且收件信箱已確認")
+elif has_key:
+    print("! 表單已設金鑰（目前 NOINDEX=1，未公開）"
+          + ("" if confirmed else " — 收件信箱尚未確認是客戶的"))
+    if not confirmed:
+        warns.append("表單收件信箱待換成客戶的")
+else:
+    print("! 表單尚未接上收件信箱（目前 NOINDEX=1，送出不會真的寄出）")
+
 print("\n"+("✗ 有 %d 類問題"%len(fails) if fails else "✓ 全部驗證通過")+(f"（{len(warns)} 項提醒）" if warns else ""))
 sys.exit(1 if fails else 0)
