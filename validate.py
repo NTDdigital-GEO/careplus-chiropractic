@@ -139,6 +139,33 @@ if missing:
 if imgrefs and not dupe and not missing:
     print(f"✓ 圖片：{len(imgrefs)} 個路徑全部存在且未重複 BASE")
 
+# 8c) 內嵌 JS 必須能被解析
+#     英文的成功訊息含有 We'll，曾經把手寫的單引號字串咬斷，
+#     整段腳本語法錯誤、表單退回原生送出。本機沒有 node 時會跳過，
+#     CI 的 runner 有，所以壞掉的腳本推不上去。
+import shutil as _sh, subprocess as _sp, tempfile as _tf
+if _sh.which("node"):
+    jsbad = []
+    for u, s_ in pages.items():
+        for m in re.finditer(r'<script>(.*?)</script>', s_, re.S):
+            code = m.group(1)
+            with _tf.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as fh:
+                fh.write(code); tmp = fh.name
+            r = _sp.run(["node", "--check", tmp], capture_output=True, text=True)
+            os.unlink(tmp)
+            if r.returncode != 0:
+                first = (r.stderr.strip().splitlines() or [""])[-1][:110]
+                jsbad.append((u, first))
+                break
+    if jsbad:
+        print(f"✗ 內嵌 JS 有語法錯誤：{len(jsbad)} 頁")
+        for u, e in jsbad[:5]: print(f"    {u}  {e}")
+        fails.append("內嵌 JS 語法錯誤")
+    else:
+        print(f"✓ 內嵌 JS：{len(pages)} 頁全部可解析")
+else:
+    print("! 內嵌 JS 未檢查（本機沒有 node；CI 會檢查）")
+
 # 9) 上線前把關：表單收件信箱必須已經換成客戶的
 #    開發期間常先用內部信箱測試，這道檢查避免帶著暫用信箱上線。
 #    確認換成客戶信箱後，在 workflow 加上 FORM_RECIPIENT_CONFIRMED=1 即可通過。

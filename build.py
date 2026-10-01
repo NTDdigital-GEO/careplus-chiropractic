@@ -158,6 +158,11 @@ T = {
  ),
 }
 def t(k): return T[CURLANG[0]][k]
+
+def js(v):
+    """把文字轉成安全的 JS 字面值。手動用引號包會被字串裡的單引號、
+    反斜線或 </script> 咬到（英文的 We'll 就踩過一次），交給 json 處理。"""
+    return json.dumps(str(v), ensure_ascii=False).replace("</", "<\\/")
 def pfx(lg=None): return "/zh" if (lg or CURLANG[0]) == "zh" else ""
 
 NAV_MAIN_ZH = [
@@ -664,8 +669,8 @@ if(f){{
     e.preventDefault();
     if(!f.reportValidity||!f.reportValidity()) return;
     var r=document.getElementById('r');
-    if(!HAS_KEY){{ say('{t("preview_alert_inline")}','warn'); return; }}
-    btn.disabled=true; var orig=btn.textContent; btn.textContent='{t("f_sending")}';
+    if(!HAS_KEY){{ say({js(t('preview_alert_inline'))},'warn'); return; }}
+    btn.disabled=true; var orig=btn.textContent; btn.textContent={js(t('f_sending'))};
     say('','');  st.hidden=true;
     var data=Object.fromEntries(new FormData(f).entries());
     fetch(f.action,{{method:'POST',
@@ -674,12 +679,12 @@ if(f){{
     .then(function(res){{ return res.json().catch(function(){{return{{success:res.ok}};}}); }})
     .then(function(j){{
       if(j && j.success){{
-        f.reset(); say('{t("f_ok")}','ok');
+        f.reset(); say({js(t('f_ok'))},'ok');
         window.dataLayer.push({{event:'callback_submit',form_name:'callback_request',
           reason:r?r.value:'',page_path:location.pathname}});
-      }} else {{ say('{t("f_err")}','err'); }}
+      }} else {{ say({js(t('f_err'))},'err'); }}
     }})
-    .catch(function(){{ say('{t("f_err")}','err'); }})
+    .catch(function(){{ say({js(t('f_err'))},'err'); }})
     .finally(function(){{ btn.disabled=false; btn.textContent=orig; }});
   }});
 }}
