@@ -16,9 +16,22 @@ OUT = "dist"
 # ── 可用環境變數覆寫，不改程式碼 ──
 #   SITE_URL   完整網域，寫進 canonical / schema / sitemap
 #   BASE_PATH  子路徑。GitHub Pages 專案網站要填 "/repo名稱"；自訂網域留空
-SITE = os.environ.get("SITE_URL", "https://stewartchenchiro.com").rstrip("/")
+# 預設一律 noindex。要公開必須明確設 NOINDEX=0——忘記設定的後果
+# （整站被搜尋引擎收錄）比誤擋嚴重得多，所以預設值往安全的那邊倒。
+NOINDEX = os.environ.get("NOINDEX", "1") != "0"
+
+_SITE_FALLBACK = "https://example.invalid"
+SITE = os.environ.get("SITE_URL", _SITE_FALLBACK).rstrip("/")
 BASE = "/" + os.environ.get("BASE_PATH", "").strip("/") if os.environ.get("BASE_PATH", "").strip("/") else ""
-NOINDEX = os.environ.get("NOINDEX", "") == "1"   # 預覽站設 1，避免被搜尋引擎收錄
+
+# canonical、hreflang、og:url 與 sitemap 全都建立在 SITE 之上。沒設對的話，
+# 這些標籤會把搜尋引擎指到別的網站去——曾經就指到 stewartchenchiro.com，
+# 那是一個內容完全不同、而且對任何路徑都回首頁的舊站。
+if SITE == _SITE_FALLBACK and not NOINDEX:
+    raise SystemExit(
+        "✗ 要產出可被索引的網站（NOINDEX=0），必須同時設定 SITE_URL。\n"
+        "  否則 canonical／hreflang／og:url／sitemap 會指向錯誤的網域。\n"
+        "  例：SITE_URL=https://www.carepluschiropractic.org NOINDEX=0 python3 build.py")
 
 # Google Tag Manager 容器。GA4（G-G92YRT6DVC）設定在 GTM 容器「裡面」，
 # 所以這裡只裝 GTM，不要再直接裝一次 GA4，否則流量會被重複計算。

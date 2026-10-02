@@ -169,7 +169,8 @@ else:
 # 9) 上線前把關：表單收件信箱必須已經換成客戶的
 #    開發期間常先用內部信箱測試，這道檢查避免帶著暫用信箱上線。
 #    確認換成客戶信箱後，在 workflow 加上 FORM_RECIPIENT_CONFIRMED=1 即可通過。
-live = os.environ.get("NOINDEX", "") != "1"
+# 與 build.py 同一條規則：未設定視為 noindex，要公開必須明確 NOINDEX=0
+live = os.environ.get("NOINDEX", "1") == "0"
 has_key = bool(os.environ.get("FORM_ACCESS_KEY", "").strip())
 confirmed = os.environ.get("FORM_RECIPIENT_CONFIRMED", "") == "1"
 if live:
