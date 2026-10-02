@@ -75,7 +75,7 @@ jobs:
 
       - name: 檢查網站有沒有問題
         run: |
-          python3 validate.py
+          FORM_ACCESS_KEY="${{ secrets.FORM_ACCESS_KEY }}" FORM_RECIPIENT_CONFIRMED=1 python3 validate.py
           python3 check_cjk.py
 
       - name: 上傳產出
