@@ -65,6 +65,9 @@ jobs:
           echo "BASE_PATH=${{ steps.pages.outputs.base_path }}" >> "$GITHUB_ENV"
           echo "SITE_URL=${{ steps.pages.outputs.base_url }}"   >> "$GITHUB_ENV"
           echo "NOINDEX=0"                                      >> "$GITHUB_ENV"
+          # 自訂網域必須寫進產出，否則每次部署會清掉 Pages 的網域設定，
+          # 連帶讓 TLS 憑證一直簽不出來。
+          echo "CNAME_DOMAIN=www.carepluschiropractic.org"       >> "$GITHUB_ENV"
 
       - name: 產出網站
         env:

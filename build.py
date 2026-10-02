@@ -786,6 +786,16 @@ def main():
         write(p); n += 1
     # GitHub Pages：告訴它不要用 Jekyll 處理
     open(os.path.join(OUT, ".nojekyll"), "w").close()
+
+    # GitHub Pages 自訂網域。用 Actions 部署時，自訂網域必須隨產出一起上傳，
+    # 否則每次部署都會把 Settings → Pages 的設定清掉，TLS 憑證也就永遠簽不出來。
+    cname = os.environ.get("CNAME_DOMAIN", "").strip()
+    for _pre in ("https://", "http://"):          # lstrip() 會去掉字元集合而非前綴
+        if cname.startswith(_pre): cname = cname[len(_pre):]
+    cname = cname.strip("/").split("/")[0]
+    if cname:
+        with open(os.path.join(OUT, "CNAME"), "w", encoding="utf-8") as f:
+            f.write(cname + "\n")
     # robots.txt
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         if NOINDEX:
