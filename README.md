@@ -5,6 +5,8 @@ CarePlus Chiropractic Health Center 的中文官網（35 頁）。
 
 **推 main 分支 → GitHub Actions 自動建置、自動檢查、自動發布。**
 
+Cloudflare Workers：推 main 也會自動建置並部署到 careplus-chiropractic.ntd-digital.workers.dev
+
 ---
 
 ## 目錄結構
