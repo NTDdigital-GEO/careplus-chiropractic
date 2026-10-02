@@ -63,7 +63,7 @@ jobs:
         run: |
           echo "BASE_PATH=${{ steps.pages.outputs.base_path }}" >> "$GITHUB_ENV"
           echo "SITE_URL=${{ steps.pages.outputs.base_url }}"   >> "$GITHUB_ENV"
-          echo "NOINDEX=1"                                      >> "$GITHUB_ENV"
+          echo "NOINDEX=0"                                      >> "$GITHUB_ENV"
 
       - name: 產出網站
         env:
