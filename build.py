@@ -278,6 +278,19 @@ def figure_tag(slug, alt, caption=None, **kw):
     cap = '<figcaption>%s</figcaption>' % caption if caption else ""
     return '<figure class="ph-f">%s%s</figure>' % (t, cap)
 
+def brand_mark():
+    """標頭的品牌標記。圓形裁切正好切在徽章外環，JPEG 的白底角落會被切掉。
+    用 PNG 而非 JPEG：這圈回紋是細線條，JPEG 會在邊緣產生壓縮雜訊。
+    圖檔不存在時退回原本的文字方塊，不讓標頭開天窗。"""
+    if not os.path.exists(os.path.join("assets", "img", "mark-96.png")):
+        return '<span class="mark" aria-hidden="true">莊</span>'
+    # 不要在這裡加 BASE：apply_base() 會統一改寫 src 與 srcset，
+    # 兩邊都加會變成 /repo/repo/assets/…（這個錯犯過兩次了）
+    return ('<img class="mark" src="/assets/img/mark-96.png" '
+            'srcset="/assets/img/mark-48.png 1x, /assets/img/mark-96.png 2x, '
+            '/assets/img/mark-144.png 3x" '
+            'width="48" height="48" alt="" aria-hidden="true" decoding="async">')
+
 # ─────────────────── 區塊渲染 ───────────────────
 def blk(b):
     t = b["t"]
@@ -642,13 +655,16 @@ def render(p):
 <meta property="og:url" content="{e(url)}">
 <meta name="twitter:card" content="summary_large_image">
 {og_tags}
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="/assets/favicon-180.png">
 <link rel="stylesheet" href="/assets/site.css?v={CSSV}">
 </head>
 <body>
 {gtm_body()}
 <a href="#main" class="skip">{e(t("skip"))}</a>
 <header class="top"><div class="wrap topbar">
-  <a href="/" class="brand"><span class="mark" aria-hidden="true">莊</span>
+  <a href="/" class="brand">{brand_mark()}
   <span><span class="bname">{e(t("brandname"))}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ["founded"]}</span></span></a>
   <span class="topright">{lang_btn}<a href="tel:{BIZ["tel_href"]}" class="callbtn">{e(t("call"))} {BIZ["tel_display"]}</a></span>
 </div>
@@ -826,7 +842,7 @@ def main():
 <body>
 {gtm_body()}
 <header class="top"><div class="wrap topbar">
-<a href="{pfx(lg)}/" class="brand"><span class="mark" aria-hidden="true">莊</span>
+<a href="{pfx(lg)}/" class="brand">{brand_mark()}
 <span><span class="bname">{tt['brandname']}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ['founded']}</span></span></a>
 <a href="tel:{BIZ['tel_href']}" class="callbtn">{tt['call']} {BIZ['tel_display']}</a></div></header>
 <main><section style="padding:70px 0 30px;text-align:center"><div class="wrap narrow">
@@ -907,7 +923,7 @@ def main():
 <title>全站目錄（審稿用）— {BIZ['zh']}</title>
 <link rel="stylesheet" href="/assets/site.css?v={CSSV}"></head>
 <body><header class="top"><div class="wrap topbar">
-<a href="/" class="brand"><span class="mark" aria-hidden="true">莊</span>
+<a href="/" class="brand">{brand_mark()}
 <span><span class="bname">全站目錄</span><br><span class="bsub">內部審稿用 · 不會被搜尋引擎收錄</span></span></a>
 <a href="/" class="callbtn">看首頁</a></div></header>
 <main><section style="padding:48px 0"><div class="wrap">
