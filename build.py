@@ -916,11 +916,15 @@ def main():
                 "✗ 舊網址轉址 /%s 會覆蓋既有頁面。請改 LEGACY 的 key，或把這條移除。" % old)
         os.makedirs(d, exist_ok=True)
         tgt = BASE + new
+        # 廣告點擊帶著 ?gclid=… ，純 meta refresh 會把它整串丟掉，
+        # 轉換追蹤就斷了。先用 JS 原樣帶過去，沒有 JS 時才落到 meta refresh。
+        tgtjs = js(tgt)
         page = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,follow">
 <meta name="x-legacy-redirect" content="1">
+<script>location.replace({tgtjs}+location.search+location.hash);</script>
 <meta http-equiv="refresh" content="0; url={tgt}">
 <link rel="canonical" href="{SITE}{new}">
 <title>Moved — {BIZ['en']}</title>
