@@ -60,17 +60,17 @@ def gtm_body():
             'height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>\n'
             '<!-- End Google Tag Manager (noscript) -->')
 EN_SITE = "https://www.carepluschiropractic.org"
-TODAY = "2026-09-21"
+TODAY = "2026-10-04"
 
 BIZ = dict(
     zh="莊錦鎮脊椎治療中心", en="CarePlus Chiropractic Health Center",
     street="212 9th Street, Suite 103", city="Oakland", region="CA", zip="94607",
     tel_display="510-465-7982", tel_href="5104657982", tel_e164="+1-510-465-7982",
     founded="1988", years="38",
-    hours_zh="週一至週五 9:00–18:00 · 週六 9:00–12:00",
+    hours_zh="週一至週五 9:00–18:00 · 週六 9:00–13:00",
     bart="Lake Merritt BART 步行約 5 分鐘",
     langs="粵語・國語・台語・閩南話・English",
-    rating="5.0", reviews="39", dot_price="95",
+    rating="5.0", reviews="39", dot_price="99",
 )
 
 # ── 外部權威來源庫（frontlinks）──
@@ -146,7 +146,7 @@ T = {
    htmllang="en", oglocale="en_US", name=BIZ["en"], brandname="CarePlus Chiropractic", other="中文", otherlang="zh-Hant",
    skip="Skip to main content", nav="Main menu", crumb="Breadcrumb", home="Home",
    call="Call", callcta="Call to book", callback="Request a call back",
-   hours="Mon–Fri 9:00–18:00 · Sat 9:00–12:00", closed="Closed Sunday",
+   hours="Mon–Fri 9:00–18:00 · Sat 9:00–13:00", closed="Closed Sunday",
    faq_eyebrow="FAQ", faq_h2="Frequently asked questions",
    rel_eyebrow="Related", rel_h2="You may also need these",
    cta_eyebrow="Request a call", cta_h2="Can't call right now? Leave a time and we'll call you",
@@ -202,7 +202,7 @@ NAV_FOOT_ZH = [
    ("/services/work-injury/","工傷評估與治療"),("/services/","全部服務項目")]),
  ("費用與保險", [("/insurance/auto-accident/","車禍理賠"),("/insurance/workers-comp/","工傷理賠"),
    ("/insurance/medicare/","Medicare"),("/insurance/self-pay/","自費價目"),
-   ("/pricing/","價目總表"),("/dot-physical/","DOT 體檢 $95")]),
+   ("/pricing/","價目總表"),("/dot-physical/","DOT 體檢 $99")]),
  ("關於我們", [("/","首頁"),("/about/dr-stewart-chen/","莊錦鎮醫師"),("/about/team/","醫療團隊"),
    ("/about/","中心介紹"),("/reviews/","病人評價"),("/media/","媒體報導"),
    ("/faq/","常見問題"),("/new-patient/","初診須知"),("/contact/","交通與停車")]),
@@ -214,7 +214,7 @@ NAV_FOOT_EN = [
    ("/services/work-injury/","Work injury"),("/services/","All services")]),
  ("Fees & Insurance", [("/insurance/auto-accident/","Auto accident claims"),("/insurance/workers-comp/","Workers' compensation"),
    ("/insurance/medicare/","Medicare"),("/insurance/self-pay/","Self-pay rates"),
-   ("/pricing/","Full price list"),("/dot-physical/","DOT physical $95")]),
+   ("/pricing/","Full price list"),("/dot-physical/","DOT physical $99")]),
  ("About", [("/","Home"),("/about/dr-stewart-chen/","Dr. Stewart Chen"),("/about/team/","Our team"),
    ("/about/","About the clinic"),("/reviews/","Patient reviews"),("/media/","In the media"),
    ("/faq/","FAQ"),("/new-patient/","New patients"),("/contact/","Visit us")]),
@@ -447,7 +447,7 @@ def clinic_node():
       "openingHoursSpecification":[
         {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],
          "opens":"09:00","closes":"18:00"},
-        {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"12:00"}],
+        {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"13:00"}],
       "sameAs":[EN_SITE+"/","https://www.yelp.com/biz/careplus-chiropractic-health-center-oakland",
                 "https://www.youtube.com/@Dr.StewartChen"],
       "employee":{"@id":f"{SITE}/#drchen"},
@@ -863,7 +863,7 @@ def main():
 <a href="/" class="btn btn-s">Back to home</a></div>
 <div class="related" style="margin-top:34px;text-align:left">
 <a class="rel" href="/services/">Services<span>Conditions and treatments</span></a>
-<a class="rel" href="/dot-physical/">DOT physical $95<span>Commercial driver examination</span></a>
+<a class="rel" href="/dot-physical/">DOT physical $99<span>Commercial driver examination</span></a>
 <a class="rel" href="/insurance/">Fees and insurance<span>Four ways treatment is paid for</span></a>
 <a class="rel" href="/contact/">Visit us<span>Directions and hours</span></a></div>'''
 
@@ -874,7 +874,7 @@ def main():
 <a href="/zh/" class="btn btn-s">回到中文首頁</a></div>
 <div class="related" style="margin-top:34px;text-align:left">
 <a class="rel" href="/zh/services/">治療項目<span>16 個症狀與療法頁面</span></a>
-<a class="rel" href="/zh/dot-physical/">DOT 體檢 $95<span>商業司機體檢</span></a>
+<a class="rel" href="/zh/dot-physical/">DOT 體檢 $99<span>商業司機體檢</span></a>
 <a class="rel" href="/zh/insurance/">費用與保險<span>五種付費方式</span></a>
 <a class="rel" href="/zh/contact/">交通與停車<span>地址與門診時間</span></a></div>'''
 
