@@ -894,6 +894,48 @@ def main():
     with open(os.path.join(OUT,"thanks.html"),"w",encoding="utf-8") as f:
         f.write(apply_base(shell("en", T["en"]["ty_t"]+" — "+BIZ["en"], T["en"]["ty_h"],
                                  bilingual(ty_en, ty_zh))))
+    # ── 舊 Wix 網址的轉址（不進 sitemap、noindex）──
+    # 2026-10 把 carepluschiropractic.org 從 Wix 切到本站之後，舊站的網址全部 404。
+    # 莊醫師的 DOT 轉介來源手上還拿著 /dot-physicals 這種舊連結，所以必須接住。
+    # GitHub Pages 沒有伺服器端 301，只能用 meta refresh + canonical；
+    # 真正的 301 要等 Cloudflare Redirect Rules，屆時可以把這段拿掉。
+    LEGACY = {
+        "dot-physicals": "/dot-physical/",          # 舊 Wix 的 DOT 頁（複數）
+        "book-online":   "/contact/",               # 舊 Wix 線上預約
+        "service":       "/services/",
+        "review":        "/reviews/",
+        "get-care":      "/new-patient/",
+        "drchen":        "/about/dr-stewart-chen/",
+        "stories":       "/reviews/",
+    }
+    for old, new in LEGACY.items():
+        d = os.path.join(OUT, old)
+        # 防呆：舊網址若跟真實頁面同名，會把真頁面蓋掉（/services 就踩過一次）
+        if os.path.exists(os.path.join(d, "index.html")):
+            raise SystemExit(
+                "✗ 舊網址轉址 /%s 會覆蓋既有頁面。請改 LEGACY 的 key，或把這條移除。" % old)
+        os.makedirs(d, exist_ok=True)
+        tgt = BASE + new
+        page = f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<meta name="x-legacy-redirect" content="1">
+<meta http-equiv="refresh" content="0; url={tgt}">
+<link rel="canonical" href="{SITE}{new}">
+<title>Moved — {BIZ['en']}</title>
+<link rel="stylesheet" href="{BASE}/assets/site.css?v={CSSV}"></head>
+<body><main><section style="padding:80px 0;text-align:center"><div class="wrap narrow">
+<h1 style="max-width:none;margin-inline:auto">This page has moved</h1>
+<p class="answer" style="margin-inline:auto">本頁已搬家。If you are not redirected automatically,
+use the link below.</p>
+<div class="cta-row" style="justify-content:center">
+<a href="{tgt}" class="btn btn-p">Continue →</a>
+<a href="tel:{BIZ['tel_href']}" class="btn btn-s">Call {BIZ['tel_display']}</a></div>
+</div></section></main></body></html>"""
+        with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+            f.write(page)
+
     # 審稿用的全站目錄（noindex，不進 sitemap）
     groups = [("品牌層",""),("服務層","services/"),("DOT 筒倉","dot-physical"),
               ("付費層","insurance/"),("信任層",None)]

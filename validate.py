@@ -13,11 +13,15 @@ if BASE: print(f"（子路徑模式：{BASE}）")
 
 pages={}   # 正式頁面
 devpages={}  # 審稿用（_pages），不納入 title/desc 唯一性等檢查
+redirpages={}  # 舊 Wix 網址的 meta-refresh 轉址頁
 for f in glob.glob(OUT+"/**/index.html",recursive=True):
     rel=os.path.relpath(os.path.dirname(f),OUT)
     url="/" if rel=="." else "/"+rel.replace(os.sep,"/")+"/"
-    (devpages if url.startswith("/_") else pages)[url]=open(f,encoding="utf-8").read()
-print(f"正式頁面：{len(pages)}   審稿頁（不檢查）：{len(devpages)}")
+    body=open(f,encoding="utf-8").read()
+    if 'name="x-legacy-redirect"' in body:   # 舊網址轉址頁，不是內容頁
+        redirpages[url]=body; continue
+    (devpages if url.startswith("/_") else pages)[url]=body
+print(f"正式頁面：{len(pages)}   審稿頁（不檢查）：{len(devpages)}   舊網址轉址：{len(redirpages)}")
 
 # 審稿頁必須有 noindex，且不得出現在 sitemap
 for u,s_ in devpages.items():
