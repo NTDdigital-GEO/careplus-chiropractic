@@ -62,20 +62,20 @@ jobs:
 
       - name: 準備建置參數
         run: |
-          echo "BASE_PATH=${{ steps.pages.outputs.base_path }}" >> "$GITHUB_ENV"
-          echo "SITE_URL=${{ steps.pages.outputs.base_url }}"   >> "$GITHUB_ENV"
-          # 2026-10-05 客戶把 carepluschiropractic.org 切回原本的 Wix 站。
-          # 本站改為「封存待命」：停在 github.io 的預設網址上，等將來配發新網域。
+          # 2026-10-08 正式網域 carepluschiropractichealthcenter.com 上線。
+          # DNS 已在 Cloudflare 設好（4 筆 A → GitHub Pages，www CNAME，全部 DNS only）。
           #
-          #   NOINDEX=1      不讓 Google 收錄。否則這份內容會跟線上的 Wix 站
-          #                  互相競爭同一批關鍵字，兩邊都受傷。
-          #   CNAME_DOMAIN   必須留空。只要填了網域，GitHub Pages 就會把
-          #                  github.io 的網址 301 轉到那個網域，而那個網域
-          #                  現在是 Wix 的 —— 結果是本站整個打不開。
-          #
-          # 將來切新網域時，把 NOINDEX 改回 0，CNAME_DOMAIN 填新網域即可。
-          echo "NOINDEX=1"                                      >> "$GITHUB_ENV"
-          echo "CNAME_DOMAIN="                                  >> "$GITHUB_ENV"
+          # BASE_PATH 與 SITE_URL 刻意「寫死」，不用 steps.pages.outputs：
+          # 自訂網域生效前後，那兩個輸出值會從 /careplus-chiropractic 與
+          # github.io 變成根目錄與正式網域。第一次部署時它們還是舊值，
+          # 會讓 canonical、sitemap 與所有資源路徑指錯地方。寫死才不會踩到。
+          echo "BASE_PATH="                                     >> "$GITHUB_ENV"
+          echo "SITE_URL=https://carepluschiropractichealthcenter.com" >> "$GITHUB_ENV"
+          echo "NOINDEX=0"                                      >> "$GITHUB_ENV"
+          # 自訂網域必須寫進產出，否則每次部署都會清掉 Pages 的網域設定，
+          # 連帶讓 TLS 憑證一直簽不出來。主要網域用不帶 www 的版本，
+          # www 由 GitHub 自動轉過來。
+          echo "CNAME_DOMAIN=carepluschiropractichealthcenter.com" >> "$GITHUB_ENV"
 
       - name: 產出網站
         env:

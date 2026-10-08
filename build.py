@@ -108,11 +108,12 @@ SRC = {
 
 # 頂部主導覽（每頁都會出現）
 # ─────────────────── 雙語 ───────────────────
-# 根目錄＝英文，/zh/＝中文。CURLANG 由 render() 設定，讓 blk()/src_line() 不必層層傳參數。
+# 根目錄＝中文，/en/＝英文。2026-10-08 改：客戶主推中文市場，中文移到根目錄。
+# CURLANG 由 render() 設定，讓 blk()/src_line() 不必層層傳參數。
 CURLANG = ["zh"]
 # 哪些 slug 有哪個語言的版本，供 hreflang 與語言切換鈕配對；main() 建立。
 HAVE = {"zh": set(), "en": set()}
-LANGMARK = "%%LANGHREF%%"   # 語言切換鈕的網址不套用 /zh 前綴，用哨符避開
+LANGMARK = "%%LANGHREF%%"   # 語言切換鈕的網址不套用 /en 前綴，用哨符避開
 
 T = {
  "zh": dict(
@@ -176,7 +177,7 @@ def js(v):
     """把文字轉成安全的 JS 字面值。手動用引號包會被字串裡的單引號、
     反斜線或 </script> 咬到（英文的 We'll 就踩過一次），交給 json 處理。"""
     return json.dumps(str(v), ensure_ascii=False).replace("</", "<\\/")
-def pfx(lg=None): return "/zh" if (lg or CURLANG[0]) == "zh" else ""
+def pfx(lg=None): return "/en" if (lg or CURLANG[0]) == "en" else ""
 
 NAV_MAIN_ZH = [
     ("/services/",      "治療項目"),
@@ -539,7 +540,7 @@ def build_schema(p):
 def render(p):
     lg = p.get("lang", "zh")
     CURLANG[0] = lg
-    P = pfx(lg)                      # 中文頁在 /zh 底下，英文頁在根目錄
+    P = pfx(lg)                      # 英文頁在 /en 底下，中文頁在根目錄
     slug = p["slug"]
     url = SITE + P + "/" + (slug + "/" if slug else "")
     depth_prefix = "/"
@@ -618,7 +619,8 @@ def render(p):
         pair = {lg: me, other: them}
         al.append('<link rel="alternate" hreflang="zh-Hant" href="%s">' % e(pair["zh"]))
         al.append('<link rel="alternate" hreflang="en" href="%s">' % e(pair["en"]))
-        al.append('<link rel="alternate" hreflang="x-default" href="%s">' % e(pair["en"]))
+        # x-default 指中文：這個站的主語言是中文（2026-10-08 起）
+        al.append('<link rel="alternate" hreflang="x-default" href="%s">' % e(pair["zh"]))
     alt_links = "\n".join(al)
 
     # 分享預覽圖（LINE／WhatsApp／微信／Facebook 轉傳時顯示）。
@@ -742,16 +744,16 @@ window.dataLayer.push({{event:'phone_click',phone_number:a.getAttribute('href').
 </body></html>'''
 
 def apply_lang(html_text, lg):
-    """中文頁掛在 /zh 底下，內容裡寫的都是 /services/ 這種根相對路徑，
+    """英文頁掛在 /en 底下，內容裡寫的都是 /services/ 這種根相對路徑，
     在這裡統一補上前綴。/assets/ 是共用資源不動；帶 LANGMARK 的是語言切換鈕，
-    要指向另一個語言，所以也不能補。"""
-    if lg != "zh":
+    要指向另一個語言，所以也不能補。中文是根目錄，不需要前綴。"""
+    if lg != "en":
         return html_text.replace(LANGMARK, "")
     def rep(m):
         attr, path = m.group(1), m.group(2)
         if path.startswith("/assets/"):
             return m.group(0)
-        return '%s="/zh%s' % (attr, path)
+        return '%s="/en%s' % (attr, path)
     html_text = re.sub(r'(href|src)="(/(?!/)[^"]*)', rep, html_text)
     # srcset 只會指向 /assets/，不需處理
     return html_text.replace(LANGMARK, "")
@@ -778,7 +780,7 @@ def apply_base(html_text):
 
 def out_dir(p):
     parts = [OUT]
-    if p.get("lang", "zh") == "zh": parts.append("zh")
+    if p.get("lang", "zh") == "en": parts.append("en")
     if p["slug"]: parts.append(p["slug"])
     return os.path.join(*parts)
 
@@ -860,23 +862,23 @@ def main():
     nf_en = f'''<p class="answer" style="margin-inline:auto">{T["en"]["nf_p"]}</p>
 <div class="cta-row" style="justify-content:center">
 <a href="tel:{BIZ["tel_href"]}" class="btn btn-p">{T["en"]["callcta"]} {BIZ["tel_display"]}</a>
-<a href="/" class="btn btn-s">Back to home</a></div>
+<a href="/en/" class="btn btn-s">Back to home</a></div>
 <div class="related" style="margin-top:34px;text-align:left">
-<a class="rel" href="/services/">Services<span>Conditions and treatments</span></a>
-<a class="rel" href="/dot-physical/">DOT physical $99<span>Commercial driver examination</span></a>
-<a class="rel" href="/insurance/">Fees and insurance<span>Four ways treatment is paid for</span></a>
-<a class="rel" href="/contact/">Visit us<span>Directions and hours</span></a></div>'''
+<a class="rel" href="/en/services/">Services<span>Conditions and treatments</span></a>
+<a class="rel" href="/en/dot-physical/">DOT physical $99<span>Commercial driver examination</span></a>
+<a class="rel" href="/en/insurance/">Fees and insurance<span>Four ways treatment is paid for</span></a>
+<a class="rel" href="/en/contact/">Visit us<span>Directions and hours</span></a></div>'''
 
     nf_zh = f'''<h2 style="text-align:center;margin-bottom:14px">找不到這個頁面</h2>
 <p class="answer" style="margin-inline:auto">您要找的頁面可能已移除或網址有誤。需要預約或有任何問題，歡迎直接來電。</p>
 <div class="cta-row" style="justify-content:center">
 <a href="tel:{BIZ["tel_href"]}" class="btn btn-p">致電預約 {BIZ["tel_display"]}</a>
-<a href="/zh/" class="btn btn-s">回到中文首頁</a></div>
+<a href="/" class="btn btn-s">回到中文首頁</a></div>
 <div class="related" style="margin-top:34px;text-align:left">
-<a class="rel" href="/zh/services/">治療項目<span>16 個症狀與療法頁面</span></a>
-<a class="rel" href="/zh/dot-physical/">DOT 體檢 $99<span>商業司機體檢</span></a>
-<a class="rel" href="/zh/insurance/">費用與保險<span>五種付費方式</span></a>
-<a class="rel" href="/zh/contact/">交通與停車<span>地址與門診時間</span></a></div>'''
+<a class="rel" href="/services/">治療項目<span>16 個症狀與療法頁面</span></a>
+<a class="rel" href="/dot-physical/">DOT 體檢 $99<span>商業司機體檢</span></a>
+<a class="rel" href="/insurance/">費用與保險<span>五種付費方式</span></a>
+<a class="rel" href="/contact/">交通與停車<span>地址與門診時間</span></a></div>'''
 
     with open(os.path.join(OUT,"404.html"),"w",encoding="utf-8") as f:
         f.write(apply_base(shell("en", T["en"]["nf_t"]+" — "+BIZ["en"], T["en"]["nf_h"],
@@ -885,12 +887,12 @@ def main():
     ty_en = f'''<p class="answer" style="margin-inline:auto">{T["en"]["ty_p"]}</p>
 <div class="cta-row" style="justify-content:center">
 <a href="tel:{BIZ["tel_href"]}" class="btn btn-p">{T["en"]["call"]} {BIZ["tel_display"]}</a>
-<a href="/" class="btn btn-s">Back to home</a></div>'''
+<a href="/en/" class="btn btn-s">Back to home</a></div>'''
     ty_zh = f'''<h2 style="text-align:center;margin-bottom:14px">已收到，我們會主動致電</h2>
 <p class="answer" style="margin-inline:auto">感謝您的來信。我們會在門診時間內（{BIZ["hours_zh"]}）依您選擇的時段主動致電。若急需就診，也歡迎直接來電。</p>
 <div class="cta-row" style="justify-content:center">
 <a href="tel:{BIZ["tel_href"]}" class="btn btn-p">直接致電 {BIZ["tel_display"]}</a>
-<a href="/zh/" class="btn btn-s">回到中文首頁</a></div>'''
+<a href="/" class="btn btn-s">回到中文首頁</a></div>'''
     with open(os.path.join(OUT,"thanks.html"),"w",encoding="utf-8") as f:
         f.write(apply_base(shell("en", T["en"]["ty_t"]+" — "+BIZ["en"], T["en"]["ty_h"],
                                  bilingual(ty_en, ty_zh))))
@@ -899,15 +901,10 @@ def main():
     # 莊醫師的 DOT 轉介來源手上還拿著 /dot-physicals 這種舊連結，所以必須接住。
     # GitHub Pages 沒有伺服器端 301，只能用 meta refresh + canonical；
     # 真正的 301 要等 Cloudflare Redirect Rules，屆時可以把這段拿掉。
-    LEGACY = {
-        "dot-physicals": "/dot-physical/",          # 舊 Wix 的 DOT 頁（複數）
-        "book-online":   "/contact/",               # 舊 Wix 線上預約
-        "service":       "/services/",
-        "review":        "/reviews/",
-        "get-care":      "/new-patient/",
-        "drchen":        "/about/dr-stewart-chen/",
-        "stories":       "/reviews/",
-    }
+    # 2026-10-05 為了接住舊 Wix 網址（/dot-physicals 等）而建，當時本站在
+    # carepluschiropractic.org 上。2026-10-07 該網域切回 Wix，本站改用新網域，
+    # 這些舊路徑不再屬於我們，清空。機制保留：日後若再搬網址，填回這個表即可。
+    LEGACY = {}
     for old, new in LEGACY.items():
         d = os.path.join(OUT, old)
         # 防呆：舊網址若跟真實頁面同名，會把真頁面蓋掉（/services 就踩過一次）

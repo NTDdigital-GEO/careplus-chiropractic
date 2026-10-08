@@ -98,10 +98,11 @@ short=[]
 for u,s in pages.items():
     m=re.search(r'<p class="answer">(.*?)</p>',s,re.S)
     t=re.sub(r'<[^>]+>','',m.group(1)).strip() if m else ""
-    if u.startswith("/zh/") or u == "/zh/":
-        n = len(re.findall(r'[一-鿿]', t)); lo, hi, unit = 40, 160, "中文字"
-    else:
+    # 2026-10-08 起：中文在根目錄，英文在 /en/
+    if u.startswith("/en/") or u == "/en/":
         n = len(t.split()); lo, hi, unit = 25, 95, "英文字"
+    else:
+        n = len(re.findall(r'[一-鿿]', t)); lo, hi, unit = 40, 160, "中文字"
     if n < lo or n > hi: short.append((u, f"{n} {unit}"))
 if short: warns.append("直答段落長度需留意"); [print(f"  ! {u} 直答 {n}") for u,n in short[:8]]
 else: print("✓ 直答段落：長度皆在合理範圍")
