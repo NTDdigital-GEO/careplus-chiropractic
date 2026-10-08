@@ -381,6 +381,9 @@ FORM_ZH = f'''<form class="formwrap" id="cbForm" method="POST" action="{FORM_END
 <input type="hidden" name="access_key" value="{FORM_KEY}">
 <input type="hidden" name="subject" value="{T['zh']['f_subject']}">
 <input type="hidden" name="from_name" value="{BIZ["en"]}">
+<input type="hidden" name="ad_source" value="">
+<input type="hidden" name="click_id" value="">
+<input type="hidden" name="landing_page" value="">
 <label for="n">稱呼 <span style="color:var(--accent)">*</span></label>
 <input id="n" name="name" type="text" required autocomplete="name" placeholder="例：陳先生">
 <label for="t">回電號碼 <span style="color:var(--accent)">*</span></label>
@@ -405,6 +408,9 @@ FORM_EN = f'''<form class="formwrap" id="cbForm" method="POST" action="{FORM_END
 <input type="hidden" name="access_key" value="{FORM_KEY}">
 <input type="hidden" name="subject" value="{T['en']['f_subject']}">
 <input type="hidden" name="from_name" value="{BIZ["en"]}">
+<input type="hidden" name="ad_source" value="">
+<input type="hidden" name="click_id" value="">
+<input type="hidden" name="landing_page" value="">
 <label for="n">Your name <span style="color:var(--accent)">*</span></label>
 <input id="n" name="name" type="text" required autocomplete="name" placeholder="e.g. Mr. Chen">
 <label for="t">Phone to call back <span style="color:var(--accent)">*</span></label>
@@ -708,6 +714,56 @@ def render(p):
 </script>
 <script>
 (function(){{window.dataLayer=window.dataLayer||[];
+// ── 廣告來源歸因 ─────────────────────────────────────────────
+// 廣告點進來的網址帶著 ?gclid=… 。訪客通常會先逛幾頁才填表，
+// 如果不存起來，送出時那串參數早就不見了，客戶收到的信就看不出
+// 這個人是從哪支廣告來的。存 localStorage，採「最後一次點擊」：
+// 有新的廣告參數就覆蓋，因為 Google Ads 匯入轉換要的是促成這次
+// 轉換的那一次點擊。90 天後過期，免得把陳年的 gclid 黏上去。
+var AD_PARAMS=['gclid','wbraid','gbraid','fbclid','msclkid','ttclid'];
+var UTM_PARAMS=['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+var ATTR_KEY='cp_attr', ATTR_DAYS=90;
+function attrLoad(){{
+  try{{
+    var o=JSON.parse(localStorage.getItem(ATTR_KEY)||'null');
+    if(!o||!o.ts) return null;
+    if((Date.now()-o.ts)/86400000 > ATTR_DAYS) return null;
+    return o;
+  }}catch(e){{ return null; }}
+}}
+function attrCapture(){{
+  var q=new URLSearchParams(location.search), hit={{}}, found=false;
+  AD_PARAMS.concat(UTM_PARAMS).forEach(function(k){{
+    var v=q.get(k); if(v){{ hit[k]=v; found=true; }}
+  }});
+  if(found){{
+    hit.ts=Date.now();
+    hit.landing=location.pathname;
+    hit.ref=document.referrer||'';
+    try{{ localStorage.setItem(ATTR_KEY,JSON.stringify(hit)); }}catch(e){{}}
+    return hit;
+  }}
+  return attrLoad();
+}}
+function attrSummary(a){{
+  if(!a) return '自然搜尋或直接進入';
+  var src=a.utm_source
+    || ((a.gclid||a.wbraid||a.gbraid) ? 'Google 廣告'
+    : (a.fbclid ? 'Facebook／Instagram 廣告'
+    : (a.msclkid ? 'Bing 廣告'
+    : (a.ttclid ? 'TikTok 廣告' : '不明來源'))));
+  var out=[src];
+  if(a.utm_campaign) out.push(a.utm_campaign);
+  if(a.utm_content)  out.push(a.utm_content);
+  if(a.utm_term)     out.push(a.utm_term);
+  return out.join('｜');
+}}
+function attrClickId(a){{
+  if(!a) return '';
+  for(var i=0;i<AD_PARAMS.length;i++){{ if(a[AD_PARAMS[i]]) return AD_PARAMS[i]+'='+a[AD_PARAMS[i]]; }}
+  return '';
+}}
+var ATTR=attrCapture();
 var f=document.getElementById('cbForm');
 if(f){{
   var st=document.getElementById('cbStatus'), btn=f.querySelector('button[type=submit]');
@@ -721,6 +777,11 @@ if(f){{
     if(!HAS_KEY){{ say({js(t('preview_alert_inline'))},'warn'); return; }}
     btn.disabled=true; var orig=btn.textContent; btn.textContent={js(t('f_sending'))};
     say('','');  st.hidden=true;
+    var _a=f.querySelector('[name=ad_source]'), _c=f.querySelector('[name=click_id]'),
+        _l=f.querySelector('[name=landing_page]');
+    if(_a) _a.value=attrSummary(ATTR);
+    if(_c) _c.value=attrClickId(ATTR);
+    if(_l) _l.value=(ATTR&&ATTR.landing)||location.pathname;
     var data=Object.fromEntries(new FormData(f).entries());
     fetch(f.action,{{method:'POST',
       headers:{{'Content-Type':'application/json','Accept':'application/json'}},
