@@ -27,9 +27,9 @@ PAGES = [
 {
  "slug":"reviews", "hero":('team', 'The CarePlus Chiropractic team'),"crumbs":[],"crumb_self":"Patient reviews","cta_bg":"alt",
  "title":"Patient Reviews｜CarePlus Chiropractic Oakland · Google 5.0 · 39 Reviews",
- "desc":"Patient reviews for CarePlus Chiropractic in Oakland Chinatown. Google Business Profile rating 5.0 across 39 reviews, with written testimonials from auto accident and long-term patients.",
+ "desc":"Patient reviews for CarePlus Chiropractic in Oakland Chinatown. Google Business Profile rating 5.0 across 40 reviews, with written testimonials from auto accident and long-term patients.",
  "h1":"What patients say",
- "answer":"CarePlus Chiropractic holds a 5.0 rating across 39 Google reviews. The topics Google extracts most often from those reviews are fast process, warm atmosphere, DOT physical exam and considerate doctor. Written testimonials below are from patients treated at the clinic; individual results vary.",
+ "answer":"CarePlus Chiropractic holds a 5.0 rating across 40 Google reviews. The topics Google extracts most often from those reviews are fast process, warm atmosphere, DOT physical exam and considerate doctor. Written testimonials below are from patients treated at the clinic; individual results vary.",
  "blocks":[
   {"t":"reviews","eyebrow":"Google Business Profile","h2":"Rating and review topics",
    "items":[("Quick process, and the doctor and staff were all very kind.","Google review"),

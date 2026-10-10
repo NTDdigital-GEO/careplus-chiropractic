@@ -70,7 +70,7 @@ BIZ = dict(
     hours_zh="週一至週五 9:00–18:00 · 週六 9:00–13:00",
     bart="Lake Merritt BART 步行約 5 分鐘",
     langs="粵語・國語・台語・閩南話・English",
-    rating="5.0", reviews="39", dot_price="99",
+    rating="5.0", reviews="40", dot_price="99",
 )
 
 # ── 外部權威來源庫（frontlinks）──
