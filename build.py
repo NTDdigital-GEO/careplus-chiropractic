@@ -560,6 +560,10 @@ def render(p):
     crumb_items = [(t("home"), "/")] + list(p.get("crumbs", []))
     crumb_html = "".join(f'<a href="{e(u)}">{e(n)}</a><span>›</span>' for n,u in crumb_items)
     crumb_html += f'<strong style="color:var(--ink-2);font-weight:600">{e(p.get("crumb_self") or p["h1"])}</strong>'
+    # 首頁不輸出麵包屑：它是起點，沒有上一層。原本會印出「首頁 › 首頁」，
+    # 英文版更糟，會把整句 H1 當成最後一層。結構化資料不受影響。
+    crumb_nav = ("" if not slug else
+                 f'<nav class="crumb" aria-label="{e(t("crumb"))}"><div class="wrap">{crumb_html}</div></nav>')
 
     hero = p.get("hero")
     hero_html = ""
@@ -686,7 +690,7 @@ def render(p):
 </div>
 <nav class="mainnav" aria-label="{e(t("nav"))}"><div class="wrap">{nav_html}</div></nav>
 </header>
-<nav class="crumb" aria-label="{e(t("crumb"))}"><div class="wrap">{crumb_html}</div></nav>
+{crumb_nav}
 <main id="main">
 <div class="phead"><div class="wrap">
   <span class="openpill"><span class="dot" aria-hidden="true"></span>{e(t("hours"))}</span>
