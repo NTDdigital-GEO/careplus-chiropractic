@@ -806,6 +806,22 @@ if(f){{
     .finally(function(){{ btn.disabled=false; btn.textContent=orig; }});
   }});
 }}
+// 手機版品牌列是 fixed，會脫離文件流。CSS 裡寫了 141px 當退路，
+// 但字級、語言、系統設定都可能改變實際高度，所以用量到的真值覆蓋。
+(function(){{
+  var tb=document.querySelector('.topbar');
+  function fit(){{
+    if(!tb) return;
+    if(getComputedStyle(tb).position==='fixed'){{
+      document.body.style.paddingTop=tb.offsetHeight+'px';
+    }} else {{
+      document.body.style.paddingTop='';
+    }}
+  }}
+  fit();
+  addEventListener('resize',fit);
+  addEventListener('orientationchange',fit);
+}})();
 document.querySelectorAll('a[href^="tel:"]').forEach(function(a){{a.addEventListener('click',function(){{
 window.dataLayer.push({{event:'phone_click',phone_number:a.getAttribute('href').replace('tel:',''),page_path:location.pathname}});}});}});
 }})();

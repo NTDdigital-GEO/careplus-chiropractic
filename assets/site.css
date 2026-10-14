@@ -62,11 +62,17 @@ span.mark{border-radius:10px;background:var(--brand);color:#fff;display:grid;
   .callbtn{flex:1 1 auto;text-align:center}
 
   /* 手機上只讓「品牌＋致電」固定在上方，主導覽列捲動時讓它滑走。
-     整個頁首都 sticky 的話會佔掉約 198px，接近手機畫面的四分之一。
-     捲到內容深處時使用者要的是打電話，不是導覽列。 */
+     整個頁首都 sticky 會佔掉約 196px，接近手機畫面的四分之一；
+     捲到內容深處時使用者要的是打電話，不是導覽列。
+
+     這裡必須用 fixed 不能用 sticky：sticky 的附著範圍受父層限制，
+     父層 header.top 只有 196px 高，一捲過去子元素就跟著消失。
+     用了 fixed 就脫離文件流，所以要用 body 的 padding-top 補回高度。 */
   header.top{position:static}
-  .topbar{position:sticky;top:0;z-index:50;background:var(--bg);
-    border-bottom:1px solid var(--line);padding-bottom:10px}}
+  .topbar{position:fixed;top:0;left:0;right:0;width:100%;max-width:none;
+    z-index:60;background:var(--bg);border-bottom:1px solid var(--line);
+    padding:12px 20px 11px}
+  body{padding-top:141px}}
 
 /* ── 主導覽列 ── */
 .mainnav{border-top:1px solid var(--line);background:var(--bg)}
