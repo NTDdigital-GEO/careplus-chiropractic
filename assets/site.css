@@ -49,10 +49,13 @@ span.mark{border-radius:10px;background:var(--brand);color:#fff;display:grid;
 .callbtn:hover{background:var(--brand-2)}
 @media(max-width:560px){.bname{font-size:15px}.bsub{font-size:11px}.callbtn{padding:9px 14px;font-size:14px}}
 @media(max-width:480px){.bname{font-size:14.5px}.bsub{font-size:10.5px}.langsw{padding:6px 9px;font-size:13px}}
-/* 很窄的螢幕：頁首改成兩行，品牌佔滿第一行。
+/* 窄螢幕：頁首改成兩行，品牌佔滿第一行。
    2026-10-14 之前是把名稱整個隱藏（只留徽章），但診所名稱要與
-   GBP、廣告的名稱一致，手機上看不到就失去意義，所以改成換行。 */
-@media(max-width:430px){
+   GBP、廣告的名稱一致，手機上看不到就失去意義，所以改成換行。
+   斷點用 560px 是量出來的：徽章 42 ＋ 名稱 183（英文那行最寬）
+   ＋ 右側按鈕區 244 ＋ 間距與左右留白，單行至少要 536px 才放得下。
+   原本設 430px，導致 431–535px 之間名稱被切成半個字。 */
+@media(max-width:560px){
   .topbar{flex-wrap:wrap;gap:10px 12px}
   .brand{flex:1 1 100%}
   .topright{width:100%;margin-left:0}
