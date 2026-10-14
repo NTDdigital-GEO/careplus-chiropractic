@@ -5,7 +5,7 @@
 
 WHY_EN = [
  ("In practice since","1988 — 38 years","Same practitioner, same Oakland Chinatown block since 1988. Long enough to have seen most presentations more than once.",False),
- ("Languages","Cantonese · Mandarin · Taiwanese · English","From history-taking through to explaining the plan, in the language you are most comfortable in. You do not need to bring your own interpreter.",False),
+ ("Languages","Cantonese · Mandarin · English","From history-taking through to explaining the plan, in the language you are most comfortable in. You do not need to bring your own interpreter.",False),
  ("On-site imaging","Digital X-ray, same visit","When imaging is clinically indicated it is taken here, so you are not sent to a separate imaging centre and back.",False),
  ("Getting here","5-minute walk from Lake Merritt BART","In the Madison professional building in downtown Oakland. Building and street parking both available.",False),
 ]
@@ -17,9 +17,9 @@ PAGES = [
  "slug":"", "nap":True, "cta_bg":"alt", "faq_bg":"",
  "hero":("storefront","The CarePlus Chiropractic storefront at 212 9th Street in Oakland Chinatown"),
  "title":"Chiropractor in Oakland Chinatown｜CarePlus Chiropractic · Dr. Stewart Chen",
- "desc":"Chiropractic care in Oakland Chinatown since 1988. Spinal adjustment, acupuncture, auto accident and work injury rehabilitation, and DOT/CDL driver physicals at $99. Cantonese, Mandarin, Taiwanese and English. 212 9th Street Suite 103. 510-465-7982.",
+ "desc":"Chiropractic care in Oakland Chinatown since 1988. Spinal adjustment, acupuncture, auto accident and work injury rehabilitation, and DOT/CDL driver physicals at $99. Cantonese, Mandarin and English. 212 9th Street Suite 103. 510-465-7982.",
  "h1":"Chiropractic care in Oakland Chinatown since 1988",
- "answer":"CarePlus Chiropractic Health Center has practised at 212 9th Street in Oakland Chinatown since 1988. Dr. Stewart Chen, D.C. provides spinal adjustment, acupuncture, auto accident and work injury rehabilitation, and DOT/CDL driver physicals at $99. Cantonese, Mandarin, Taiwanese and English spoken. Lake Merritt BART is a five-minute walk.",
+ "answer":"CarePlus Chiropractic Health Center has practised at 212 9th Street in Oakland Chinatown since 1988. Dr. Stewart Chen, D.C. provides spinal adjustment, acupuncture, auto accident and work injury rehabilitation, and DOT/CDL driver physicals at $99. Cantonese, Mandarin and English spoken. Lake Merritt BART is a five-minute walk.",
  "blocks":[
   {"t":"routes","eyebrow":"Where to start","h2":"What brings you in?",
    "lede":"Pick the closest description and we will take you to the details that matter for your situation.",
@@ -60,13 +60,12 @@ PAGES = [
             ("waiting-room","The waiting room, with the certificate wall behind the seating",None),
             ("exam-room","Examination room with diagnostic equipment and an X-ray viewer",None),
             ("xray-machine","The clinic's digital X-ray unit","No need to travel to a separate imaging centre"),
-            ("team","The CarePlus Chiropractic team",None),
             ("patient-files","Patient records accumulated since 1988",None)]},
  ],
  "faq_h2":"Questions people ask before coming in",
  "faqs":[
   ("What should I bring to a first visit, and how long does it take?","<p>Bring photo ID and your insurance card. If this is an auto accident or work injury, also bring the incident report number, the claim number, and your attorney's contact details if you have representation. A first visit covers history, physical examination, digital X-ray where clinically indicated, and an explanation of findings and a proposed plan in the same visit. Allow 45 to 60 minutes.</p>",[("int","/new-patient/","New patient information →")]),
-  ("What languages do you speak? Do I need to bring an interpreter?","<p>No. Dr. Chen speaks Cantonese, Mandarin, Taiwanese and English. Staff between them also cover Tagalog and Vietnamese. The consultation and the explanation of your plan can be done entirely in the language you are most comfortable in.</p>",None),
+  ("What languages do you speak? Do I need to bring an interpreter?","<p>No. Dr. Chen speaks Cantonese, Mandarin and English. Staff between them also cover Tagalog and Vietnamese. The consultation and the explanation of your plan can be done entirely in the language you are most comfortable in.</p>",None),
   ("Is the $99 DOT physical the full price?","<p>Yes. $99 covers the examination and the report on the day, and we can help submit it to the DMV. If your situation requires additional testing we will tell you the cost before carrying it out, not afterwards.</p>",[("int","/dot-physical/","About DOT physicals →")]),
   ("How long is a DOT medical certificate valid?","<p>Under FMCSA rules the maximum is 24 months. Where there is high blood pressure, diabetes, sleep apnoea or a similar condition, the examiner may issue a 12-month or 3-month certificate so the condition can be monitored.</p>",["fmcsa_reg"]),
   ("After a car accident, do I have to pay up front?","<p>Usually not. In California, treatment after a collision is commonly paid through the at-fault driver's liability cover, the MedPay provision on your own policy, or on a lien basis where you are represented by an attorney, settled when the claim resolves. Which applies depends on your policy and the case, and we go through it with you at the first visit.</p>",[("int","/insurance/auto-accident/","How auto accident billing works →")]),
@@ -80,11 +79,11 @@ PAGES = [
 # ── 中心介紹 ─────────────────────────────────────
 {
  "slug":"about","crumbs":[],"crumb_self":"About","cta_bg":"alt",
- "hero":("team","The CarePlus Chiropractic team in Oakland Chinatown"),
+ "hero":("hallway","The corridor and treatment room entrances at CarePlus Chiropractic"),
  "title":"About the Clinic｜CarePlus Chiropractic · Oakland Chinatown since 1988",
- "desc":"CarePlus Chiropractic Health Center has served Oakland Chinatown since 1988. Three private treatment rooms, on-site digital X-ray, and care in Cantonese, Mandarin, Taiwanese and English. 212 9th Street Suite 103.",
+ "desc":"CarePlus Chiropractic Health Center has served Oakland Chinatown since 1988. Three private treatment rooms, on-site digital X-ray, and care in Cantonese, Mandarin and English. 212 9th Street Suite 103.",
  "h1":"A neighbourhood practice, in the same place since 1988",
- "answer":"CarePlus Chiropractic Health Center opened in Oakland Chinatown in 1988 and has operated from 212 9th Street ever since. The clinic has three private treatment rooms and on-site digital X-ray. Care is provided in Cantonese, Mandarin, Taiwanese and English, so patients do not need to bring an interpreter.",
+ "answer":"CarePlus Chiropractic Health Center opened in Oakland Chinatown in 1988 and has operated from 212 9th Street ever since. The clinic has three private treatment rooms and on-site digital X-ray. Care is provided in Cantonese, Mandarin and English, so patients do not need to bring an interpreter.",
  "blocks":[
   {"t":"prose","eyebrow":"How we approach this","h2":"Treating the symptom is not the same as understanding it",
    "html":"""<p>Pain in one place often has its origin somewhere else. A shoulder that will not settle can come from the neck; numbness in the hand can come from the cervical spine rather than the wrist. So the first visit is spent working out where the problem is actually coming from, rather than going straight to treatment.</p>
@@ -96,7 +95,7 @@ PAGES = [
     ("Established","1988 · 38 years","Opened in Oakland Chinatown and has operated from the same address since.",False),
     ("Address","212 9th Street, Suite 103","Madison professional building, downtown Oakland, CA 94607. Five-minute walk from Lake Merritt BART.",False),
     ("Hours","Mon–Fri 9:00–18:00 · Sat 9:00–13:00","Closed Sunday. By appointment — please call ahead.",False),
-    ("Languages","Cantonese · Mandarin · Taiwanese · English","Staff between them also cover Tagalog and Vietnamese.",False)]},
+    ("Languages","Cantonese · Mandarin · English","Staff between them also cover Tagalog and Vietnamese.",False)]},
   {"t":"photos","eyebrow":"Inside the clinic","h2":"What the practice looks like",
    "lede":"Photographs taken at the clinic.",
    "items":[("waiting-room","The waiting room, with the certificate wall and seating area",None),
@@ -116,7 +115,6 @@ PAGES = [
   ("Will I be X-rayed at the first visit?","<p>Only if it is clinically indicated. It is a judgement made during the examination, not something applied to every patient by default. Where imaging is needed it is taken on site during the same visit.</p>",None),
  ],
  "related":[("/about/dr-stewart-chen/","Dr. Stewart Chen","Qualifications, credentials and public record"),
-            ("/about/team/","Our team","Front desk, billing and treatment staff"),
             ("/contact/","Visit us","Directions, parking and hours")],
 },
 
@@ -127,7 +125,7 @@ PAGES = [
  "title":"Dr. Stewart Chen, D.C.｜California Licence 18759 · DOT Certified Medical Examiner",
  "desc":"Dr. Stewart Chen, D.C. earned his Doctor of Chiropractic from Palmer College in 1987 and has practised in Oakland Chinatown since 1988. California licence 18759, valid through March 2027. FMCSA certified medical examiner 5497424313.",
  "h1":"Dr. Stewart Chen, D.C.",
- "answer":"Dr. Stewart Chen, D.C. earned his Doctor of Chiropractic from Palmer College of Chiropractic in 1987 and has practised in Oakland Chinatown since 1988. He holds California chiropractic licence 18759, valid through 31 March 2027, and is a certified medical examiner on the FMCSA National Registry. He speaks Cantonese, Mandarin, Taiwanese and English.",
+ "answer":"Dr. Stewart Chen, D.C. earned his Doctor of Chiropractic from Palmer College of Chiropractic in 1987 and has practised in Oakland Chinatown since 1988. He holds California chiropractic licence 18759, valid through 31 March 2027, and is a certified medical examiner on the FMCSA National Registry. He speaks Cantonese, Mandarin and English.",
  "blocks":[
   {"t":"facts","eyebrow":"Verifiable credentials","h2":"Everything below can be checked on a public register",
    "lede":"We have put the lookup links underneath. Please verify them yourself.",
@@ -158,7 +156,7 @@ PAGES = [
            ["2021–present","AC Transit district parcel tax oversight committee"],
            ["Former","Alameda City Council member"]]},
   {"t":"prose","bg":"alt","eyebrow":"Languages","h2":"You do not need to bring an interpreter",
-   "html":"""<p>Dr. Chen speaks Cantonese, Mandarin, Taiwanese and English. That matters more in this setting than it might sound: describing pain accurately is difficult in a second language, and an imprecise history leads to an imprecise assessment.</p>
+   "html":"""<p>Dr. Chen speaks Cantonese, Mandarin and English. That matters more in this setting than it might sound: describing pain accurately is difficult in a second language, and an imprecise history leads to an imprecise assessment.</p>
 <p>Staff between them also cover Tagalog and Vietnamese, so front desk, billing and treatment can usually all be handled in the same language.</p>"""},
  ],
  "faqs":[
@@ -166,8 +164,7 @@ PAGES = [
   ("What is a DOT certified medical examiner?","<p>A certified medical examiner is registered with the Federal Motor Carrier Safety Administration to perform commercial driver physicals. A driver's medical examination is only valid if performed by an examiner listed on the National Registry. You can confirm any examiner by searching their registry number.</p>",["fmcsa_srch",("int","/dot-physical/","About DOT physicals →")]),
   ("Which conditions does Dr. Chen see most often?","<p>Auto accident injuries, work-related back and neck injuries, sciatica, disc problems, and chronic neck and shoulder pain from desk work. Commercial drivers also come for DOT physicals.</p>",[("int","/services/","All services →")]),
  ],
- "related":[("/about/team/","Our team","Front desk, billing and treatment staff"),
-            ("/dot-physical/","DOT / CDL physical","$99, same-day report"),
+ "related":[("/dot-physical/","DOT / CDL physical","$99, same-day report"),
             ("/services/","All services","What the clinic treats")],
 },
 
@@ -175,15 +172,15 @@ PAGES = [
 {
  "slug":"about/team","crumbs":[("About","/about/")],"crumb_self":"Our team","cta_bg":"alt",
  "hero":("team","The CarePlus Chiropractic team"),
- "title":"Our Team｜CarePlus Chiropractic · Cantonese, Mandarin, Taiwanese, Tagalog, Vietnamese",
- "desc":"The CarePlus Chiropractic team covers front desk, insurance billing and treatment support, with languages including Cantonese, Mandarin, Taiwanese, Tagalog, Vietnamese and English.",
+ "title":"Our Team｜CarePlus Chiropractic · Cantonese, Mandarin, Tagalog, Vietnamese",
+ "desc":"The CarePlus Chiropractic team covers front desk, insurance billing and treatment support, with languages including Cantonese, Mandarin, Tagalog, Vietnamese and English.",
  "h1":"The people you will deal with",
- "answer":"Alongside Dr. Stewart Chen, the CarePlus team covers reception, insurance and claims paperwork, and treatment support. Between them the staff speak Cantonese, Mandarin, Taiwanese, Tagalog, Vietnamese and English, so scheduling, billing questions and treatment can usually all be handled in the same language.",
+ "answer":"Alongside Dr. Stewart Chen, the CarePlus team covers reception, insurance and claims paperwork, and treatment support. Between them the staff speak Cantonese, Mandarin, Tagalog, Vietnamese and English, so scheduling, billing questions and treatment can usually all be handled in the same language.",
  "blocks":[
   {"t":"people","eyebrow":"Roles","h2":"Who does what",
    "items":[
     ("Clinical","Dr. Stewart Chen, D.C.","Examination, diagnosis, adjustment and treatment planning. California licence 18759; FMCSA certified medical examiner. <a class=\"int\" href=\"/about/dr-stewart-chen/\">Full credentials →</a>"),
-    ("Front desk","Scheduling and new patient intake","Appointments, intake paperwork and first-visit questions, in Cantonese, Mandarin, Taiwanese, Tagalog, Vietnamese or English."),
+    ("Front desk","Scheduling and new patient intake","Appointments, intake paperwork and first-visit questions, in Cantonese, Mandarin, Tagalog, Vietnamese or English."),
     ("Insurance and claims","Billing and case paperwork","Verifying cover, handling correspondence with insurers, employers and attorneys, and preparing documentation for auto accident and workers' compensation cases."),
     ("Treatment support","Therapy and imaging assistance","Setting up therapy modalities, assisting with digital X-ray, and going through rehabilitation exercises with patients.")],
    "sources":["chiro_ca","aca"]},
@@ -269,7 +266,7 @@ PAGES = [
    "items":[
     ("Time","Allow 45–60 minutes","A first visit takes longer than a follow-up because of the examination and the explanation.",False),
     ("Clothing","Comfortable, loose clothing","You may be asked to move through a range of positions during the examination.",False),
-    ("Language","Tell us when you book","Cantonese, Mandarin, Taiwanese, Tagalog, Vietnamese and English are all available.",False),
+    ("Language","Tell us when you book","Cantonese, Mandarin, Tagalog, Vietnamese and English are all available.",False),
     ("Payment","Depends on the route","Auto accident, workers' compensation, private insurance and self-pay each work differently.",False)]},
   {"t":"photos","bg":"alt","eyebrow":"Day to day","h2":"There's no need to be nervous",
    "lede":"People often arrive more anxious than they expected. This is not that kind of place.",

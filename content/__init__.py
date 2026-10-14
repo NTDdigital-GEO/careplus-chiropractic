@@ -17,6 +17,13 @@ for _p in _EN: _p["lang"] = "en"
 
 PAGES = _ZH + _EN
 
+# 2026-10-14 暫時下架：客戶表示團隊成員多已離職，頁面上的姓名、年資與語言
+# 不再正確。內容完整保留在 c_core.TEAM 與 en_core，等客戶要恢復時把 slug
+# 從下面這個集合移除、並把內容更新成現職同仁即可。
+# 下架同時也移除了所有指向它的站內連結（頁尾導覽、相關連結、FAQ）。
+HIDDEN_SLUGS = {"about/team"}
+PAGES = [_p for _p in PAGES if _p["slug"] not in HIDDEN_SLUGS]
+
 # 完整性檢查：slug 不得重複，必要欄位不得缺漏
 _seen = {}
 for _p in PAGES:

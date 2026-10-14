@@ -69,7 +69,7 @@ BIZ = dict(
     founded="1988", years="38",
     hours_zh="週一至週五 9:00–18:00 · 週六 9:00–13:00",
     bart="Lake Merritt BART 步行約 5 分鐘",
-    langs="粵語・國語・台語・閩南話・English",
+    langs="粵語・國語・English",
     rating="5.0", reviews="40", dot_price="99",
 )
 
@@ -117,7 +117,9 @@ LANGMARK = "%%LANGHREF%%"   # 語言切換鈕的網址不套用 /en 前綴，用
 
 T = {
  "zh": dict(
-   htmllang="zh-Hant", oglocale="zh_TW", name=BIZ["zh"], brandname=BIZ["zh"], other="English", otherlang="en",
+   htmllang="zh-Hant", oglocale="zh_TW", name=BIZ["zh"], other="English", otherlang="en",
+   # 頁首品牌：中文頁上中下英，英文頁上英下中（2026-10-14 客戶指定，與 GBP／廣告名稱一致）
+   brandname=BIZ["zh"], brandsub=BIZ["en"],
    skip="跳到主要內容", nav="主選單", crumb="麵包屑", home="首頁",
    call="致電", callcta="致電預約", callback="請診所回電",
    hours=BIZ["hours_zh"], closed="週日休診",
@@ -128,7 +130,7 @@ T = {
    src_label="參考來源：",
    nap=("地址","交通","看診語言","電話"),
    nap_bart="Lake Merritt BART<br>步行約 5 分鐘",
-   nap_langs="粵語・國語・台語<br>閩南話・English",
+   nap_langs="粵語・國語<br>English",
    disclaimer="本網站內容僅供一般健康資訊參考，不能取代專業醫療診斷或治療建議。個別狀況請親自到診評估。",
    footline="奧克蘭中國城執業 %s 年" % BIZ["years"],
    hoursline="營業時間：",
@@ -144,7 +146,8 @@ T = {
    preview_alert_inline="這是預覽版，表單還沒接上收件信箱，所以不會真的送出。要預約請直接致電 510-465-7982。",
  ),
  "en": dict(
-   htmllang="en", oglocale="en_US", name=BIZ["en"], brandname="CarePlus Chiropractic", other="中文", otherlang="zh-Hant",
+   htmllang="en", oglocale="en_US", name=BIZ["en"], other="中文", otherlang="zh-Hant",
+   brandname=BIZ["en"], brandsub=BIZ["zh"],
    skip="Skip to main content", nav="Main menu", crumb="Breadcrumb", home="Home",
    call="Call", callcta="Call to book", callback="Request a call back",
    hours="Mon–Fri 9:00–18:00 · Sat 9:00–13:00", closed="Closed Sunday",
@@ -155,7 +158,7 @@ T = {
    src_label="Sources: ",
    nap=("Address","Transit","Languages","Phone"),
    nap_bart="Lake Merritt BART<br>5-minute walk",
-   nap_langs="Cantonese · Mandarin<br>Taiwanese · English",
+   nap_langs="Cantonese · Mandarin<br>English",
    disclaimer="This site provides general health information only. It is not a substitute for professional diagnosis or treatment. Please come in for an assessment of your individual situation.",
    footline="%s years in Oakland Chinatown" % BIZ["years"],
    hoursline="Hours: ",
@@ -204,7 +207,7 @@ NAV_FOOT_ZH = [
  ("費用與保險", [("/insurance/auto-accident/","車禍理賠"),("/insurance/workers-comp/","工傷理賠"),
    ("/insurance/medicare/","Medicare"),("/insurance/self-pay/","自費價目"),
    ("/pricing/","價目總表"),("/dot-physical/","DOT 體檢 $99")]),
- ("關於我們", [("/","首頁"),("/about/dr-stewart-chen/","莊錦鎮醫師"),("/about/team/","醫療團隊"),
+ ("關於我們", [("/","首頁"),("/about/dr-stewart-chen/","莊錦鎮醫師"),
    ("/about/","中心介紹"),("/reviews/","病人評價"),("/media/","媒體報導"),
    ("/faq/","常見問題"),("/new-patient/","初診須知"),("/contact/","交通與停車")]),
 ]
@@ -216,7 +219,7 @@ NAV_FOOT_EN = [
  ("Fees & Insurance", [("/insurance/auto-accident/","Auto accident claims"),("/insurance/workers-comp/","Workers' compensation"),
    ("/insurance/medicare/","Medicare"),("/insurance/self-pay/","Self-pay rates"),
    ("/pricing/","Full price list"),("/dot-physical/","DOT physical $99")]),
- ("About", [("/","Home"),("/about/dr-stewart-chen/","Dr. Stewart Chen"),("/about/team/","Our team"),
+ ("About", [("/","Home"),("/about/dr-stewart-chen/","Dr. Stewart Chen"),
    ("/about/","About the clinic"),("/reviews/","Patient reviews"),("/media/","In the media"),
    ("/faq/","FAQ"),("/new-patient/","New patients"),("/contact/","Visit us")]),
 ]
@@ -397,7 +400,7 @@ FORM_ZH = f'''<form class="formwrap" id="cbForm" method="POST" action="{FORM_END
 <select id="w" name="best_time"><option>上午 9:00–12:00</option><option>下午 12:00–15:00</option>
 <option>下午 15:00–18:00</option><option>都可以</option></select>
 <label for="l">希望用哪種語言溝通</label>
-<select id="l" name="language"><option>粵語</option><option>國語／普通話</option><option>台語／閩南話</option><option>English</option></select>
+<select id="l" name="language"><option>粵語</option><option>國語／普通話</option><option>English</option></select>
 <button type="submit">送出，請診所回電</button>
 <p class="formstatus" id="cbStatus" role="status" aria-live="polite" hidden></p>
 <p class="formnote">我們只會用這個號碼與您聯繫預約事宜。<br>急需就診請直接致電 <a href="tel:{BIZ["tel_href"]}">{BIZ["tel_display"]}</a>。</p>
@@ -424,7 +427,7 @@ FORM_EN = f'''<form class="formwrap" id="cbForm" method="POST" action="{FORM_END
 <select id="w" name="best_time"><option>Morning 9:00–12:00</option><option>Early afternoon 12:00–15:00</option>
 <option>Late afternoon 15:00–18:00</option><option>Any time</option></select>
 <label for="l">Preferred language</label>
-<select id="l" name="language"><option>English</option><option>Cantonese</option><option>Mandarin</option><option>Taiwanese</option></select>
+<select id="l" name="language"><option>English</option><option>Cantonese</option><option>Mandarin</option></select>
 <button type="submit">Send — please call me back</button>
 <p class="formstatus" id="cbStatus" role="status" aria-live="polite" hidden></p>
 <p class="formnote">We'll only use this number to arrange your appointment.<br>If you need to be seen urgently, please call <a href="tel:{BIZ["tel_href"]}">{BIZ["tel_display"]}</a>.</p>
@@ -449,7 +452,6 @@ def clinic_node():
                       "addressLocality":"Oakland Chinatown"}}],
       "availableLanguage":[{"@type":"Language","name":"Chinese (Cantonese)"},
                            {"@type":"Language","name":"Chinese (Mandarin)"},
-                           {"@type":"Language","name":"Taiwanese Hokkien"},
                            {"@type":"Language","name":"English"}],
       "openingHoursSpecification":[
         {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],
@@ -673,7 +675,7 @@ def render(p):
 <a href="#main" class="skip">{e(t("skip"))}</a>
 <header class="top"><div class="wrap topbar">
   <a href="/" class="brand">{brand_mark()}
-  <span><span class="bname">{e(t("brandname"))}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ["founded"]}</span></span></a>
+  <span><span class="bname">{e(t("brandname"))}</span><br><span class="bsub">{e(t("brandsub"))}</span></span></a>
   <span class="topright">{lang_btn}<a href="tel:{BIZ["tel_href"]}" class="callbtn">{e(t("call"))} {BIZ["tel_display"]}</a></span>
 </div>
 <nav class="mainnav" aria-label="{e(t("nav"))}"><div class="wrap">{nav_html}</div></nav>
@@ -906,7 +908,7 @@ def main():
 {gtm_body()}
 <header class="top"><div class="wrap topbar">
 <a href="{pfx(lg)}/" class="brand">{brand_mark()}
-<span><span class="bname">{tt['brandname']}</span><br><span class="bsub">CAREPLUS CHIROPRACTIC · SINCE {BIZ['founded']}</span></span></a>
+<span><span class="bname">{tt['brandname']}</span><br><span class="bsub">{tt['brandsub']}</span></span></a>
 <a href="tel:{BIZ['tel_href']}" class="callbtn">{tt['call']} {BIZ['tel_display']}</a></div></header>
 <main><section style="padding:70px 0 30px;text-align:center"><div class="wrap narrow">
 <h1 style="max-width:none;margin-inline:auto">{h}</h1>{body}</div></section></main>

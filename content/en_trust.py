@@ -25,7 +25,7 @@ PAGES = [
 
 # ── 病人評價 ─────────────────────────────────────
 {
- "slug":"reviews", "hero":('team', 'The CarePlus Chiropractic team'),"crumbs":[],"crumb_self":"Patient reviews","cta_bg":"alt",
+ "slug":"reviews", "hero":('patient-in-treatment', 'A patient being treated at CarePlus Chiropractic'),"crumbs":[],"crumb_self":"Patient reviews","cta_bg":"alt",
  "title":"Patient Reviews｜CarePlus Chiropractic Oakland · Google 5.0 · 39 Reviews",
  "desc":"Patient reviews for CarePlus Chiropractic in Oakland Chinatown. Google Business Profile rating 5.0 across 40 reviews, with written testimonials from auto accident and long-term patients.",
  "h1":"What patients say",
@@ -312,7 +312,7 @@ PAGES += [
  "faqs":[
   ("Do I need an appointment?","<p>Yes. The clinic works by appointment rather than walk-in. Call 510-465-7982, or use the call-back form on any page and we will ring you during clinic hours.</p>",None),
   ("What should I bring to a first visit?","<p>Photo ID and your insurance card. For an auto accident or work injury, also the report number, claim number, and your attorney's details if you are represented. Allow 45 to 60 minutes.</p>",[("int","/new-patient/","New patient information →")]),
-  ("What languages do you speak?","<p>Dr. Chen speaks Cantonese, Mandarin, Taiwanese and English. Staff between them also cover Tagalog and Vietnamese, so scheduling, billing and treatment can usually all be handled in one language.</p>",None),
+  ("What languages do you speak?","<p>Dr. Chen speaks Cantonese, Mandarin and English. Staff between them also cover Tagalog and Vietnamese, so scheduling, billing and treatment can usually all be handled in one language.</p>",None),
   ("How much does it cost?","<p>A DOT/CDL driver physical is $99 all inclusive. Self-pay initial examination including digital X-ray starts at $150. Auto accident and work injury treatment is usually billed to the claim rather than to you.</p>",[("int","/pricing/","Full price list →")]),
   ("Do you take my insurance?","<p>It depends on the plan. Call and ask for billing before your first visit, with your card to hand, and we will check.</p>",[("int","/insurance/ppo/","Private insurance →")]),
   ("Will I be X-rayed?","<p>Only where it is clinically indicated. It is a judgement made during the examination, not something every patient has. Where imaging is needed, it is taken on site during the same visit.</p>",None),
