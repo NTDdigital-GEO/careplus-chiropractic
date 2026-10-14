@@ -59,7 +59,14 @@ span.mark{border-radius:10px;background:var(--brand);color:#fff;display:grid;
   .topbar{flex-wrap:wrap;gap:10px 12px}
   .brand{flex:1 1 100%}
   .topright{width:100%;margin-left:0}
-  .callbtn{flex:1 1 auto;text-align:center}}
+  .callbtn{flex:1 1 auto;text-align:center}
+
+  /* 手機上只讓「品牌＋致電」固定在上方，主導覽列捲動時讓它滑走。
+     整個頁首都 sticky 的話會佔掉約 198px，接近手機畫面的四分之一。
+     捲到內容深處時使用者要的是打電話，不是導覽列。 */
+  header.top{position:static}
+  .topbar{position:sticky;top:0;z-index:50;background:var(--bg);
+    border-bottom:1px solid var(--line);padding-bottom:10px}}
 
 /* ── 主導覽列 ── */
 .mainnav{border-top:1px solid var(--line);background:var(--bg)}
