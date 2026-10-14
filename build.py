@@ -38,6 +38,11 @@ if SITE == _SITE_FALLBACK and not NOINDEX:
 # 本機測試若不想送資料，執行前加 GTM_ID="" 即可。
 GTM_ID = os.environ.get("GTM_ID", "GTM-PFJXXHJN")
 
+# Search Console 擁有權驗證（HTML 標記法）。2026-10-14 取得。
+# 這不是機密，本來就會出現在每一頁的原始碼裡。
+# 驗證通過後「不要刪」——Google 會定期重新檢查，拿掉就會掉驗證。
+GSC_VERIFY = "fNjEcAKJU0p48c4UilOb5uVwru-y2ptJgjnYGN2y5TU"
+
 # 回電表單的收件服務（Web3Forms）。金鑰放環境變數，不進版本庫。
 # 沒設定時表單會顯示提示且不送出，不會變成壞掉的 404。
 FORM_KEY = os.environ.get("FORM_ACCESS_KEY", "").strip()
@@ -653,6 +658,7 @@ def render(p):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="{GSC_VERIFY}">
 <title>{e(p["title"])}</title>
 {gtm_head()}
 <meta name="description" content="{e(p["desc"])}">
