@@ -26,7 +26,9 @@ PAGES = [
 # ── 病人評價 ─────────────────────────────────────
 {
  "slug":"reviews", "hero":('patient-in-treatment', 'A patient being treated at CarePlus Chiropractic'),"crumbs":[],"crumb_self":"Patient reviews","cta_bg":"alt",
- "title":"Patient Reviews｜CarePlus Chiropractic Oakland · Google 5.0 · 39 Reviews",
+ # 評論則數的唯一事實來源是 build.py 的 BIZ["reviews"]；這裡寫死是為了標題長度可控。
+ # 兩者不一致時 build.py 的 check_review_counts() 會讓建置失敗——2026-10-21 這裡曾是 39、內文是 40。
+ "title":"Patient Reviews｜Google 5.0 · 40 Reviews · CarePlus Oakland",
  "desc":"Patient reviews for CarePlus Chiropractic in Oakland Chinatown. Google Business Profile rating 5.0 across 40 reviews, with written testimonials from auto accident and long-term patients.",
  "h1":"What patients say",
  "answer":"CarePlus Chiropractic holds a 5.0 rating across 40 Google reviews. The topics Google extracts most often from those reviews are fast process, warm atmosphere, DOT physical exam and considerate doctor. Written testimonials below are from patients treated at the clinic; individual results vary.",

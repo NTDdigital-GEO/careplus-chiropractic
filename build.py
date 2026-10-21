@@ -79,36 +79,38 @@ BIZ = dict(
 )
 
 # ── 外部權威來源庫（frontlinks）──
+# 外部權威連結。標籤是 (中文, English) 一組——2026-10-21 之前只有中文，
+# 英文站 30 頁裡有 12 頁的「Sources:」標成中文。frontlink 是這個站 GEO 最強的一塊，
+# 標錯語言等於把它削掉一半。新增來源時兩種語言都要寫，缺一個會在 check_src_labels() 擋下。
 SRC = {
- "fmcsa_reg":  ("ext","https://www.fmcsa.dot.gov/regulations/medical","FMCSA 體檢法規"),
- "fmcsa_reg2": ("ext","https://www.fmcsa.dot.gov/regulations/title49/section/391.41","FMCSA 49 CFR 391.41 體檢標準"),
- "fmcsa_reg3": ("ext","https://www.fmcsa.dot.gov/registration/commercial-drivers-license","FMCSA 商業駕照規定"),
- "fmcsa_nr":   ("ext","https://nationalregistry.fmcsa.dot.gov/","FMCSA 國家體檢醫師名冊"),
- "fmcsa_srch": ("ext","https://nationalregistry.fmcsa.dot.gov/search-medical-examiners","FMCSA 名冊・醫師查詢"),
- "chiro_ca":   ("ext","https://www.chiro.ca.gov/consumers/lic_lookup.shtml","加州脊骨神經醫學委員會・執照查詢"),
- "dca_search": ("ext","https://search.dca.ca.gov/","加州消費者事務部・執照查詢系統"),
- "dwc_main":   ("ext","https://www.dir.ca.gov/dwc/","加州勞工賠償局（DWC）"),
- "medicare_ch":("ext","https://www.medicare.gov/coverage/chiropractic-services","Medicare.gov · Chiropractic coverage"),
- "cdi_auto":   ("ext","https://www.insurance.ca.gov/01-consumers/105-type/95-guides/01-auto/","California Dept. of Insurance · Auto insurance guide"),
- "nccih_chiro":("ext","https://www.nccih.nih.gov/health/chiropractic-in-depth","NIH NCCIH · Chiropractic in depth"),
- "dwc_injured":("ext","https://www.dir.ca.gov/InjuredWorkerGuidebook/InjuredWorkerGuidebook.html","加州受傷勞工指南"),
- "aca":        ("ext","https://www.acatoday.org/","ACA 美國脊骨神經醫學會"),
- "nccih_back": ("ext","https://www.nccih.nih.gov/health/spinal-manipulation-what-you-need-to-know","NIH NCCIH・脊椎手法治療"),
- "nih_back":   ("ext","https://www.ninds.nih.gov/health-information/disorders/back-pain","NIH NINDS・下背痛"),
- "nih_sciatica":("ext","https://medlineplus.gov/sciatica.html","MedlinePlus・坐骨神經痛"),
- "nih_disc":   ("ext","https://medlineplus.gov/herniateddisk.html","MedlinePlus・椎間盤突出"),
- "nih_scoli":  ("ext","https://www.niams.nih.gov/health-topics/scoliosis","NIH NIAMS・脊椎側彎"),
- "nih_headache":("ext","https://www.ninds.nih.gov/health-information/disorders/headache","NIH NINDS・頭痛"),
- "nih_neck":   ("ext","https://medlineplus.gov/neckinjuriesanddisorders.html","MedlinePlus・頸部問題"),
- "nih_acu":    ("ext","https://www.nccih.nih.gov/health/acupuncture-what-you-need-to-know","NIH NCCIH・針灸"),
- "dmv_cdl":    ("ext","https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/commercial-driver-licenses-cdl/","加州 DMV・商業駕照"),
- "medicare_ch":("ext","https://www.medicare.gov/coverage/chiropractic-services","Medicare・脊骨神經治療給付"),
- "ca_ins":     ("ext","https://www.insurance.ca.gov/01-consumers/105-type/9-auto/","加州保險廳・車險權益"),
- "palmer":     ("ext","https://www.palmer.edu/","Palmer College of Chiropractic"),
- "gbp":        ("ext","https://www.google.com/maps","Google 商家檔案評論"),
- "en_site":    ("ext", EN_SITE, "English Site"),
- "bart":       ("ext","https://www.bart.gov/stations/lake","BART・Lake Merritt 站資訊"),
- "actransit":  ("ext","https://www.actransit.org/","AC Transit 公車路線"),
+ "fmcsa_reg":  ("ext","https://www.fmcsa.dot.gov/regulations/medical",("FMCSA 體檢法規","FMCSA medical regulations")),
+ "fmcsa_reg2": ("ext","https://www.fmcsa.dot.gov/regulations/title49/section/391.41",("FMCSA 49 CFR 391.41 體檢標準","FMCSA 49 CFR 391.41 physical standards")),
+ "fmcsa_reg3": ("ext","https://www.fmcsa.dot.gov/registration/commercial-drivers-license",("FMCSA 商業駕照規定","FMCSA commercial driver's licence rules")),
+ "fmcsa_nr":   ("ext","https://nationalregistry.fmcsa.dot.gov/",("FMCSA 國家體檢醫師名冊","FMCSA National Registry of Certified Medical Examiners")),
+ "fmcsa_srch": ("ext","https://nationalregistry.fmcsa.dot.gov/search-medical-examiners",("FMCSA 名冊・醫師查詢","FMCSA National Registry · examiner search")),
+ "chiro_ca":   ("ext","https://www.chiro.ca.gov/consumers/lic_lookup.shtml",("加州脊骨神經醫學委員會・執照查詢","California Board of Chiropractic Examiners · licence lookup")),
+ "dca_search": ("ext","https://search.dca.ca.gov/",("加州消費者事務部・執照查詢系統","California Dept. of Consumer Affairs · licence search")),
+ "dwc_main":   ("ext","https://www.dir.ca.gov/dwc/",("加州勞工賠償局（DWC）","California Division of Workers' Compensation")),
+ "dwc_injured":("ext","https://www.dir.ca.gov/InjuredWorkerGuidebook/InjuredWorkerGuidebook.html",("加州受傷勞工指南","California injured worker guidebook")),
+ "medicare_ch":("ext","https://www.medicare.gov/coverage/chiropractic-services",("Medicare・脊骨神經治療給付","Medicare.gov · chiropractic coverage")),
+ "cdi_auto":   ("ext","https://www.insurance.ca.gov/01-consumers/105-type/95-guides/01-auto/",("加州保險廳・車險指南","California Dept. of Insurance · auto insurance guide")),
+ "ca_ins":     ("ext","https://www.insurance.ca.gov/01-consumers/105-type/9-auto/",("加州保險廳・車險權益","California Dept. of Insurance · auto policyholder rights")),
+ "nccih_chiro":("ext","https://www.nccih.nih.gov/health/chiropractic-in-depth",("NIH NCCIH・脊骨神經醫學","NIH NCCIH · chiropractic in depth")),
+ "nccih_back": ("ext","https://www.nccih.nih.gov/health/spinal-manipulation-what-you-need-to-know",("NIH NCCIH・脊椎手法治療","NIH NCCIH · spinal manipulation")),
+ "aca":        ("ext","https://www.acatoday.org/",("ACA 美國脊骨神經醫學會","American Chiropractic Association")),
+ "nih_back":   ("ext","https://www.ninds.nih.gov/health-information/disorders/back-pain",("NIH NINDS・下背痛","NIH NINDS · back pain")),
+ "nih_sciatica":("ext","https://medlineplus.gov/sciatica.html",("MedlinePlus・坐骨神經痛","MedlinePlus · sciatica")),
+ "nih_disc":   ("ext","https://medlineplus.gov/herniateddisk.html",("MedlinePlus・椎間盤突出","MedlinePlus · herniated disc")),
+ "nih_scoli":  ("ext","https://www.niams.nih.gov/health-topics/scoliosis",("NIH NIAMS・脊椎側彎","NIH NIAMS · scoliosis")),
+ "nih_headache":("ext","https://www.ninds.nih.gov/health-information/disorders/headache",("NIH NINDS・頭痛","NIH NINDS · headache")),
+ "nih_neck":   ("ext","https://medlineplus.gov/neckinjuriesanddisorders.html",("MedlinePlus・頸部問題","MedlinePlus · neck injuries and disorders")),
+ "nih_acu":    ("ext","https://www.nccih.nih.gov/health/acupuncture-what-you-need-to-know",("NIH NCCIH・針灸","NIH NCCIH · acupuncture")),
+ "dmv_cdl":    ("ext","https://www.dmv.ca.gov/portal/driver-licenses-identification-cards/commercial-driver-licenses-cdl/",("加州 DMV・商業駕照","California DMV · commercial driver's licence")),
+ "palmer":     ("ext","https://www.palmer.edu/",("Palmer College of Chiropractic","Palmer College of Chiropractic")),
+ "gbp":        ("ext","https://www.google.com/maps",("Google 商家檔案評論","Google Business Profile reviews")),
+ "en_site":    ("ext", EN_SITE, ("English Site","English site")),
+ "bart":       ("ext","https://www.bart.gov/stations/lake",("BART・Lake Merritt 站資訊","BART · Lake Merritt station")),
+ "actransit":  ("ext","https://www.actransit.org/",("AC Transit 公車路線","AC Transit routes")),
 }
 
 # 頂部主導覽（每頁都會出現）
@@ -133,6 +135,8 @@ T = {
    cta_eyebrow="回電預約", cta_h2="不方便現在打電話？留下時段，我們回電給您",
    cta_p="本中心採電話預約。若您現在不方便通話，填寫下方表單，我們會在門診時間內主動致電。",
    src_label="參考來源：",
+   # 評價區塊：2026-10-21 之前這三段寫死中文，連英文頁也輸出中文。
+   rev_stars="五顆星", rev_count="%s 則 Google 評論", rev_all="在 Google 上查看全部",
    nap=("地址","交通","看診語言","電話"),
    nap_bart="Lake Merritt BART<br>步行約 5 分鐘",
    nap_langs="粵語・國語<br>English",
@@ -161,6 +165,7 @@ T = {
    cta_eyebrow="Request a call", cta_h2="Can't call right now? Leave a time and we'll call you",
    cta_p="We book by phone. If now isn't a good time, fill in the form below and we'll call you during clinic hours.",
    src_label="Sources: ",
+   rev_stars="Five stars", rev_count="%s Google reviews", rev_all="See all on Google",
    nap=("Address","Transit","Languages","Phone"),
    nap_bart="Lake Merritt BART<br>5-minute walk",
    nap_langs="Cantonese · Mandarin<br>English",
@@ -252,6 +257,8 @@ def src_line(keys, label=None):
             kind, url, txt = k
         else:
             kind, url, txt = SRC[k]
+            if isinstance(txt, tuple):
+                txt = txt[1] if CURLANG[0] == "en" else txt[0]
         cls = "ext" if kind == "ext" else "int"
         rel = ' rel="noopener"' if kind == "ext" else ""
         out.append(f'<a class="{cls}" href="{e(url)}"{rel}>{e(txt)}</a>')
@@ -354,10 +361,12 @@ def blk(b):
         body = f'<div class="people">{c}</div>'
     elif t == "reviews":
         c = "".join(f'<div class="rev"><p>「{x[0]}」</p><div class="who">{e(x[1])}</div></div>' for x in b["items"])
+        # 注意：這個函式裡的 t 是區塊型別字串，不是全域的 t() 翻譯函式。
+        _L = T[CURLANG[0]]
         body = (f'<div class="revhead"><span class="revscore">{BIZ["rating"]}</span>'
-                f'<span class="stars" aria-label="五顆星">★★★★★</span>'
-                f'<span class="revmeta">{BIZ["reviews"]} 則 Google 評論 · '
-                f'<a class="ext" href="https://www.google.com/maps" rel="noopener">在 Google 上查看全部</a></span></div>'
+                f'<span class="stars" aria-label="{e(_L["rev_stars"])}">★★★★★</span>'
+                f'<span class="revmeta">{_L["rev_count"] % BIZ["reviews"]} · '
+                f'<a class="ext" href="https://www.google.com/maps" rel="noopener">{e(_L["rev_all"])}</a></span></div>'
                 f'<div class="revgrid">{c}</div>')
     elif t == "related":
         c = "".join(f'<a class="rel" href="{e(x[0])}">{e(x[1])}<span>{e(x[2])}</span></a>' for x in b["items"])
@@ -467,6 +476,18 @@ def clinic_node():
       "employee":{"@id":f"{SITE}/#drchen"},
     }
 
+# 非首頁沿用同一個 clinic_node，只拿掉首頁才需要的關聯欄位。
+# 刻意保留 availableLanguage / priceRange / openingHoursSpecification：
+# 語言模型不一定從首頁取材，命中任何一頁都要讀得到「講粵語國語」這件事。
+# 2026-10-21 稽核前這三項只出現在 2/64 頁。改回衍生寫法是為了單一事實來源——
+# BIZ 的營業時間一改，64 頁同步，不會再漏。
+_INNER_DROP = ("employee", "sameAs", "foundingDate", "currenciesAccepted")
+
+def clinic_node_inner():
+    n = {k: v for k, v in clinic_node().items() if k not in _INNER_DROP}
+    n["alternateName"] = [BIZ["zh"]]
+    return n
+
 def physician_node(lg="zh"):
     # QME：2026-09-30 客戶確認證書已失效、服務已停止，全站不再輸出這項資格。
     return {
@@ -499,12 +520,7 @@ def build_schema(p):
     if p["slug"] == "":
         g.append(clinic_node()); g.append(physician_node(p.get("lang","zh")))
     else:
-        g.append({"@type":["MedicalBusiness","Chiropractic"],"@id":f"{SITE}/#clinic",
-                  "name":BIZ["en"],"alternateName":[BIZ["zh"]],"url":SITE+"/",
-                  "telephone":BIZ["tel_e164"],
-                  "address":{"@type":"PostalAddress","streetAddress":BIZ["street"],
-                    "addressLocality":BIZ["city"],"addressRegion":BIZ["region"],
-                    "postalCode":BIZ["zip"],"addressCountry":"US"}})
+        g.append(clinic_node_inner())
     if p.get("service"):
         s = {"@type": p["service"].get("type","Service"),
              "name": p["service"]["name"],
@@ -1072,8 +1088,35 @@ use the link below.</p>
     os.makedirs(os.path.join(OUT, "_pages"), exist_ok=True)
     with open(os.path.join(OUT, "_pages", "index.html"), "w", encoding="utf-8") as f:
         f.write(apply_base(idx))
+    check_review_counts()
     print(f"✓ 產出 {n} 頁 + 404 + thanks + 審稿目錄 /_pages/ → {OUT}/")
     return n
+
+
+def check_review_counts():
+    """評論則數散落在標題、描述與內文裡，BIZ["reviews"] 才是唯一事實來源。
+    2026-10-21 英文評價頁標題寫 39、同一頁內文寫 40，撐了不知道多久沒人發現。
+    這個檢查掃描產出的 HTML，任何一處與 BIZ 不符就讓建置失敗——
+    錯誤的建置比悄悄上線的錯誤數字好處理。"""
+    want = BIZ["reviews"]
+    pat  = re.compile(r"(\d+)\s*(?:則\s*Google\s*評論|則評論|Google reviews|Reviews\b)")
+    bad  = []
+    for dp, _, fs in os.walk(OUT):
+        for fn in fs:
+            if not fn.endswith(".html"):
+                continue
+            fp = os.path.join(dp, fn)
+            with open(fp, encoding="utf-8") as fh:
+                text = fh.read()
+            for m in pat.finditer(text):
+                if m.group(1) != want:
+                    bad.append((os.path.relpath(fp, OUT), m.group(0).strip()))
+    if bad:
+        lines = "\n".join(f'    {p}: 「{s}」' for p, s in bad[:20])
+        raise SystemExit(
+            f'建置中止：評論則數與 BIZ["reviews"]={want} 不符，共 {len(bad)} 處\n{lines}\n'
+            f'    → 改 content/*.py 的文案，或先更新 BIZ["reviews"]。'
+        )
 
 if __name__ == "__main__":
     main()
