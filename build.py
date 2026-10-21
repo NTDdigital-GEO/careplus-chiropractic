@@ -1089,6 +1089,7 @@ use the link below.</p>
     with open(os.path.join(OUT, "_pages", "index.html"), "w", encoding="utf-8") as f:
         f.write(apply_base(idx))
     check_review_counts()
+    check_meta_lengths()
     print(f"✓ 產出 {n} 頁 + 404 + thanks + 審稿目錄 /_pages/ → {OUT}/")
     return n
 
@@ -1116,6 +1117,40 @@ def check_review_counts():
         raise SystemExit(
             f'建置中止：評論則數與 BIZ["reviews"]={want} 不符，共 {len(bad)} 處\n{lines}\n'
             f'    → 改 content/*.py 的文案，或先更新 BIZ["reviews"]。'
+        )
+
+
+def check_meta_lengths():
+    """標題與描述超出 SERP 可視寬度就會被截斷，影響的是點閱率不是排名，
+    但在能見度還沒起來的階段每一分點閱率都值錢。2026-10-21 稽核時
+    31 個標題與 34 個描述超標；修完之後加這道檢查，免得往後又漂回去。
+    中日韓字元以 2 計，近似 Google 以像素計算的截斷點。"""
+    def width(x):
+        return sum(2 if "\u4e00" <= ch <= "\u9fff" else 1 for ch in x)
+    T_MAX, D_MAX = 60, 160
+    bad = []
+    for dp, _, fs in os.walk(OUT):
+        for fn in fs:
+            if not fn.endswith(".html"):
+                continue
+            rel = os.path.relpath(os.path.join(dp, fn), OUT)
+            if rel.startswith("_pages") or rel in ("404.html", "thanks.html"):
+                continue
+            with open(os.path.join(dp, fn), encoding="utf-8") as fh:
+                h = fh.read()
+            t = re.search(r"<title[^>]*>(.*?)</title>", h, re.S)
+            d = re.search(r'<meta[^>]+name="description"[^>]+content="(.*?)"', h, re.S)
+            t = html.unescape(t.group(1)).strip() if t else ""
+            d = html.unescape(d.group(1)).strip() if d else ""
+            if width(t) > T_MAX:
+                bad.append((rel, "title", width(t), T_MAX, t))
+            if width(d) > D_MAX:
+                bad.append((rel, "desc", width(d), D_MAX, d))
+    if bad:
+        lines = "\n".join(f"    {r} {k} [{w}>{m}] {v[:56]}" for r, k, w, m, v in bad[:20])
+        raise SystemExit(
+            f"建置中止：{len(bad)} 處 title/description 超出 SERP 可視寬度\n{lines}\n"
+            f"    → 縮短 content/*.py 的 title / desc。"
         )
 
 if __name__ == "__main__":
