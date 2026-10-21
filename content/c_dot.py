@@ -4,7 +4,7 @@
 DOT = {
  "slug":"dot-physical", "hero":('exam-room', '進行 DOT 體檢的診間，配有檢查器材與 X 光看片燈'),"crumbs":[],"crumb_self":"DOT／CDL 體檢","nap":True,"cta_bg":"alt",
  "title":"DOT／CDL 商業司機體檢 $99｜奧克蘭・當天取報告",
- "desc":"奧克蘭 DOT／CDL 商業司機體檢，費用 $99，由美國交通部認證體檢醫師執行，當天取得體檢報告，可協助送件至 DMV。貨車、大巴、UPS、計程車與 Uber／Lyft 司機適用。週六上午亦可預約。510-465-7982。",
+ "desc":"奧克蘭 DOT／CDL 商業司機體檢 $99，由美國交通部認證體檢醫師執行，當天取得報告，可協助送件至 DMV。週六上午亦可預約。510-465-7982。",
  "h1":"DOT／CDL 商業司機體檢 $99",
  "answer":"莊錦鎮脊椎治療中心提供 DOT／CDL 商業司機體檢，費用 $99，當天取得體檢報告，可協助送件至 DMV。莊錦鎮醫師為美國交通部認證體檢醫師，FMCSA 國家名冊編號 5497424313，效期至 2029 年。地址 212 9th Street Suite 103, Oakland。電話 510-465-7982。",
  "service":{"type":"Service","name":"DOT／CDL 商業司機體檢",

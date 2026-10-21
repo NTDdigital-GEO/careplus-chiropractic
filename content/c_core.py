@@ -4,7 +4,7 @@
 HOME = {
  "slug":"",  "hero":('storefront', 'Care Plus Chiropractic 診所門面，位於奧克蘭中國城 212 9th Street'),"nap":True, "cta_bg":"alt", "faq_bg":"",
  "title":"奧克蘭中國城華人脊椎醫生｜莊錦鎮脊椎治療中心 CarePlus",
- "desc":"奧克蘭中國城的華人脊骨神經科診所，1988 年開業至今。脊椎矯正、針灸、推拿、車禍與工傷復健、DOT／CDL 商業司機體檢。莊錦鎮醫師持加州執照 18759，並為美國交通部認證體檢醫師，粵語、國語看診。Lake Merritt BART 步行 5 分鐘。510-465-7982。",
+ "desc":"奧克蘭中國城的華人脊骨神經科診所，1988 年開業至今。脊椎矯正、針灸、推拿、車禍與工傷復健、DOT／CDL 商業司機體檢 $99。粵語、國語看診。510-465-7982。",
  "h1":"奧克蘭中國城的華人脊椎醫生",
  "crumb_self":"首頁",
  "answer":"莊錦鎮脊椎治療中心（CarePlus Chiropractic Health Center）自 1988 年起在奧克蘭中國城執業，提供脊椎矯正、針灸、經絡推拿、車禍與工傷復健，以及 DOT／CDL 商業司機體檢。粵語、國語、英語看診。地址 212 9th Street Suite 103，Lake Merritt BART 步行 5 分鐘。",
@@ -73,7 +73,7 @@ HOME = {
 ABOUT = {
  "slug":"about", "hero":('hallway', '診所走廊與診間入口'),"crumbs":[],"crumb_self":"中心介紹","cta_bg":"alt",
  "title":"中心介紹｜莊錦鎮脊椎治療中心・奧克蘭中國城 1988 年至今",
- "desc":"莊錦鎮脊椎治療中心（CarePlus Chiropractic Health Center）1988 年在奧克蘭中國城開業，提供脊椎矯正、針灸、經絡推拿、復健運動與工傷評估。三間獨立診間、數位 X 光。粵語、國語看診。",
+ "desc":"莊錦鎮脊椎治療中心 1988 年在奧克蘭中國城開業，提供脊椎矯正、針灸、經絡推拿、復健運動與工傷評估。三間獨立診間、數位 X 光。粵語、國語看診。",
  "h1":"在奧克蘭中國城，我們已經看診 38 年",
  "answer":"莊錦鎮脊椎治療中心 1988 年在奧克蘭中國城開業至今。我們專注於脊椎照護，提供脊椎矯正、針灸、經絡推拿、復健運動與物理治療，並可進行工傷醫療評估與 DOT 商業司機體檢。診所設有三間獨立診間與數位 X 光設備。",
  "blocks":[
@@ -112,8 +112,8 @@ ABOUT = {
 DRCHEN = {
  "slug":"about/dr-stewart-chen","crumbs":[("中心介紹","/about/")],"crumb_self":"莊錦鎮醫師",
  "person_schema":True,"cta_bg":"alt",
- "title":"莊錦鎮醫師 Dr. Stewart Chen, D.C.｜加州執照 18759・DOT 認證體檢醫師",
- "desc":"莊錦鎮醫師 1987 年取得 Palmer College of Chiropractic 脊骨神經醫學博士，持加州脊骨神經醫師執照 18759，並為美國交通部認證體檢醫師，兼任 Palmer College 臨床教職。曾任阿拉米達市議員，現任阿拉米達醫療照護區董事。",
+ "title":"莊錦鎮醫師 Dr. Stewart Chen｜加州執照 18759・DOT 體檢醫師",
+ "desc":"莊錦鎮醫師 1987 年取得 Palmer College 脊骨神經醫學博士，持加州執照 18759，並為美國交通部認證體檢醫師，1988 年起於奧克蘭中國城執業。",
  "h1":"莊錦鎮醫師 Dr. Stewart Chen, D.C.",
  "answer":"莊錦鎮醫師（Stewart Chen, D.C.）於 1987 年取得 Palmer College of Chiropractic 脊骨神經醫學博士學位，1988 年在奧克蘭中國城開業至今。持加州脊骨神經醫師執照 18759，狀態有效，效期至 2027 年 3 月 31 日，並為 FMCSA 認證 DOT 體檢醫師。通曉粵語、國語與英語。",
  "blocks":[
@@ -193,7 +193,7 @@ TEAM = {
 CONTACT = {
  "slug":"contact", "hero":('storefront', '診所門面，212 9th Street Suite 103，奧克蘭中國城'),"crumbs":[],"crumb_self":"交通與停車","nap":True,"cta_bg":"",
  "title":"交通與停車｜212 9th St Oakland・Lake Merritt BART 步行 5 分鐘",
- "desc":"莊錦鎮脊椎治療中心位於奧克蘭 212 9th Street Suite 103，Madison 專業大樓內，介於 Jackson St 與 Alice St 之間。Lake Merritt BART 步行約 5 至 7 分鐘，大樓與路邊皆有停車位。電話 510-465-7982。",
+ "desc":"莊錦鎮脊椎治療中心位於奧克蘭 212 9th Street Suite 103，Madison 專業大樓內。Lake Merritt BART 步行約 5 分鐘，大樓與路邊皆有停車位。510-465-7982。",
  "h1":"怎麼到診所：地址、BART 與停車",
  "answer":"診所位於奧克蘭市中心 Madison 專業大樓一樓 103 室，地址 212 9th Street, Suite 103, Oakland CA 94607，介於 Jackson St 與 Alice St 之間。搭 BART 於 Lake Merritt 站下車步行約 5 至 7 分鐘，大樓內與路邊皆有停車位。",
  "blocks":[

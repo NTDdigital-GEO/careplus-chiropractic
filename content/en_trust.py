@@ -29,7 +29,7 @@ PAGES = [
  # 評論則數的唯一事實來源是 build.py 的 BIZ["reviews"]；這裡寫死是為了標題長度可控。
  # 兩者不一致時 build.py 的 check_review_counts() 會讓建置失敗——2026-10-21 這裡曾是 39、內文是 40。
  "title":"Patient Reviews｜Google 5.0 · 40 Reviews · CarePlus Oakland",
- "desc":"Patient reviews for CarePlus Chiropractic in Oakland Chinatown. Google Business Profile rating 5.0 across 40 reviews, with written testimonials from auto accident and long-term patients.",
+ "desc":"Patient reviews for CarePlus Chiropractic in Oakland Chinatown. Google Business Profile rating 5.0 across 40 reviews, with written patient testimonials.",
  "h1":"What patients say",
  "answer":"CarePlus Chiropractic holds a 5.0 rating across 40 Google reviews. The topics Google extracts most often from those reviews are fast process, warm atmosphere, DOT physical exam and considerate doctor. Written testimonials below are from patients treated at the clinic; individual results vary.",
  "blocks":[
@@ -64,8 +64,8 @@ PAGES += [
 # ── 費用總表 ─────────────────────────────────────
 {
  "slug":"pricing", "hero":('reception', 'Reception, where fees and insurance are handled'),"crumbs":[],"crumb_self":"Fees","cta_bg":"alt",
- "title":"Fees｜DOT Physical $99 · Initial Examination · Insurance · CarePlus Oakland",
- "desc":"Fees at CarePlus Chiropractic in Oakland: DOT/CDL driver physical $99, initial examination with digital X-ray from $150 self-pay. Auto accident, workers' compensation and PPO billing explained.",
+ "title":"Fees｜DOT Physical $99 · Initial Exam · Insurance · Oakland",
+ "desc":"Fees at CarePlus Chiropractic Oakland: DOT/CDL driver physical $99, initial examination with digital X-ray from $150 self-pay. Insurance billing explained.",
  "h1":"What things cost",
  "answer":"A DOT/CDL driver physical is $99, all inclusive, with the report the same day. Self-pay initial examination including digital X-ray starts at $150. Auto accident and work injury treatment is usually billed to the claim rather than to you. Any additional testing is quoted before it is carried out.",
  "blocks":[
@@ -100,8 +100,8 @@ PAGES += [
 # ── 費用與保險總覽 ───────────────────────────────
 {
  "slug":"insurance", "hero":('reception', 'Reception, where billing and insurance questions are handled'),"crumbs":[],"crumb_self":"Fees & insurance","cta_bg":"alt",
- "title":"Fees and Insurance｜Auto Accident, Workers' Comp, PPO and Self-Pay · Oakland",
- "desc":"How treatment at CarePlus Chiropractic in Oakland is paid for: auto accident claims, California workers' compensation, PPO insurance and self-pay. What documents to bring for each route.",
+ "title":"Fees and Insurance｜Auto, Workers' Comp, PPO, Self-Pay",
+ "desc":"How treatment at CarePlus Chiropractic Oakland is paid for: auto accident claims, California workers' comp, PPO and self-pay, and what to bring for each.",
  "h1":"How treatment gets paid for",
  "answer":"Treatment at CarePlus Chiropractic is usually funded through one of four routes: an auto accident claim, California workers' compensation, private PPO insurance, or self-pay. Which applies determines what paperwork you need to bring and whether you pay anything at the visit itself.",
  "blocks":[
@@ -133,8 +133,8 @@ PAGES += [
 # ── 車禍理賠 ─────────────────────────────────────
 {
  "slug":"insurance/auto-accident","crumbs":[("Fees & insurance","/insurance/")],"crumb_self":"Auto accident","cta_bg":"alt",
- "title":"Auto Accident Claims｜Liability Cover, MedPay and Liens · Oakland Chiropractor",
- "desc":"How chiropractic treatment after a car accident is paid for in California: the at-fault driver's liability cover, MedPay on your own policy, or treatment on a lien where an attorney represents you.",
+ "title":"Auto Accident Claims｜Liability Cover, MedPay and Liens",
+ "desc":"How chiropractic care after a car accident is paid for in California: the at-fault driver's liability cover, MedPay on your own policy, or on a lien.",
  "h1":"Paying for treatment after a car accident",
  "answer":"In California, treatment after a collision is usually paid through the at-fault driver's liability cover, the MedPay provision on your own policy, or on a lien basis where an attorney represents you and the bill is settled when the claim resolves. Most patients pay nothing at the visit itself.",
  "blocks":[
@@ -171,8 +171,8 @@ PAGES += [
 
 {
  "slug":"insurance/workers-comp","crumbs":[("Fees & insurance","/insurance/")],"crumb_self":"Workers' compensation","cta_bg":"alt",
- "title":"Workers' Compensation｜California Claims Process · Oakland Chiropractor",
- "desc":"How California workers' compensation works for a chiropractic claim: reporting to your employer, the DWC-1 form, medical provider networks, and what documentation the clinic provides.",
+ "title":"Workers' Compensation｜California Claims Process · Oakland",
+ "desc":"How California workers' compensation works for a chiropractic claim: reporting to your employer, the DWC-1 form, and the documentation we provide.",
  "h1":"Work injury claims in California",
  "answer":"If you are injured at work in California, approved treatment is paid by your employer's insurer rather than by you. The sequence matters: report the injury to your employer, complete the DWC-1 claim form, and keep copies. Treatment is then usually arranged through the insurer's medical provider network.",
  "blocks":[
@@ -209,8 +209,8 @@ PAGES += [
 
 {
  "slug":"insurance/ppo","crumbs":[("Fees & insurance","/insurance/")],"crumb_self":"Private insurance","cta_bg":"alt",
- "title":"Private Insurance (PPO)｜What Is Covered · CarePlus Chiropractic Oakland",
- "desc":"How PPO private insurance applies to chiropractic treatment at CarePlus Chiropractic in Oakland: coverage, deductibles, visit limits, and how to confirm before your first appointment.",
+ "title":"Private Insurance (PPO)｜What Is Covered · Oakland",
+ "desc":"How PPO private insurance applies to chiropractic treatment in Oakland: coverage, deductibles, visit limits, and how to confirm before your first visit.",
  "h1":"Using private insurance",
  "answer":"Most PPO plans include some chiropractic benefit, but coverage, deductibles and annual visit limits vary widely between plans. The quickest way to avoid surprises is to call the clinic's billing staff before your first visit and have your plan checked.",
  "blocks":[
@@ -241,8 +241,8 @@ PAGES += [
 
 {
  "slug":"insurance/self-pay","crumbs":[("Fees & insurance","/insurance/")],"crumb_self":"Self-pay","cta_bg":"alt",
- "title":"Self-Pay Rates｜Initial Examination from $150 · CarePlus Chiropractic Oakland",
- "desc":"Self-pay rates at CarePlus Chiropractic in Oakland: initial examination including digital X-ray from $150, DOT/CDL driver physical $99. Costs quoted before treatment.",
+ "title":"Self-Pay Rates｜Initial Examination from $150 · Oakland",
+ "desc":"Self-pay rates at CarePlus Chiropractic Oakland: initial examination with digital X-ray from $150, DOT/CDL physical $99. Costs quoted before treatment.",
  "h1":"Self-pay rates",
  "answer":"Self-pay treatment at CarePlus Chiropractic starts at $150 for an initial examination including digital X-ray where indicated. A DOT/CDL driver physical is $99. Follow-up treatment depends on what is used and is quoted at the first visit, before anything begins.",
  "blocks":[
@@ -270,8 +270,8 @@ PAGES += [
 
 {
  "slug":"insurance/medicare","crumbs":[("Fees & insurance","/insurance/")],"crumb_self":"Medicare","cta_bg":"alt",
- "title":"Medicare and Chiropractic｜What Is Covered · CarePlus Chiropractic Oakland",
- "desc":"What Medicare covers for chiropractic care: manual manipulation of the spine to correct a subluxation. What is not covered, and how that is handled at CarePlus Chiropractic in Oakland.",
+ "title":"Medicare and Chiropractic｜What Is Covered · Oakland",
+ "desc":"What Medicare covers for chiropractic care: manual manipulation of the spine to correct a subluxation. What is not covered, and how we handle that.",
  "h1":"Medicare and chiropractic care",
  "answer":"Medicare Part B covers chiropractic manual manipulation of the spine to correct a subluxation. It does not cover X-rays, examinations, or therapy modalities ordered by a chiropractor. We explain which parts of a visit are covered and which are not before treatment begins.",
  "blocks":[
@@ -299,7 +299,7 @@ PAGES += [
 
 {
  "slug":"faq", "hero":('waiting-room', 'The clinic waiting room'),"crumbs":[],"crumb_self":"FAQ","cta_bg":"alt",
- "title":"Frequently Asked Questions｜CarePlus Chiropractic · Oakland Chinatown",
+ "title":"Frequently Asked Questions｜CarePlus Chiropractic Oakland",
  "desc":"Common questions about CarePlus Chiropractic in Oakland: first visits, fees, insurance, DOT physicals, languages spoken, parking and appointments.",
  "h1":"Frequently asked questions",
  "answer":"Common questions about first visits, fees, insurance, DOT/CDL physicals, languages and getting to the clinic. If what you need is not here, call 510-465-7982 and ask — it is usually quicker than reading.",
@@ -332,8 +332,8 @@ PAGES += [
 PAGES += [
 {
  "slug":"media","crumbs":[],"crumb_self":"In the media","cta_bg":"alt",
- "title":"In the Media and Health Videos｜Dr. Stewart Chen · CarePlus Chiropractic Oakland",
- "desc":"Media coverage of Dr. Stewart Chen and health education videos on spinal care: assessment after a car accident, spinal problems in younger people, and posture for desk workers.",
+ "title":"In the Media and Health Videos｜Dr. Stewart Chen, Oakland",
+ "desc":"Media coverage of Dr. Stewart Chen and health videos on spinal care: assessment after a car accident, spinal problems in younger people, desk posture.",
  "h1":"In the media and health videos",
  "answer":"Dr. Stewart Chen has been interviewed by Chinese-language media on spinal treatment, post-collision problems and posture. Below are those articles and a set of health education videos. Headlines are the publications' own, and the content reflects what was said at the time rather than any promise of outcome.",
  "blocks":[

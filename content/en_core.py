@@ -16,8 +16,8 @@ PAGES = [
 {
  "slug":"", "nap":True, "cta_bg":"alt", "faq_bg":"",
  "hero":("storefront","The CarePlus Chiropractic storefront at 212 9th Street in Oakland Chinatown"),
- "title":"Chiropractor in Oakland Chinatown｜CarePlus Chiropractic · Dr. Stewart Chen",
- "desc":"Chiropractic care in Oakland Chinatown since 1988. Spinal adjustment, acupuncture, auto accident and work injury rehabilitation, and DOT/CDL driver physicals at $99. Cantonese, Mandarin and English. 212 9th Street Suite 103. 510-465-7982.",
+ "title":"Chiropractor in Oakland Chinatown｜CarePlus Chiropractic",
+ "desc":"Chiropractic in Oakland Chinatown since 1988. Adjustment, acupuncture, auto and work injury rehab, DOT/CDL physicals $99. Cantonese, Mandarin, English.",
  "h1":"Chiropractic care in Oakland Chinatown since 1988",
  "answer":"CarePlus Chiropractic Health Center has practised at 212 9th Street in Oakland Chinatown since 1988. Dr. Stewart Chen, D.C. provides spinal adjustment, acupuncture, auto accident and work injury rehabilitation, and DOT/CDL driver physicals at $99. Cantonese, Mandarin and English spoken. Lake Merritt BART is a five-minute walk.",
  "blocks":[
@@ -80,8 +80,8 @@ PAGES = [
 {
  "slug":"about","crumbs":[],"crumb_self":"About","cta_bg":"alt",
  "hero":("hallway","The corridor and treatment room entrances at CarePlus Chiropractic"),
- "title":"About the Clinic｜CarePlus Chiropractic · Oakland Chinatown since 1988",
- "desc":"CarePlus Chiropractic Health Center has served Oakland Chinatown since 1988. Three private treatment rooms, on-site digital X-ray, and care in Cantonese, Mandarin and English. 212 9th Street Suite 103.",
+ "title":"About the Clinic｜CarePlus Chiropractic Oakland since 1988",
+ "desc":"CarePlus Chiropractic has served Oakland Chinatown since 1988. Three private treatment rooms, on-site digital X-ray, care in Cantonese, Mandarin and English.",
  "h1":"A neighbourhood practice, in the same place since 1988",
  "answer":"CarePlus Chiropractic Health Center opened in Oakland Chinatown in 1988 and has operated from 212 9th Street ever since. The clinic has three private treatment rooms and on-site digital X-ray. Care is provided in Cantonese, Mandarin and English, so patients do not need to bring an interpreter.",
  "blocks":[
@@ -122,8 +122,8 @@ PAGES = [
 {
  "slug":"about/dr-stewart-chen","crumbs":[("About","/about/")],"crumb_self":"Dr. Stewart Chen",
  "person_schema":True,"cta_bg":"alt",
- "title":"Dr. Stewart Chen, D.C.｜California Licence 18759 · DOT Certified Medical Examiner",
- "desc":"Dr. Stewart Chen, D.C. earned his Doctor of Chiropractic from Palmer College in 1987 and has practised in Oakland Chinatown since 1988. California licence 18759, valid through March 2027. FMCSA certified medical examiner 5497424313.",
+ "title":"Dr. Stewart Chen, D.C.｜California Licence 18759 · Oakland",
+ "desc":"Dr. Stewart Chen, D.C. qualified at Palmer College in 1987 and has practised in Oakland Chinatown since 1988. California licence 18759, FMCSA certified.",
  "h1":"Dr. Stewart Chen, D.C.",
  "answer":"Dr. Stewart Chen, D.C. earned his Doctor of Chiropractic from Palmer College of Chiropractic in 1987 and has practised in Oakland Chinatown since 1988. He holds California chiropractic licence 18759, valid through 31 March 2027, and is a certified medical examiner on the FMCSA National Registry. He speaks Cantonese, Mandarin and English.",
  "blocks":[
@@ -205,8 +205,8 @@ PAGES = [
 {
  "slug":"contact","crumbs":[],"crumb_self":"Visit us","nap":True,"cta_bg":"",
  "hero":("storefront","The clinic entrance at 212 9th Street Suite 103, Oakland Chinatown"),
- "title":"Visit Us｜212 9th Street Suite 103, Oakland · Lake Merritt BART 5 min",
- "desc":"CarePlus Chiropractic is at 212 9th Street, Suite 103, Oakland CA 94607, a five-minute walk from Lake Merritt BART. Mon–Fri 9:00–18:00, Sat 9:00–13:00. Building and street parking. Call 510-465-7982.",
+ "title":"Visit Us｜212 9th Street Suite 103, Oakland CA 94607",
+ "desc":"CarePlus Chiropractic, 212 9th Street Suite 103, Oakland CA 94607 — five minutes from Lake Merritt BART. Mon–Fri 9:00–18:00, Sat 9:00–13:00. 510-465-7982.",
  "h1":"Getting here, parking and hours",
  "answer":"CarePlus Chiropractic is at 212 9th Street, Suite 103, Oakland CA 94607, in the Madison professional building between Jackson St and Alice St. It is a five-minute walk from Lake Merritt BART. Open Monday to Friday 9:00–18:00 and Saturday 9:00–13:00, closed Sunday. By appointment: 510-465-7982.",
  "blocks":[
@@ -241,8 +241,8 @@ PAGES = [
 {
  "slug":"new-patient","crumbs":[],"crumb_self":"New patients","cta_bg":"alt",
  "hero":("waiting-room","The CarePlus Chiropractic waiting room"),
- "title":"New Patients｜What to Bring and What Happens · CarePlus Chiropractic Oakland",
- "desc":"What to bring to your first visit at CarePlus Chiropractic in Oakland: photo ID, insurance card, and for accident or work injury cases the claim and report numbers. Allow 45 to 60 minutes.",
+ "title":"New Patients｜What to Bring to Your First Visit · Oakland",
+ "desc":"What to bring to your first visit in Oakland: photo ID, insurance card, and for accident or work injury the claim and report numbers. Allow 45–60 minutes.",
  "h1":"Your first visit",
  "answer":"Bring photo ID and your insurance card. For an auto accident or work injury, also bring the incident report number, the claim number and your attorney's details if you have representation. A first visit covers history, examination, digital X-ray where clinically indicated, and an explanation of findings. Allow 45 to 60 minutes.",
  "blocks":[
