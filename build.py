@@ -84,7 +84,13 @@ BIZ = dict(
 # 標錯語言等於把它削掉一半。新增來源時兩種語言都要寫，缺一個會在 check_src_labels() 擋下。
 SRC = {
  "fmcsa_reg":  ("ext","https://www.fmcsa.dot.gov/regulations/medical",("FMCSA 體檢法規","FMCSA medical regulations")),
- "fmcsa_reg2": ("ext","https://www.fmcsa.dot.gov/regulations/title49/section/391.41",("FMCSA 49 CFR 391.41 體檢標準","FMCSA 49 CFR 391.41 physical standards")),
+ # 2026-10-22：原本指向 fmcsa.dot.gov/regulations/title49/section/391.41，該網址已 404，
+ # 而且 391.41 的條文裡根本沒有「24 個月」或任何血壓數值——它只寫「無高血壓的臨床診斷」。
+ # 效期與血壓區間分別在 391.45(b) 與 Part 391 附錄 A，已逐條在 eCFR 上核對過原文。
+ # 引用不支持其主張，比沒有引用更糟：它能通過隨便看看，卻在真正被檢視時垮掉。
+ "fmcsa_reg2": ("ext","https://www.ecfr.gov/current/title-49/section-391.41",("49 CFR 391.41 駕駛體格標準","49 CFR 391.41 physical qualifications")),
+ "fmcsa_391_45":("ext","https://www.ecfr.gov/current/title-49/section-391.45",("49 CFR 391.45 體檢間隔（24 個月）","49 CFR 391.45 examination interval")),
+ "fmcsa_appA": ("ext","https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-391/appendix-Appendix%20A%20to%20Part%20391",("49 CFR 附錄 A 體檢建議標準（含血壓）","49 CFR Part 391 Appendix A medical advisory criteria")),
  "fmcsa_reg3": ("ext","https://www.fmcsa.dot.gov/registration/commercial-drivers-license",("FMCSA 商業駕照規定","FMCSA commercial driver's licence rules")),
  "fmcsa_nr":   ("ext","https://nationalregistry.fmcsa.dot.gov/",("FMCSA 國家體檢醫師名冊","FMCSA National Registry of Certified Medical Examiners")),
  "fmcsa_srch": ("ext","https://nationalregistry.fmcsa.dot.gov/search-medical-examiners",("FMCSA 名冊・醫師查詢","FMCSA National Registry · examiner search")),
@@ -94,7 +100,10 @@ SRC = {
  "dwc_injured":("ext","https://www.dir.ca.gov/InjuredWorkerGuidebook/InjuredWorkerGuidebook.html",("加州受傷勞工指南","California injured worker guidebook")),
  "medicare_ch":("ext","https://www.medicare.gov/coverage/chiropractic-services",("Medicare・脊骨神經治療給付","Medicare.gov · chiropractic coverage")),
  "cdi_auto":   ("ext","https://www.insurance.ca.gov/01-consumers/105-type/95-guides/01-auto/",("加州保險廳・車險指南","California Dept. of Insurance · auto insurance guide")),
- "ca_ins":     ("ext","https://www.insurance.ca.gov/01-consumers/105-type/9-auto/",("加州保險廳・車險權益","California Dept. of Insurance · auto policyholder rights")),
+ # 2026-10-22：原本指向 /01-consumers/105-type/9-auto/，該網址已導向 CDI 的
+ # 「Document Not Found」頁，被 3 個頁面引用。改指同站仍存活的車險指南索引
+ # （含「So You've Had an Accident, What's Next?」），已用瀏覽器確認。
+ "ca_ins":     ("ext","https://www.insurance.ca.gov/01-consumers/105-type/95-guides/01-auto/",("加州保險廳・車險消費者指南","California Dept. of Insurance · auto insurance guides")),
  "nccih_chiro":("ext","https://www.nccih.nih.gov/health/chiropractic-in-depth",("NIH NCCIH・脊骨神經醫學","NIH NCCIH · chiropractic in depth")),
  "nccih_back": ("ext","https://www.nccih.nih.gov/health/spinal-manipulation-what-you-need-to-know",("NIH NCCIH・脊椎手法治療","NIH NCCIH · spinal manipulation")),
  "aca":        ("ext","https://www.acatoday.org/",("ACA 美國脊骨神經醫學會","American Chiropractic Association")),
