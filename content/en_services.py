@@ -158,6 +158,10 @@ PAGES = [
   ("I have high blood pressure. Can I still be certified?","<p>Possibly, but the certificate period depends on the reading. FMCSA sets bands that correspond to different periods — some situations require the condition to be controlled and rechecked first. Bring your current medication list.</p>",["fmcsa_appA"]),
   ("What if I do not pass?","<p>You are told exactly which criterion was not met and what would be needed. In many cases it is a matter of obtaining a specialist letter or bringing a condition under control, then being re-examined. We explain the route rather than simply declining.</p>",["fmcsa_reg2"]),
   ("My licence is from another state. Can I do the physical in California?","<p>Yes. The DOT physical is federal — it is valid if performed by an examiner on the FMCSA National Registry, regardless of state. Which state's DMV you submit the certificate to follows the rules of your licensing state.</p>",["fmcsa_srch"]),
+  # 2026-10-22 新增，與中文站對齊。中文站原本寫「您可以自己處理」，對跨州
+  # 駕駛已不成立；英文站先前根本沒有這一題，而奧克蘭港的跨州貨車司機正是
+  # 最需要知道這件事的人。來源：加州 DMV 商業駕照頁，2026-10-22 查證。
+  ("Do I have to send the certificate to the DMV myself?","<p>It depends whether you drive interstate or intrastate. Since <strong>27 July 2026</strong>, for <strong>interstate (NI)</strong> commercial drivers the examination report and medical examiner's certificate must be submitted electronically to the California DMV by an examiner listed on the FMCSA National Registry, within 24 hours — the driver does not file it, and cannot. Dr. Chen holds that registration, so the clinic does this step. <strong>Intrastate (NA)</strong> drivers may still file the paper report themselves; we will either hand you the documents or send them for you.</p>",["dmv_cdl"]),
   ("Do you do Saturday appointments?","<p>Yes, Saturday from 9:00 to 13:00. These fill up faster than weekday slots, so book ahead where you can.</p>",None),
  ],
  "related":[("/dot-physical/checklist/","What to bring","Documents and preparation"),
