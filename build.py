@@ -92,6 +92,9 @@ SRC = {
  "fmcsa_391_45":("ext","https://www.ecfr.gov/current/title-49/section-391.45",("49 CFR 391.45 體檢間隔（24 個月）","49 CFR 391.45 examination interval")),
  "fmcsa_appA": ("ext","https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-391/appendix-Appendix%20A%20to%20Part%20391",("49 CFR 附錄 A 體檢建議標準（含血壓）","49 CFR Part 391 Appendix A medical advisory criteria")),
  "fmcsa_reg3": ("ext","https://www.fmcsa.dot.gov/registration/commercial-drivers-license",("FMCSA 商業駕照規定","FMCSA commercial driver's licence rules")),
+ # 2026-10-22 新增。用來佐證「體檢的尿液檢驗不是藥檢」——藥檢是 49 CFR Part 382
+ # 另一套完全獨立的制度。已用瀏覽器確認該頁存活（curl 會被擋成 403）。
+ "fmcsa_drug": ("ext","https://www.fmcsa.dot.gov/regulations/drug-alcohol-testing-program",("FMCSA 藥物與酒精檢測制度","FMCSA drug & alcohol testing program")),
  "fmcsa_nr":   ("ext","https://nationalregistry.fmcsa.dot.gov/",("FMCSA 國家體檢醫師名冊","FMCSA National Registry of Certified Medical Examiners")),
  "fmcsa_srch": ("ext","https://nationalregistry.fmcsa.dot.gov/search-medical-examiners",("FMCSA 名冊・醫師查詢","FMCSA National Registry · examiner search")),
  "chiro_ca":   ("ext","https://www.chiro.ca.gov/consumers/lic_lookup.shtml",("加州脊骨神經醫學委員會・執照查詢","California Board of Chiropractic Examiners · licence lookup")),
